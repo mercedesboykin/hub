@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deal Review · Mercedes's Hub</title>
+<style>
+  :root {
+    --pink: #D63680; --pink-light: #F06292; --pink-bg: #FFF0F7;
+    --pink-border: #F0C4DA; --pink-dark: #8B1A4A; --pink-pale: #FDE8F3;
+    --text: #1a1a1a; --subtle: #666; --white: #fff;
+    --shadow: 0 2px 12px rgba(214,54,128,0.10);
+    --green: #16a34a; --yellow: #d97706; --blue: #2563eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--pink-bg); height: 100vh; display: flex; flex-direction: column; }
+
+  /* Auth gate */
+  #auth-gate { position: fixed; inset: 0; background: var(--pink-dark); display: flex; align-items: center; justify-content: center; z-index: 999; }
+  #auth-gate.hidden { display: none; }
+  .auth-msg { color: #fff; text-align: center; }
+  .auth-msg a { color: var(--pink-light); }
+
+  /* Nav */
+  nav {
+    background: linear-gradient(90deg, #8B1A4A 0%, #D63680 100%);
+    padding: 14px 24px; display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .breadcrumb { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.7); font-size: 0.88rem; }
+  .breadcrumb a { color: rgba(255,255,255,0.7); text-decoration: none; }
+  .breadcrumb a:hover { color: #fff; }
+  .breadcrumb span { color: #fff; font-weight: 600; }
+  .btn-nav {
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+    color: #fff; padding: 7px 14px; border-radius: 7px; cursor: pointer;
+    font-size: 0.83rem; font-weight: 600; transition: background 0.15s;
+  }
+  .btn-nav:hover { background: rgba(255,255,255,0.28); }
+
+  /* Main layout */
+  .layout { display: flex; flex: 1; overflow: hidden; }
+
+  /* Sidebar */
+  .sidebar {
+    width: 260px; background: var(--white); border-right: 1px solid var(--pink-border);
+    display: flex; flex-direction: column; flex-shrink: 0;
+  }
+  .sidebar-header { padding: 16px; border-bottom: 1px solid var(--pink-border); display: flex; align-items: center; justify-content: space-between; }
+  .sidebar-header h2 { font-size: 0.88rem; font-weight: 700; color: var(--pink-dark); }
+  .btn-add-deal {
+    background: var(--pink); color: #fff; border: none; border-radius: 7px;
+    padding: 6px 12px; font-size: 0.78rem; font-weight: 600; cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-add-deal:hover { background: var(--pink-dark); }
+  .deal-list { flex: 1; overflow-y: auto; padding: 10px; }
+  .deal-list-item {
+    padding: 12px; border-radius: 10px; cursor: pointer; margin-bottom: 6px;
+    border: 1px solid transparent; transition: all 0.15s;
+  }
+  .deal-list-item:hover { background: var(--pink-pale); border-color: var(--pink-border); }
+  .deal-list-item.active { background: var(--pink-pale); border-color: var(--pink); }
+  .dli-name { font-size: 0.87rem; font-weight: 700; color: var(--text); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .dli-amount { font-size: 0.82rem; color: var(--pink-dark); font-weight: 600; }
+  .intent-badge {
+    display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 2px 7px;
+    border-radius: 99px; margin-top: 4px;
+  }
+  .intent-badge.committed { background: #dcfce7; color: var(--green); }
+  .intent-badge.at-risk { background: #fef9c3; color: var(--yellow); }
+  .intent-badge.uncommitted { background: #dbeafe; color: var(--blue); }
+  .intent-badge.none { background: var(--pink-bg); color: var(--subtle); }
+  .empty-sidebar { text-align: center; padding: 32px 16px; color: var(--subtle); font-size: 0.83rem; }
+
+  /* Main panel */
+  .main-panel { flex: 1; overflow-y: auto; padding: 24px; }
+  .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--subtle); text-align: center; }
+  .empty-state .icon { font-size: 3rem; margin-bottom: 12px; }
+  .empty-state h3 { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+
+  /* Deal room */
+  .deal-room { max-width: 760px; }
+  .room-header { margin-bottom: 24px; }
+  .room-title { font-size: 1.4rem; font-weight: 700; color: var(--pink-dark); margin-bottom: 6px; }
+  .room-meta { display: flex; gap: 16px; flex-wrap: wrap; font-size: 0.83rem; color: var(--subtle); }
+  .room-meta a { color: var(--pink); text-decoration: none; }
+  .room-meta a:hover { text-decoration: underline; }
+
+  /* Section titles */
+  .section-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--subtle); margin-bottom: 12px; margin-top: 28px; }
+  .section-title:first-of-type { margin-top: 0; }
+
+  /* Manager Review */
+  .review-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  .review-callout {
+    background: var(--white); border-radius: 14px; border: 1px solid var(--pink-border);
+    overflow: hidden; box-shadow: var(--shadow);
+  }
+  .callout-header {
+    background: var(--pink-pale); padding: 12px 16px; display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid var(--pink-border);
+  }
+  .callout-icon { font-size: 1.1rem; }
+  .callout-label { font-size: 0.85rem; font-weight: 700; color: var(--pink-dark); }
+  .callout-body { padding: 14px 16px; }
+  .callout-body textarea {
+    width: 100%; border: none; outline: none; resize: none; font-family: inherit;
+    font-size: 0.88rem; color: var(--text); line-height: 1.5; min-height: 56px;
+    background: transparent;
+  }
+  .callout-body textarea::placeholder { color: #bbb; }
+
+  /* Checklist sections */
+  .checklist-card {
+    background: var(--white); border-radius: 14px; border: 1px solid var(--pink-border);
+    overflow: hidden; box-shadow: var(--shadow); margin-bottom: 16px;
+  }
+  .checklist-header {
+    background: var(--pink-pale); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--pink-border);
+  }
+  .checklist-header-left { display: flex; align-items: center; gap: 8px; }
+  .checklist-title { font-size: 0.88rem; font-weight: 700; color: var(--pink-dark); }
+  .btn-add-item {
+    background: var(--pink); color: #fff; border: none; border-radius: 7px;
+    padding: 6px 12px; font-size: 0.78rem; font-weight: 600; cursor: pointer;
+    transition: background 0.15s; white-space: nowrap;
+  }
+  .btn-add-item:hover { background: var(--pink-dark); }
+  .checklist-body { padding: 10px 12px; min-height: 60px; }
+  .checklist-empty { text-align: center; padding: 16px; color: #ccc; font-size: 0.82rem; }
+
+  .check-item {
+    display: flex; align-items: flex-start; gap: 10px; padding: 8px 6px;
+    border-radius: 8px; transition: background 0.1s; group: true;
+  }
+  .check-item:hover { background: var(--pink-bg); }
+  .check-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; cursor: pointer; }
+  .check-text { flex: 1; font-size: 0.87rem; color: var(--text); line-height: 1.4; }
+  .check-text.done { text-decoration: line-through; color: var(--subtle); }
+  .check-del { background: none; border: none; color: #ddd; cursor: pointer; font-size: 0.85rem; opacity: 0; transition: opacity 0.15s; }
+  .check-item:hover .check-del { opacity: 1; }
+
+  /* Save bar */
+  .save-bar {
+    position: sticky; bottom: 0; background: rgba(255,240,247,0.95); backdrop-filter: blur(8px);
+    border-top: 1px solid var(--pink-border); padding: 12px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin: 24px -24px -24px;
+  }
+  .save-status { font-size: 0.82rem; color: var(--subtle); }
+  .btn-save {
+    background: var(--pink); color: #fff; border: none; border-radius: 8px;
+    padding: 9px 22px; font-size: 0.9rem; font-weight: 700; cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-save:hover { background: var(--pink-dark); }
+  .btn-save:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* Modals */
+  .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; z-index: 500; padding: 20px; }
+  .modal-backdrop.hidden { display: none; }
+  .modal { background: var(--white); border-radius: 18px; padding: 28px; max-width: 440px; width: 100%; box-shadow: 0 8px 40px rgba(0,0,0,0.18); }
+  .modal h2 { font-size: 1.05rem; font-weight: 700; color: var(--pink-dark); margin-bottom: 12px; }
+  .modal input, .modal textarea {
+    width: 100%; border: 1px solid var(--pink-border); border-radius: 8px;
+    padding: 10px 12px; font-size: 0.9rem; font-family: inherit; outline: none; margin-bottom: 10px;
+  }
+  .modal input:focus, .modal textarea:focus { border-color: var(--pink); }
+  .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 6px; }
+  .btn-pink { background: var(--pink); color: #fff; border: none; border-radius: 8px; padding: 9px 18px; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
+  .btn-pink:hover { background: var(--pink-dark); }
+  .btn-outline { background: var(--white); color: var(--subtle); border: 1px solid var(--pink-border); border-radius: 8px; padding: 9px 18px; font-size: 0.88rem; cursor: pointer; }
+
+  .toast { position: fixed; bottom: 24px; right: 24px; background: var(--pink-dark); color: #fff; padding: 12px 20px; border-radius: 10px; font-size: 0.87rem; font-weight: 600; box-shadow: 0 4px 16px rgba(0,0,0,0.2); z-index: 999; }
+  .toast.hidden { display: none; }
+
+  @media (max-width: 680px) {
+    .sidebar { width: 200px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="auth-gate">
+  <div class="auth-msg">
+    <p>🔒 Session expired</p>
+    <p style="margin-top:8px;font-size:0.9rem;"><a href="../">Return to Hub to unlock</a></p>
+  </div>
+</div>
+
+<nav>
+  <div class="breadcrumb">
+    <a href="../">← Hub</a>
+    <span style="color:rgba(255,255,255,0.4)">/</span>
+    <span>🎯 Deal Review Rooms</span>
+  </div>
+</nav>
+
+<div class="layout">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h2>Active Deals</h2>
+      <button class="btn-add-deal" onclick="openNewDealModal()">+ New</button>
+    </div>
+    <div class="deal-list" id="deal-list">
+      <div class="empty-sidebar">No deals yet.<br>Click <strong>+ New</strong> to add one.</div>
+    </div>
+  </div>
+
+  <!-- Main panel -->
+  <div class="main-panel" id="main-panel">
+    <div class="empty-state">
+      <div class="icon">🎯</div>
+      <h3>Select a deal to open its review room</h3>
+      <p style="font-size:0.85rem;margin-top:4px;">Or click <strong>+ New</strong> to add a deal manually.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Add item modal -->
+<div class="modal-backdrop hidden" id="item-modal">
+  <div class="modal">
+    <h2 id="item-modal-title">Add item</h2>
+    <textarea id="item-text" rows="3" placeholder="Describe this item…"></textarea>
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="closeModal('item-modal')">Cancel</button>
+      <button class="btn-pink" onclick="confirmAddItem()">Add</button>
+    </div>
+  </div>
+</div>
+
+<!-- New deal modal -->
+<div class="modal-backdrop hidden" id="new-deal-modal">
+  <div class="modal">
+    <h2>➕ Add Deal Room</h2>
+    <input type="text" id="nd-name" placeholder="Deal / Account name *" />
+    <input type="text" id="nd-amount" placeholder="Amount (e.g. 82800)" />
+    <input type="text" id="nd-close" placeholder="Close date (YYYY-MM-DD)" />
+    <select id="nd-intent" style="width:100%;border:1px solid var(--pink-border);border-radius:8px;padding:10px 12px;font-size:0.9rem;outline:none;margin-bottom:10px;font-family:inherit;">
+      <option value="">Merchant Intent</option>
+      <option value="Committed">Committed</option>
+      <option value="Committed at Risk">Committed at Risk</option>
+      <option value="Uncommitted">Uncommitted</option>
+    </select>
+    <input type="text" id="nd-sf-url" placeholder="Salesforce URL (optional)" />
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="closeModal('new-deal-modal')">Cancel</button>
+      <button class="btn-pink" onclick="confirmNewDeal()">Create Room</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast hidden" id="toast"></div>
+
+<script>
+  const GITHUB_OWNER = 'mercedesboykin';
+  const GITHUB_REPO = 'hub';
+
+  // Auth check
+  if (sessionStorage.getItem('hub_unlocked') !== 'true') {
+    document.getElementById('auth-gate').classList.remove('hidden');
+  } else {
+    document.getElementById('auth-gate').classList.add('hidden');
+    init();
+  }
+
+  let allDeals = [];
+  let currentDeal = null;
+  let currentRoom = null;
+  let roomSha = null;
+  let addingToSection = null; // 'done' or 'todo'
+
+  async function init() {
+    allDeals = await loadDealList();
+    renderSidebar();
+    // If we came from dashboard with a deal in URL, open it
+    const params = new URLSearchParams(location.search);
+    const openId = params.get('deal');
+    if (openId) {
+      const d = allDeals.find(x => x.id === openId);
+      if (d) openDeal(d);
+    }
+  }
+
+  // GitHub helpers
+  async function ghGet(path) {
+    const token = localStorage.getItem('gh_pat');
+    const r = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`, {
+      headers: token ? { 'Authorization': `token ${token}` } : {}
+    });
+    if (!r.ok) throw new Error(r.status);
+    const d = await r.json();
+    return { data: JSON.parse(atob(d.content.replace(/\n/g,''))), sha: d.sha };
+  }
+
+  async function ghPut(path, content, sha) {
+    const token = localStorage.getItem('gh_pat');
+    if (!token) throw new Error('no_token');
+    const r = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`, {
+      method: 'PUT',
+      headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: `Update ${path}`, content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))), sha: sha || undefined, branch: 'main' })
+    });
+    if (!r.ok) { const e = await r.json(); throw new Error(e.message || r.status); }
+    const res = await r.json();
+    return res.content?.sha;
+  }
+
+  async function loadDealList() {
+    try {
+      const { data } = await ghGet('data/deals.json');
+      localStorage.setItem('deals_cache', JSON.stringify(data));
+      return data.deals || [];
+    } catch(e) {
+      const c = localStorage.getItem('deals_cache');
+      return c ? (JSON.parse(c).deals || []) : [];
+    }
+  }
+
+  async function loadRoom(dealId) {
+    const path = `data/deal-rooms/${dealId}.json`;
+    try {
+      const { data, sha } = await ghGet(path);
+      roomSha = sha;
+      return data;
+    } catch(e) {
+      roomSha = null;
+      // Check localStorage
+      const cached = localStorage.getItem(`room_${dealId}`);
+      if (cached) return JSON.parse(cached);
+      return emptyRoom(dealId);
+    }
+  }
+
+  function emptyRoom(dealId) {
+    return {
+      dealId,
+      managerReview: { compellingEvent: '', whoSigns: '', whyWontClose: '' },
+      whatsDone: [],
+      whatsLeft: [],
+      lastUpdated: null
+    };
+  }
+
+  function renderSidebar() {
+    const list = document.getElementById('deal-list');
+    if (!allDeals.length) {
+      list.innerHTML = '<div class="empty-sidebar">No deals yet.<br>Click <strong>+ New</strong> to add one.</div>';
+      return;
+    }
+    list.innerHTML = allDeals.map(d => {
+      const intentClass = !d.merchantIntent ? 'none' : d.merchantIntent === 'Committed' ? 'committed' : d.merchantIntent === 'Committed at Risk' ? 'at-risk' : 'uncommitted';
+      const intentLabel = d.merchantIntent || 'No intent';
+      return `<div class="deal-list-item ${currentDeal?.id === d.id ? 'active' : ''}" onclick="openDeal(${JSON.stringify(d).replace(/"/g,'&quot;')})">
+        <div class="dli-name">${esc(d.accountName || d.name)}</div>
+        <div class="dli-amount">${fmtAmt(d.amount)}</div>
+        <span class="intent-badge ${intentClass}">${esc(intentLabel)}</span>
+      </div>`;
+    }).join('');
+  }
+
+  async function openDeal(deal) {
+    currentDeal = deal;
+    renderSidebar();
+    document.getElementById('main-panel').innerHTML = '<div class="empty-state"><div class="icon">⏳</div><h3>Loading…</h3></div>';
+    currentRoom = await loadRoom(deal.id);
+    renderRoom();
+  }
+
+  function renderRoom() {
+    const d = currentDeal;
+    const r = currentRoom;
+    const panel = document.getElementById('main-panel');
+
+    panel.innerHTML = `
+      <div class="deal-room">
+        <div class="room-header">
+          <div class="room-title">${esc(d.accountName || d.name)}</div>
+          <div class="room-meta">
+            <span>💰 ${fmtAmt(d.amount)}</span>
+            <span>📅 Close ${fmtDate(d.closeDate)}</span>
+            ${d.sfUrl ? `<a href="${esc(d.sfUrl)}" target="_blank">Open in Salesforce ↗</a>` : ''}
+          </div>
+        </div>
+
+        <p class="section-title">🧠 Manager Review</p>
+        <div class="review-grid">
+          <div class="review-callout">
+            <div class="callout-header"><span class="callout-icon">⚡</span><span class="callout-label">Compelling Event</span></div>
+            <div class="callout-body"><textarea id="rv-compelling" placeholder="What is the specific event or deadline driving action for this deal? (e.g. contract renewal, launch date, board meeting)" oninput="markDirty()">${esc(r.managerReview.compellingEvent)}</textarea></div>
+          </div>
+          <div class="review-callout">
+            <div class="callout-header"><span class="callout-icon">✍️</span><span class="callout-label">Who Signs</span></div>
+            <div class="callout-body"><textarea id="rv-signs" placeholder="Who is the economic buyer / contract signatory? What do you know about their approval process?" oninput="markDirty()">${esc(r.managerReview.whoSigns)}</textarea></div>
+          </div>
+          <div class="review-callout">
+            <div class="callout-header"><span class="callout-icon">🚧</span><span class="callout-label">Why It Won't Close</span></div>
+            <div class="callout-body"><textarea id="rv-risk" placeholder="What is the most likely reason this deal slips or dies? Be honest." oninput="markDirty()">${esc(r.managerReview.whyWontClose)}</textarea></div>
+          </div>
+        </div>
+
+        <p class="section-title" style="margin-top:28px;">✅ What's Done</p>
+        <div class="checklist-card">
+          <div class="checklist-header">
+            <div class="checklist-header-left"><span style="font-size:1rem;">✅</span><span class="checklist-title">Completed items</span></div>
+            <button class="btn-add-item" onclick="openAddItem('done')">+ Add completed item</button>
+          </div>
+          <div class="checklist-body" id="done-list">${renderCheckItems(r.whatsDone, 'done')}</div>
+        </div>
+
+        <p class="section-title">📋 What's Left to Do</p>
+        <div class="checklist-card">
+          <div class="checklist-header">
+            <div class="checklist-header-left"><span style="font-size:1rem;">📋</span><span class="checklist-title">Remaining items</span></div>
+            <button class="btn-add-item" onclick="openAddItem('todo')">+ Add remaining item</button>
+          </div>
+          <div class="checklist-body" id="todo-list">${renderCheckItems(r.whatsLeft, 'todo')}</div>
+        </div>
+
+        <div class="save-bar">
+          <span class="save-status" id="save-status">All changes saved</span>
+          <button class="btn-save" id="save-btn" onclick="saveRoom()">💾 Save to GitHub</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderCheckItems(items, section) {
+    if (!items || !items.length) {
+      return `<div class="checklist-empty">${section === 'done' ? 'No completed items yet' : 'No items yet — add one above'}</div>`;
+    }
+    return items.map((item, i) => `
+      <div class="check-item" id="${section}-item-${i}">
+        <span class="check-icon" title="${section === 'done' ? 'Mark incomplete' : 'Mark done'}" onclick="toggleItem('${section}', ${i})">${section === 'done' ? '✅' : '⬜'}</span>
+        <span class="check-text ${section === 'done' ? 'done' : ''}">${esc(item.text)}</span>
+        <button class="check-del" onclick="deleteItem('${section}', ${i})" title="Delete">✕</button>
+      </div>
+    `).join('');
+  }
+
+  function openAddItem(section) {
+    addingToSection = section;
+    const title = section === 'done' ? '✅ Add completed item' : '📋 Add remaining item';
+    document.getElementById('item-modal-title').textContent = title;
+    document.getElementById('item-text').value = '';
+    document.getElementById('item-modal').classList.remove('hidden');
+    setTimeout(() => document.getElementById('item-text').focus(), 50);
+  }
+
+  function confirmAddItem() {
+    const text = document.getElementById('item-text').value.trim();
+    if (!text) return;
+    const item = { text, createdAt: new Date().toISOString() };
+    if (addingToSection === 'done') {
+      currentRoom.whatsDone.push(item);
+      document.getElementById('done-list').innerHTML = renderCheckItems(currentRoom.whatsDone, 'done');
+    } else {
+      currentRoom.whatsLeft.push(item);
+      document.getElementById('todo-list').innerHTML = renderCheckItems(currentRoom.whatsLeft, 'todo');
+    }
+    closeModal('item-modal');
+    markDirty();
+  }
+
+  function toggleItem(section, idx) {
+    if (section === 'done') {
+      // Move back to todo
+      const [item] = currentRoom.whatsDone.splice(idx, 1);
+      currentRoom.whatsLeft.push(item);
+    } else {
+      // Move to done
+      const [item] = currentRoom.whatsLeft.splice(idx, 1);
+      currentRoom.whatsDone.push(item);
+    }
+    document.getElementById('done-list').innerHTML = renderCheckItems(currentRoom.whatsDone, 'done');
+    document.getElementById('todo-list').innerHTML = renderCheckItems(currentRoom.whatsLeft, 'todo');
+    markDirty();
+  }
+
+  function deleteItem(section, idx) {
+    if (section === 'done') currentRoom.whatsDone.splice(idx, 1);
+    else currentRoom.whatsLeft.splice(idx, 1);
+    document.getElementById(`${section}-list`).innerHTML = renderCheckItems(section === 'done' ? currentRoom.whatsDone : currentRoom.whatsLeft, section);
+    markDirty();
+  }
+
+  let dirty = false;
+  function markDirty() {
+    dirty = true;
+    const s = document.getElementById('save-status');
+    if (s) s.textContent = 'Unsaved changes';
+  }
+
+  async function saveRoom() {
+    if (!currentDeal || !currentRoom) return;
+    // Read textarea values back
+    const tvs = id => (document.getElementById(id) || {}).value || '';
+    currentRoom.managerReview = {
+      compellingEvent: tvs('rv-compelling'),
+      whoSigns: tvs('rv-signs'),
+      whyWontClose: tvs('rv-risk')
+    };
+    currentRoom.lastUpdated = new Date().toISOString();
+
+    const btn = document.getElementById('save-btn');
+    const status = document.getElementById('save-status');
+    btn.disabled = true;
+    btn.textContent = 'Saving…';
+
+    // Save to localStorage always
+    localStorage.setItem(`room_${currentDeal.id}`, JSON.stringify(currentRoom));
+
+    // Try GitHub
+    try {
+      const token = localStorage.getItem('gh_pat');
+      if (!token) throw new Error('no_token');
+      const path = `data/deal-rooms/${currentDeal.id}.json`;
+      const newSha = await ghPut(path, currentRoom, roomSha);
+      roomSha = newSha;
+      status.textContent = `Saved to GitHub · ${new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}`;
+      showToast('✅ Saved to GitHub');
+    } catch(e) {
+      const msg = e.message === 'no_token' ? 'Saved locally (add GitHub token in Settings to sync)' : `Saved locally — GitHub error: ${e.message}`;
+      status.textContent = msg;
+      showToast('💾 Saved locally');
+    }
+
+    dirty = false;
+    btn.disabled = false;
+    btn.textContent = '💾 Save to GitHub';
+  }
+
+  // New deal
+  function openNewDealModal() {
+    document.getElementById('nd-name').value = '';
+    document.getElementById('nd-amount').value = '';
+    document.getElementById('nd-close').value = '';
+    document.getElementById('nd-intent').value = '';
+    document.getElementById('nd-sf-url').value = '';
+    document.getElementById('new-deal-modal').classList.remove('hidden');
+    setTimeout(() => document.getElementById('nd-name').focus(), 50);
+  }
+
+  async function confirmNewDeal() {
+    const name = document.getElementById('nd-name').value.trim();
+    if (!name) { document.getElementById('nd-name').focus(); return; }
+    const deal = {
+      id: 'manual_' + Date.now(),
+      name,
+      accountName: name,
+      amount: parseFloat(document.getElementById('nd-amount').value) || 0,
+      closeDate: document.getElementById('nd-close').value || '',
+      merchantIntent: document.getElementById('nd-intent').value || 'Uncommitted',
+      sfUrl: document.getElementById('nd-sf-url').value.trim() || ''
+    };
+
+    allDeals.push(deal);
+
+    // Try to save deals list
+    try {
+      let sha = null;
+      try { const e = await ghGet('data/deals.json'); sha = e.sha; allDeals = [...(e.data.deals || []).filter(d => d.id !== deal.id), deal]; } catch(_) {}
+      const cached = localStorage.getItem('deals_cache');
+      const data = cached ? JSON.parse(cached) : { meta: { quota: 1000000 }, deals: [] };
+      data.deals = allDeals;
+      localStorage.setItem('deals_cache', JSON.stringify(data));
+      if (localStorage.getItem('gh_pat')) await ghPut('data/deals.json', data, sha);
+    } catch(e) { console.warn('Save deals failed', e); }
+
+    closeModal('new-deal-modal');
+    renderSidebar();
+    openDeal(deal);
+    showToast('✅ Deal room created');
+  }
+
+  function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+  // Keyboard: Enter to confirm modal
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.ctrlKey) {
+      if (!document.getElementById('item-modal').classList.contains('hidden')) confirmAddItem();
+      if (!document.getElementById('new-deal-modal').classList.contains('hidden')) confirmNewDeal();
+    }
+    if (e.key === 'Escape') {
+      closeModal('item-modal'); closeModal('new-deal-modal');
+    }
+  });
+
+  function esc(s) { return String(s || '').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function fmtAmt(n) { return n ? '$' + Number(n).toLocaleString() : '$—'; }
+  function fmtDate(s) {
+    if (!s) return '—';
+    const d = new Date(s + 'T00:00:00');
+    return d.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+  }
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.remove('hidden');
+    setTimeout(() => t.classList.add('hidden'), 3000);
+  }
+</script>
+</body>
+</html>

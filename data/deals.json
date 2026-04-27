@@ -1,0 +1,22 @@
+{
+  "meta": {
+    "lastSyncedAt": null,
+    "quarter": "Q2 FY26",
+    "quota": 1000000,
+    "sfUserId": "005OG00000FFITxYAP"
+  },
+  "deals": [
+    {
+      "id": "006OG00000N1TdpYAF",
+      "name": "Caravela Coffee - B2B",
+      "accountName": "Caravela Coffee",
+      "amount": 82800,
+      "closeDate": "2026-08-31",
+      "stage": "Discovery",
+      "merchantIntent": "Uncommitted",
+      "nextSteps": "First call Wednesday — operational disconnect angle",
+      "website": "caravela.coffee",
+      "sfUrl": "https://banff.lightning.force.com/lightning/r/Opportunity/006OG00000N1TdpYAF/view"
+    }
+  ]
+}

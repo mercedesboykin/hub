@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Dashboard · Mercedes's Hub</title>
+<style>
+  :root {
+    --pink: #D63680; --pink-light: #F06292; --pink-bg: #FFF0F7;
+    --pink-border: #F0C4DA; --pink-dark: #8B1A4A; --pink-pale: #FDE8F3;
+    --text: #1a1a1a; --subtle: #666; --white: #fff;
+    --shadow: 0 2px 12px rgba(214,54,128,0.10);
+    --green: #16a34a; --yellow: #d97706; --red: #dc2626; --blue: #2563eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--pink-bg); min-height: 100vh; }
+
+  /* Auth gate */
+  #auth-gate { position: fixed; inset: 0; background: var(--pink-dark); display: flex; align-items: center; justify-content: center; z-index: 999; }
+  #auth-gate.hidden { display: none; }
+  .auth-msg { color: #fff; text-align: center; }
+  .auth-msg a { color: var(--pink-light); }
+
+  /* Nav */
+  nav {
+    background: linear-gradient(90deg, #8B1A4A 0%, #D63680 100%);
+    padding: 14px 28px; display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .breadcrumb { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.7); font-size: 0.88rem; }
+  .breadcrumb a { color: rgba(255,255,255,0.7); text-decoration: none; }
+  .breadcrumb a:hover { color: #fff; }
+  .breadcrumb span { color: #fff; font-weight: 600; }
+  .nav-right { display: flex; gap: 10px; align-items: center; }
+  .btn-nav {
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+    color: #fff; padding: 7px 14px; border-radius: 7px; cursor: pointer;
+    font-size: 0.83rem; font-weight: 600; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 5px; transition: background 0.15s;
+  }
+  .btn-nav:hover { background: rgba(255,255,255,0.28); }
+  .btn-nav.loading { opacity: 0.6; cursor: not-allowed; }
+
+  /* Layout */
+  .page { max-width: 1100px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  /* Forecast */
+  .section-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--subtle); margin-bottom: 12px; }
+  .forecast-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 10px; }
+  .forecast-card {
+    background: var(--white); border-radius: 14px; padding: 20px 22px;
+    border: 1px solid var(--pink-border); box-shadow: var(--shadow);
+  }
+  .forecast-card .label { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .forecast-card .amount { font-size: 1.8rem; font-weight: 700; color: var(--text); }
+  .forecast-card .count { font-size: 0.82rem; color: var(--subtle); margin-top: 4px; }
+  .forecast-card.committed .label { color: var(--green); }
+  .forecast-card.at-risk .label { color: var(--yellow); }
+  .forecast-card.uncommitted .label { color: var(--blue); }
+
+  .quota-bar-wrap { background: var(--white); border-radius: 14px; padding: 18px 22px; border: 1px solid var(--pink-border); box-shadow: var(--shadow); margin-bottom: 28px; }
+  .quota-bar-wrap .meta { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--subtle); margin-bottom: 8px; }
+  .quota-bar-wrap .meta strong { color: var(--text); }
+  .quota-track { background: var(--pink-bg); border-radius: 99px; height: 10px; overflow: hidden; }
+  .quota-fill { background: linear-gradient(90deg, var(--pink-dark), var(--pink)); height: 100%; border-radius: 99px; transition: width 0.8s ease; min-width: 2px; }
+
+  /* Pipeline board */
+  .pipeline-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+  .pipeline-col { background: var(--white); border-radius: 14px; border: 1px solid var(--pink-border); overflow: hidden; }
+  .col-header { padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--pink-border); }
+  .col-header .col-title { font-size: 0.85rem; font-weight: 700; }
+  .col-header .col-badge { font-size: 0.72rem; font-weight: 700; padding: 3px 9px; border-radius: 99px; }
+  .col-committed .col-title { color: var(--green); }
+  .col-committed .col-badge { background: #dcfce7; color: var(--green); }
+  .col-at-risk .col-title { color: var(--yellow); }
+  .col-at-risk .col-badge { background: #fef9c3; color: var(--yellow); }
+  .col-uncommitted .col-title { color: var(--blue); }
+  .col-uncommitted .col-badge { background: #dbeafe; color: var(--blue); }
+  .col-body { padding: 12px; min-height: 100px; }
+
+  .deal-card {
+    background: var(--pink-pale); border-radius: 10px; padding: 14px;
+    margin-bottom: 10px; border: 1px solid var(--pink-border); cursor: pointer;
+    transition: box-shadow 0.15s;
+  }
+  .deal-card:hover { box-shadow: 0 2px 12px rgba(214,54,128,0.15); }
+  .deal-card:last-child { margin-bottom: 0; }
+  .deal-name { font-size: 0.88rem; font-weight: 700; color: var(--pink-dark); margin-bottom: 4px; }
+  .deal-amount { font-size: 1rem; font-weight: 700; color: var(--text); }
+  .deal-meta { font-size: 0.75rem; color: var(--subtle); margin-top: 4px; }
+  .deal-meta span { margin-right: 10px; }
+  .deal-next-steps { font-size: 0.78rem; color: var(--subtle); margin-top: 6px; border-top: 1px solid var(--pink-border); padding-top: 6px; }
+
+  .empty-col { text-align: center; padding: 24px 12px; color: var(--subtle); font-size: 0.82rem; }
+  .empty-col .icon { font-size: 1.6rem; margin-bottom: 6px; }
+
+  /* Last sync */
+  .sync-info { font-size: 0.78rem; color: var(--subtle); text-align: right; margin-bottom: 6px; }
+
+  /* Modals */
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.35); display: flex;
+    align-items: center; justify-content: center; z-index: 500; padding: 20px;
+  }
+  .modal-backdrop.hidden { display: none; }
+  .modal {
+    background: var(--white); border-radius: 18px; padding: 28px;
+    max-width: 480px; width: 100%; box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+  }
+  .modal h2 { font-size: 1.1rem; font-weight: 700; color: var(--pink-dark); margin-bottom: 6px; }
+  .modal p { font-size: 0.87rem; color: var(--subtle); margin-bottom: 16px; line-height: 1.5; }
+  .modal textarea {
+    width: 100%; border: 1px solid var(--pink-border); border-radius: 8px; padding: 10px;
+    font-size: 0.82rem; font-family: monospace; resize: vertical; min-height: 120px; outline: none;
+  }
+  .modal textarea:focus { border-color: var(--pink); }
+  .modal-actions { display: flex; gap: 10px; margin-top: 16px; justify-content: flex-end; }
+  .btn-pink { background: var(--pink); color: #fff; border: none; border-radius: 8px; padding: 9px 18px; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+  .btn-pink:hover { background: var(--pink-dark); }
+  .btn-outline { background: var(--white); color: var(--subtle); border: 1px solid var(--pink-border); border-radius: 8px; padding: 9px 18px; font-size: 0.88rem; cursor: pointer; }
+
+  .toast {
+    position: fixed; bottom: 24px; right: 24px; background: var(--pink-dark); color: #fff;
+    padding: 12px 20px; border-radius: 10px; font-size: 0.87rem; font-weight: 600;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2); z-index: 999; transition: opacity 0.3s;
+  }
+  .toast.hidden { display: none; }
+
+  @media (max-width: 768px) {
+    .forecast-grid { grid-template-columns: 1fr 1fr; }
+    .pipeline-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div id="auth-gate">
+  <div class="auth-msg">
+    <p>🔒 Session expired</p>
+    <p style="margin-top:8px;font-size:0.9rem;"><a href="../">Return to Hub to unlock</a></p>
+  </div>
+</div>
+
+<nav>
+  <div class="breadcrumb">
+    <a href="../">← Hub</a>
+    <span style="color:rgba(255,255,255,0.4)">/</span>
+    <span>📊 Sales Dashboard</span>
+  </div>
+  <div class="nav-right">
+    <span id="sync-badge" style="font-size:0.78rem;color:rgba(255,255,255,0.6);"></span>
+    <button class="btn-nav" id="refresh-btn" onclick="triggerRefresh()">⟳ Refresh from Salesforce</button>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- Forecast -->
+  <p class="section-title">📈 My Forecast — Q2 FY26</p>
+  <div class="forecast-grid">
+    <div class="forecast-card committed">
+      <div class="label">✅ Committed</div>
+      <div class="amount" id="fc-committed">$0</div>
+      <div class="count" id="fc-committed-count">0 deals</div>
+    </div>
+    <div class="forecast-card at-risk">
+      <div class="label">⚠️ Committed at Risk</div>
+      <div class="amount" id="fc-risk">$0</div>
+      <div class="count" id="fc-risk-count">0 deals</div>
+    </div>
+    <div class="forecast-card uncommitted">
+      <div class="label">🔵 Uncommitted</div>
+      <div class="amount" id="fc-uncommitted">$0</div>
+      <div class="count" id="fc-uncommitted-count">0 deals</div>
+    </div>
+  </div>
+  <div class="quota-bar-wrap">
+    <div class="meta">
+      <span>Q2 FY26 Quota Progress</span>
+      <span><strong id="quota-pct">0%</strong> of <strong>$1,000,000</strong> — Commit: <strong id="commit-total">$0</strong></span>
+    </div>
+    <div class="quota-track"><div class="quota-fill" id="quota-fill" style="width:0%"></div></div>
+  </div>
+
+  <!-- Pipeline board -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+    <p class="section-title" style="margin-bottom:0">🗂 Pipeline Board</p>
+    <span class="sync-info" id="last-sync">Never synced</span>
+  </div>
+  <div class="pipeline-grid" id="pipeline-board">
+    <div class="pipeline-col col-committed">
+      <div class="col-header">
+        <span class="col-title">Committed</span>
+        <span class="col-badge" id="badge-committed">0</span>
+      </div>
+      <div class="col-body" id="col-committed-body"><div class="empty-col"><div class="icon">✅</div>No committed deals</div></div>
+    </div>
+    <div class="pipeline-col col-at-risk">
+      <div class="col-header">
+        <span class="col-title">Committed at Risk</span>
+        <span class="col-badge" id="badge-risk">0</span>
+      </div>
+      <div class="col-body" id="col-risk-body"><div class="empty-col"><div class="icon">⚠️</div>No at-risk deals</div></div>
+    </div>
+    <div class="pipeline-col col-uncommitted">
+      <div class="col-header">
+        <span class="col-title">Uncommitted</span>
+        <span class="col-badge" id="badge-uncommitted">0</span>
+      </div>
+      <div class="col-body" id="col-uncommitted-body"><div class="empty-col"><div class="icon">🔵</div>No uncommitted deals</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- SF Sync modal -->
+<div class="modal-backdrop hidden" id="sf-modal">
+  <div class="modal">
+    <h2>⟳ Refresh from Salesforce</h2>
+    <p>Fetches your open Q2 + Q3 opportunities directly from Salesforce. Requires a valid session token stored in Hub Settings.<br><br>
+    <strong>Note:</strong> If you see a CORS error, add <code>https://mercedesboykin.github.io</code> to Salesforce Setup → Security → CORS, or use the manual import below.</p>
+    <div id="sf-sync-status" style="font-size:0.85rem;color:var(--subtle);margin-bottom:12px;"></div>
+    <details style="margin-bottom:12px;">
+      <summary style="cursor:pointer;font-size:0.85rem;color:var(--pink);font-weight:600;">📋 Manual import (paste JSON)</summary>
+      <p style="margin-top:8px;">Run this SOQL in Salesforce → Developer Console or Workbench, then paste the JSON result:</p>
+      <code style="display:block;background:var(--pink-pale);padding:10px;border-radius:6px;font-size:0.75rem;margin:8px 0;word-break:break-all;">SELECT Id, Name, Amount, CloseDate, Merchant_Intent__c, SE_Next_Steps__c, Account.Name, Account.Website FROM Opportunity WHERE OwnerId = '005OG00000FFITxYAP' AND IsClosed = false ORDER BY CloseDate ASC</code>
+      <textarea id="manual-json" placeholder='Paste Salesforce JSON response here...'></textarea>
+      <button class="btn-pink" style="margin-top:8px;width:100%;" onclick="importManualJSON()">Import JSON</button>
+    </details>
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="closeModal('sf-modal')">Cancel</button>
+      <button class="btn-pink" onclick="runSFSync()">Sync Now</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast hidden" id="toast"></div>
+
+<script>
+  const GITHUB_OWNER = 'mercedesboykin';
+  const GITHUB_REPO = 'hub';
+  const SF_INSTANCE = 'banff.my.salesforce.com';
+  const SF_USER_ID = '005OG00000FFITxYAP';
+  const Q2_START = '2026-04-01';
+  const Q2_END = '2026-06-30';
+  const QUOTA = 1000000;
+
+  // Auth check
+  if (sessionStorage.getItem('hub_unlocked') !== 'true') {
+    document.getElementById('auth-gate').classList.remove('hidden');
+  } else {
+    document.getElementById('auth-gate').classList.add('hidden');
+    init();
+  }
+
+  async function init() {
+    const data = await loadDeals();
+    if (data) renderDashboard(data);
+  }
+
+  // GitHub helpers
+  async function ghGet(path) {
+    const token = localStorage.getItem('gh_pat');
+    const r = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`, {
+      headers: token ? { 'Authorization': `token ${token}` } : {}
+    });
+    if (!r.ok) throw new Error(r.status);
+    const d = await r.json();
+    return { data: JSON.parse(atob(d.content.replace(/\n/g,''))), sha: d.sha };
+  }
+
+  async function ghPut(path, content, sha) {
+    const token = localStorage.getItem('gh_pat');
+    if (!token) throw new Error('No GitHub token');
+    const r = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`, {
+      method: 'PUT',
+      headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: `Update ${path}`, content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))), sha, branch: 'main' })
+    });
+    if (!r.ok) throw new Error(r.status);
+    return await r.json();
+  }
+
+  async function loadDeals() {
+    // Try GitHub first, fall back to localStorage
+    try {
+      const { data } = await ghGet('data/deals.json');
+      localStorage.setItem('deals_cache', JSON.stringify(data));
+      return data;
+    } catch(e) {
+      const cached = localStorage.getItem('deals_cache');
+      if (cached) return JSON.parse(cached);
+      return getEmptyDeals();
+    }
+  }
+
+  function getEmptyDeals() {
+    return {
+      meta: { lastSyncedAt: null, quarter: 'Q2 FY26', quota: QUOTA },
+      deals: []
+    };
+  }
+
+  function renderDashboard(data) {
+    const deals = data.deals || [];
+    const q2 = deals.filter(d => d.closeDate >= Q2_START && d.closeDate <= Q2_END);
+    const allOpen = deals;
+
+    // Forecast totals
+    const committed = allOpen.filter(d => d.merchantIntent === 'Committed');
+    const atRisk = allOpen.filter(d => d.merchantIntent === 'Committed at Risk');
+    const uncommitted = allOpen.filter(d => !d.merchantIntent || d.merchantIntent === 'Uncommitted');
+
+    const sum = arr => arr.reduce((acc, d) => acc + (d.amount || 0), 0);
+    const fmt = n => '$' + n.toLocaleString();
+
+    document.getElementById('fc-committed').textContent = fmt(sum(committed));
+    document.getElementById('fc-committed-count').textContent = `${committed.length} deal${committed.length !== 1 ? 's' : ''}`;
+    document.getElementById('fc-risk').textContent = fmt(sum(atRisk));
+    document.getElementById('fc-risk-count').textContent = `${atRisk.length} deal${atRisk.length !== 1 ? 's' : ''}`;
+    document.getElementById('fc-uncommitted').textContent = fmt(sum(uncommitted));
+    document.getElementById('fc-uncommitted-count').textContent = `${uncommitted.length} deal${uncommitted.length !== 1 ? 's' : ''}`;
+
+    const commitTotal = sum(committed) + sum(atRisk) * 0.5;
+    const pct = Math.min(100, Math.round((commitTotal / QUOTA) * 100));
+    document.getElementById('quota-fill').style.width = pct + '%';
+    document.getElementById('quota-pct').textContent = pct + '%';
+    document.getElementById('commit-total').textContent = fmt(Math.round(commitTotal));
+
+    // Pipeline board
+    renderCol('col-committed-body', 'badge-committed', committed);
+    renderCol('col-risk-body', 'badge-risk', atRisk);
+    renderCol('col-uncommitted-body', 'badge-uncommitted', uncommitted);
+
+    // Last sync
+    if (data.meta?.lastSyncedAt) {
+      const d = new Date(data.meta.lastSyncedAt);
+      document.getElementById('last-sync').textContent = `Last synced ${d.toLocaleDateString()} ${d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}`;
+    }
+  }
+
+  function renderCol(bodyId, badgeId, deals) {
+    const body = document.getElementById(bodyId);
+    document.getElementById(badgeId).textContent = deals.length;
+    if (!deals.length) {
+      body.innerHTML = `<div class="empty-col"><div class="icon">💭</div>No deals</div>`;
+      return;
+    }
+    body.innerHTML = deals.map(d => `
+      <div class="deal-card" onclick="window.open('${d.sfUrl || '#'}','_blank')">
+        <div class="deal-name">${esc(d.accountName || d.name)}</div>
+        <div class="deal-amount">${fmtAmt(d.amount)}</div>
+        <div class="deal-meta">
+          <span>📅 ${fmtDate(d.closeDate)}</span>
+          <span>📍 ${esc(d.stage || '—')}</span>
+        </div>
+        ${d.nextSteps ? `<div class="deal-next-steps">→ ${esc(d.nextSteps)}</div>` : ''}
+      </div>
+    `).join('');
+  }
+
+  // SF Sync
+  function triggerRefresh() {
+    document.getElementById('sf-modal').classList.remove('hidden');
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.add('hidden');
+  }
+
+  async function runSFSync() {
+    const token = localStorage.getItem('sf_session');
+    if (!token) {
+      document.getElementById('sf-sync-status').innerHTML = '⚠️ No SF session token. <a href="../" style="color:var(--pink)">Add one in Settings →</a>';
+      return;
+    }
+    const btn = document.getElementById('refresh-btn');
+    btn.classList.add('loading');
+    btn.textContent = '⟳ Syncing…';
+    document.getElementById('sf-sync-status').textContent = 'Querying Salesforce…';
+
+    const soql = `SELECT Id, Name, Amount, CloseDate, Merchant_Intent__c, SE_Next_Steps__c, Account.Name, Account.Website, StageName FROM Opportunity WHERE OwnerId = '${SF_USER_ID}' AND IsClosed = false ORDER BY CloseDate ASC`;
+
+    try {
+      const r = await fetch(`https://${SF_INSTANCE}/services/data/v57.0/query/?q=${encodeURIComponent(soql)}`, {
+        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
+      });
+      if (!r.ok) throw new Error(`SF ${r.status}`);
+      const json = await r.json();
+      await processAndSaveDeals(json.records);
+      closeModal('sf-modal');
+      showToast('✅ Synced from Salesforce');
+    } catch(e) {
+      document.getElementById('sf-sync-status').innerHTML = `❌ ${e.message}. This may be a CORS issue — use manual import or add <code>https://mercedesboykin.github.io</code> to SF CORS settings.`;
+    } finally {
+      btn.classList.remove('loading');
+      btn.textContent = '⟳ Refresh from Salesforce';
+    }
+  }
+
+  async function processAndSaveDeals(sfRecords) {
+    const deals = sfRecords.map(r => ({
+      id: r.Id,
+      name: r.Name,
+      accountName: r.Account?.Name || r.Name,
+      amount: r.Amount || 0,
+      closeDate: r.CloseDate,
+      stage: r.StageName,
+      merchantIntent: r.Merchant_Intent__c || 'Uncommitted',
+      nextSteps: r.SE_Next_Steps__c || '',
+      website: r.Account?.Website || '',
+      sfUrl: `https://banff.lightning.force.com/lightning/r/Opportunity/${r.Id}/view`
+    }));
+
+    const newData = { meta: { lastSyncedAt: new Date().toISOString(), quarter: 'Q2 FY26', quota: QUOTA }, deals };
+    localStorage.setItem('deals_cache', JSON.stringify(newData));
+
+    // Try to save to GitHub
+    try {
+      let sha = null;
+      try { const existing = await ghGet('data/deals.json'); sha = existing.sha; } catch(e) {}
+      await ghPut('data/deals.json', newData, sha);
+    } catch(e) { console.warn('GitHub save failed, data cached locally:', e); }
+
+    renderDashboard(newData);
+  }
+
+  function importManualJSON() {
+    const raw = document.getElementById('manual-json').value.trim();
+    if (!raw) return;
+    try {
+      const parsed = JSON.parse(raw);
+      const records = parsed.records || parsed;
+      processAndSaveDeals(Array.isArray(records) ? records : [records]);
+      closeModal('sf-modal');
+      showToast('✅ Deals imported');
+    } catch(e) {
+      alert('Invalid JSON. Make sure you copied the full Salesforce response.');
+    }
+  }
+
+  // Helpers
+  function esc(s) { return String(s || '').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function fmtAmt(n) { return n ? '$' + Number(n).toLocaleString() : '$—'; }
+  function fmtDate(s) {
+    if (!s) return '—';
+    const d = new Date(s + 'T00:00:00');
+    return d.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+  }
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.remove('hidden');
+    setTimeout(() => t.classList.add('hidden'), 3000);
+  }
+</script>
+</body>
+</html>
