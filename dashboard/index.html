@@ -126,6 +126,16 @@
   }
   .toast.hidden { display: none; }
 
+  /* Quarter switcher */
+  .q-switcher { display: flex; gap: 6px; align-items: center; }
+  .q-btn {
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.75); padding: 6px 13px; border-radius: 99px;
+    cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: all 0.15s;
+  }
+  .q-btn:hover { background: rgba(255,255,255,0.28); color: #fff; }
+  .q-btn.active { background: #fff; color: var(--pink-dark); border-color: #fff; }
+
   @media (max-width: 768px) {
     .forecast-grid { grid-template-columns: 1fr 1fr; }
     .pipeline-grid { grid-template-columns: 1fr; }
@@ -148,6 +158,12 @@
     <span>📊 Sales Dashboard</span>
   </div>
   <div class="nav-right">
+    <div class="q-switcher">
+      <button class="q-btn" id="q-btn-Q1" onclick="setQuarter('Q1')">Q1</button>
+      <button class="q-btn" id="q-btn-Q2" onclick="setQuarter('Q2')">Q2</button>
+      <button class="q-btn active" id="q-btn-Q3" onclick="setQuarter('Q3')">Q3</button>
+      <button class="q-btn" id="q-btn-Q4" onclick="setQuarter('Q4')">Q4</button>
+    </div>
     <span id="sync-badge" style="font-size:0.78rem;color:rgba(255,255,255,0.6);"></span>
     <button class="btn-nav" id="refresh-btn" onclick="triggerRefresh()">⟳ Refresh from Salesforce</button>
   </div>
@@ -156,7 +172,7 @@
 <div class="page">
 
   <!-- Forecast -->
-  <p class="section-title">📈 My Forecast — Q2 FY26</p>
+  <p class="section-title" id="forecast-title">📈 My Forecast — Q3 FY26</p>
   <div class="forecast-grid">
     <div class="forecast-card committed">
       <div class="label">✅ Committed</div>
@@ -176,7 +192,7 @@
   </div>
   <div class="quota-bar-wrap">
     <div class="meta">
-      <span>Q2 FY26 Quota Progress</span>
+      <span id="quota-label">Q3 FY26 Quota Progress</span>
       <span><strong id="quota-pct">0%</strong> of <strong>$1,000,000</strong> — Commit: <strong id="commit-total">$0</strong></span>
     </div>
     <div class="quota-track"><div class="quota-fill" id="quota-fill" style="width:0%"></div></div>
@@ -241,9 +257,17 @@
   const GITHUB_REPO = 'hub';
   const SF_INSTANCE = 'banff.my.salesforce.com';
   const SF_USER_ID = '005OG00000FFITxYAP';
-  const Q2_START = '2026-04-01';
-  const Q2_END = '2026-06-30';
   const QUOTA = 1000000;
+
+  const QUARTERS = {
+    Q1: { start: '2026-01-01', end: '2026-03-31', label: 'Q1 FY26' },
+    Q2: { start: '2026-04-01', end: '2026-06-30', label: 'Q2 FY26' },
+    Q3: { start: '2026-07-01', end: '2026-09-30', label: 'Q3 FY26' },
+    Q4: { start: '2026-10-01', end: '2026-12-31', label: 'Q4 FY26' },
+  };
+
+  let activeQuarter = 'Q3';
+  let cachedData = null;
 
   // Auth check
   if (sessionStorage.getItem('hub_unlocked') !== 'true') {
@@ -254,8 +278,15 @@
   }
 
   async function init() {
-    const data = await loadDeals();
-    if (data) renderDashboard(data);
+    cachedData = await loadDeals();
+    if (cachedData) renderDashboard(cachedData);
+  }
+
+  function setQuarter(q) {
+    activeQuarter = q;
+    document.querySelectorAll('.q-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(`q-btn-${q}`).classList.add('active');
+    if (cachedData) renderDashboard(cachedData);
   }
 
   // GitHub helpers
@@ -302,14 +333,17 @@
   }
 
   function renderDashboard(data) {
-    const deals = data.deals || [];
-    const q2 = deals.filter(d => d.closeDate >= Q2_START && d.closeDate <= Q2_END);
-    const allOpen = deals;
+    const { start, end, label } = QUARTERS[activeQuarter];
+    const allDeals = data.deals || [];
+    const qDeals = allDeals.filter(d => d.closeDate >= start && d.closeDate <= end);
 
-    // Forecast totals
-    const committed = allOpen.filter(d => d.merchantIntent === 'Committed');
-    const atRisk = allOpen.filter(d => d.merchantIntent === 'Committed at Risk');
-    const uncommitted = allOpen.filter(d => !d.merchantIntent || d.merchantIntent === 'Uncommitted');
+    document.getElementById('forecast-title').textContent = `📈 My Forecast — ${label}`;
+    document.getElementById('quota-label').textContent = `${label} Quota Progress`;
+
+    // Forecast totals — filtered to selected quarter
+    const committed = qDeals.filter(d => d.merchantIntent === 'Committed');
+    const atRisk = qDeals.filter(d => d.merchantIntent === 'Committed at Risk');
+    const uncommitted = qDeals.filter(d => !d.merchantIntent || d.merchantIntent === 'Uncommitted');
 
     const sum = arr => arr.reduce((acc, d) => acc + (d.amount || 0), 0);
     const fmt = n => '$' + n.toLocaleString();
@@ -327,7 +361,7 @@
     document.getElementById('quota-pct').textContent = pct + '%';
     document.getElementById('commit-total').textContent = fmt(Math.round(commitTotal));
 
-    // Pipeline board
+    // Pipeline board — same quarter filter
     renderCol('col-committed-body', 'badge-committed', committed);
     renderCol('col-risk-body', 'badge-risk', atRisk);
     renderCol('col-uncommitted-body', 'badge-uncommitted', uncommitted);
@@ -412,7 +446,7 @@
       sfUrl: `https://banff.lightning.force.com/lightning/r/Opportunity/${r.Id}/view`
     }));
 
-    const newData = { meta: { lastSyncedAt: new Date().toISOString(), quarter: 'Q2 FY26', quota: QUOTA }, deals };
+    const newData = { meta: { lastSyncedAt: new Date().toISOString(), quota: QUOTA }, deals };
     localStorage.setItem('deals_cache', JSON.stringify(newData));
 
     // Try to save to GitHub
