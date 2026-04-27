@@ -7,6 +7,18 @@
   },
   "deals": [
     {
+      "id": "006OG00000MmGc7YAF",
+      "name": "ARTIFICIAL TURF SUPPLY - B2B",
+      "accountName": "Artificial Turf Supply",
+      "amount": 82800,
+      "closeDate": "2026-07-31",
+      "stage": "Envision",
+      "merchantIntent": "Uncommitted",
+      "nextSteps": "Follow up with Kyle — sent requirements sheet Apr 17",
+      "website": "artificialturfsupply.com",
+      "sfUrl": "https://banff.lightning.force.com/lightning/r/Opportunity/006OG00000MmGc7YAF/view"
+    },
+    {
       "id": "006OG00000N1TdpYAF",
       "name": "Caravela Coffee - B2B",
       "accountName": "Caravela Coffee",
