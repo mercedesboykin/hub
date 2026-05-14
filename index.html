@@ -1,331 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mercedes's Hub</title>
-<style>
-  :root {
-    --pink: #D63680;
-    --pink-light: #F06292;
-    --pink-bg: #FFF0F7;
-    --pink-border: #F0C4DA;
-    --pink-dark: #8B1A4A;
-    --text: #1a1a1a;
-    --subtle: #666;
-    --white: #fff;
-    --shadow: 0 2px 16px rgba(214,54,128,0.10);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--pink-bg); min-height: 100vh; display: flex; flex-direction: column; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mercedes Boykin-Sabalones · Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --green: #00a86b;
+      --green-dim: rgba(0,168,107,.10);
+      --green-glow: rgba(0,168,107,.30);
+      --red: #dc2626;
+      --text: #0f172a;
+      --muted: #64748b;
+      --card: #f1f5f9;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
 
-  /* Passcode overlay */
-  #passcode-overlay {
-    position: fixed; inset: 0; background: linear-gradient(135deg, #8B1A4A 0%, #D63680 60%, #F06292 100%);
-    display: flex; align-items: center; justify-content: center; z-index: 1000;
-  }
-  #passcode-overlay.hidden { display: none; }
-  .lock-box {
-    background: rgba(255,255,255,0.12); backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.25); border-radius: 20px;
-    padding: 48px 40px; text-align: center; width: 320px;
-  }
-  .lock-icon { font-size: 48px; margin-bottom: 16px; }
-  .lock-box h1 { color: #fff; font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
-  .lock-box p { color: rgba(255,255,255,0.75); font-size: 0.9rem; margin-bottom: 28px; }
-  .pin-display {
-    background: rgba(255,255,255,0.15); border-radius: 10px; padding: 14px;
-    font-size: 1.8rem; letter-spacing: 8px; color: #fff; min-height: 56px;
-    margin-bottom: 20px; display: flex; align-items: center; justify-content: center;
-  }
-  .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; }
-  .key {
-    background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.2);
-    color: #fff; font-size: 1.2rem; font-weight: 600; border-radius: 10px;
-    padding: 16px; cursor: pointer; transition: background 0.15s;
-  }
-  .key:hover { background: rgba(255,255,255,0.30); }
-  .key:active { background: rgba(255,255,255,0.40); }
-  .key.backspace { font-size: 1rem; }
-  .key.zero { grid-column: 2; }
-  .pin-error { color: #FFB3C6; font-size: 0.85rem; min-height: 20px; }
+    /* ── LOCK SCREEN ── */
+    #lock {
+      position: fixed; inset: 0; z-index: 100;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .lock-box {
+      text-align: center; width: 320px;
+    }
+    .lock-logo {
+      width: 52px; height: 52px; background: var(--green-dim); border: 1px solid var(--green-glow);
+      border-radius: 14px; display: flex; align-items: center; justify-content: center;
+      font-size: 24px; margin: 0 auto 24px;
+    }
+    .lock-title { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+    .lock-sub { font-size: 13px; color: var(--muted); margin-bottom: 32px; }
+    .lock-dots { display: flex; gap: 12px; justify-content: center; margin-bottom: 24px; }
+    .lock-dot {
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--border); border: 2px solid var(--border);
+      transition: all .15s;
+    }
+    .lock-dot.filled { background: var(--green); border-color: var(--green); }
+    .lock-numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; }
+    .lock-key {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px; font-size: 18px; font-weight: 600;
+      cursor: pointer; transition: all .1s; user-select: none;
+      color: var(--text);
+    }
+    .lock-key:hover { background: var(--card); border-color: var(--green-glow); }
+    .lock-key:active { transform: scale(.95); }
+    .lock-key.wide { grid-column: span 2; }
+    .lock-error { font-size: 12px; color: var(--red); height: 16px; text-align: center; }
 
-  /* Main hub */
-  header {
-    background: linear-gradient(135deg, #8B1A4A 0%, #D63680 100%);
-    padding: 40px 40px 60px;
-    position: relative; overflow: hidden;
-  }
-  header::after {
-    content: ''; position: absolute; bottom: -30px; left: 0; right: 0;
-    height: 60px; background: var(--pink-bg); border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-  }
-  .header-inner { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; }
-  .header-text h1 { color: #fff; font-size: 2rem; font-weight: 700; }
-  .header-text p { color: rgba(255,255,255,0.8); font-size: 0.95rem; margin-top: 4px; }
-  .header-actions { display: flex; gap: 10px; }
-  .btn-ghost {
-    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
-    color: #fff; padding: 8px 16px; border-radius: 8px; cursor: pointer;
-    font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
-    transition: background 0.15s;
-  }
-  .btn-ghost:hover { background: rgba(255,255,255,0.25); }
+    /* ── APP ── */
+    #app { display: none; flex-direction: column; min-height: 100vh; }
+    header {
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 16px 32px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .header-left { display: flex; align-items: center; gap: 12px; }
+    .header-logo {
+      width: 36px; height: 36px; background: var(--green-dim); border: 1px solid var(--green-glow);
+      border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 16px;
+    }
+    .header-name { font-size: 15px; font-weight: 700; }
+    .header-role { font-size: 11px; color: var(--green); font-weight: 500; margin-top: 1px; }
+    .header-right { font-size: 12px; color: var(--muted); }
 
-  main { max-width: 900px; margin: 0 auto; padding: 40px 24px 60px; width: 100%; }
-  .section-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--subtle); margin-bottom: 16px; }
+    main { flex: 1; max-width: 900px; margin: 0 auto; width: 100%; padding: 48px 32px; }
+    .greeting { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
+    .greeting-sub { font-size: 14px; color: var(--muted); margin-bottom: 48px; }
 
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-bottom: 40px; }
-  .card {
-    background: var(--white); border-radius: 16px; padding: 28px;
-    border: 1px solid var(--pink-border); box-shadow: var(--shadow);
-    text-decoration: none; color: var(--text); transition: transform 0.15s, box-shadow 0.15s;
-    display: flex; flex-direction: column;
-  }
-  .card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(214,54,128,0.18); }
-  .card-icon { font-size: 2rem; margin-bottom: 14px; }
-  .card h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; color: var(--pink-dark); }
-  .card p { font-size: 0.875rem; color: var(--subtle); line-height: 1.5; flex: 1; }
-  .card-arrow { margin-top: 18px; color: var(--pink); font-size: 0.9rem; font-weight: 600; }
+    .sections { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+    .section-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px 24px;
+      text-decoration: none; color: inherit;
+      transition: all .2s; position: relative; overflow: hidden;
+    }
+    .section-card:hover:not(.disabled) {
+      border-color: var(--green); box-shadow: 0 0 0 1px var(--green-glow), 0 8px 32px rgba(0,0,0,.10);
+      transform: translateY(-2px);
+    }
+    .section-card.disabled { opacity: .45; cursor: default; }
+    .card-icon { font-size: 28px; margin-bottom: 16px; }
+    .card-num { font-size: 11px; color: var(--green); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; }
+    .card-title { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+    .card-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .card-arrow {
+      position: absolute; bottom: 24px; right: 24px;
+      width: 28px; height: 28px; background: var(--green-dim);
+      border: 1px solid var(--green-glow); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: var(--green);
+    }
+    .coming-soon {
+      position: absolute; top: 16px; right: 16px;
+      font-size: 10px; font-weight: 600; color: var(--muted);
+      background: var(--border); border-radius: 4px; padding: 3px 7px;
+      text-transform: uppercase; letter-spacing: .06em;
+    }
 
-  /* Settings section */
-  .settings-card {
-    background: var(--white); border-radius: 16px; padding: 24px 28px;
-    border: 1px solid var(--pink-border); margin-bottom: 20px;
-  }
-  .settings-card h3 { font-size: 1rem; font-weight: 700; color: var(--pink-dark); margin-bottom: 4px; }
-  .settings-card p { font-size: 0.85rem; color: var(--subtle); margin-bottom: 16px; }
-  .input-group { display: flex; gap: 10px; }
-  .input-group input {
-    flex: 1; border: 1px solid var(--pink-border); border-radius: 8px; padding: 10px 14px;
-    font-size: 0.9rem; outline: none; font-family: monospace;
-  }
-  .input-group input:focus { border-color: var(--pink); }
-  .btn-pink {
-    background: var(--pink); color: #fff; border: none; border-radius: 8px;
-    padding: 10px 20px; font-size: 0.9rem; font-weight: 600; cursor: pointer;
-    transition: background 0.15s;
-  }
-  .btn-pink:hover { background: var(--pink-dark); }
-  .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
-  .status-dot.green { background: #22c55e; }
-  .status-dot.red { background: #ef4444; }
-  .status-dot.yellow { background: #f59e0b; }
-  .pat-status { font-size: 0.8rem; color: var(--subtle); margin-top: 8px; }
-
-  footer { text-align: center; padding: 20px; color: var(--subtle); font-size: 0.8rem; }
-</style>
+    footer {
+      text-align: center; padding: 24px; font-size: 12px; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+  </style>
 </head>
 <body>
 
-<!-- Passcode overlay -->
-<div id="passcode-overlay">
+<!-- LOCK SCREEN -->
+<div id="lock">
   <div class="lock-box">
-    <div class="lock-icon">🌸</div>
-    <h1>Mercedes's Hub</h1>
-    <p>Senior AE · Shopify B2B AMER</p>
-    <div class="pin-display" id="pin-display">&nbsp;</div>
-    <div class="keypad">
-      <button class="key" onclick="pressKey('1')">1</button>
-      <button class="key" onclick="pressKey('2')">2</button>
-      <button class="key" onclick="pressKey('3')">3</button>
-      <button class="key" onclick="pressKey('4')">4</button>
-      <button class="key" onclick="pressKey('5')">5</button>
-      <button class="key" onclick="pressKey('6')">6</button>
-      <button class="key" onclick="pressKey('7')">7</button>
-      <button class="key" onclick="pressKey('8')">8</button>
-      <button class="key" onclick="pressKey('9')">9</button>
-      <button class="key backspace" onclick="pressBackspace()">⌫</button>
-      <button class="key zero" onclick="pressKey('0')">0</button>
+    <div class="lock-logo">🏠</div>
+    <div class="lock-title">Mercedes Boykin-Sabalones</div>
+    <div class="lock-sub">Enter passcode to continue</div>
+    <div class="lock-dots" id="dots">
+      <div class="lock-dot" id="d0"></div>
+      <div class="lock-dot" id="d1"></div>
+      <div class="lock-dot" id="d2"></div>
+      <div class="lock-dot" id="d3"></div>
     </div>
-    <p class="pin-error" id="pin-error"></p>
+    <div class="lock-numpad">
+      <button class="lock-key" onclick="numPress('1')">1</button>
+      <button class="lock-key" onclick="numPress('2')">2</button>
+      <button class="lock-key" onclick="numPress('3')">3</button>
+      <button class="lock-key" onclick="numPress('4')">4</button>
+      <button class="lock-key" onclick="numPress('5')">5</button>
+      <button class="lock-key" onclick="numPress('6')">6</button>
+      <button class="lock-key" onclick="numPress('7')">7</button>
+      <button class="lock-key" onclick="numPress('8')">8</button>
+      <button class="lock-key" onclick="numPress('9')">9</button>
+      <button class="lock-key" onclick="numPress('del')">⌫</button>
+      <button class="lock-key" onclick="numPress('0')">0</button>
+    </div>
+    <div class="lock-error" id="lock-err"></div>
   </div>
 </div>
 
-<!-- Main content -->
-<header>
-  <div class="header-inner">
-    <div class="header-text">
-      <h1>🌸 Mercedes's Hub</h1>
-      <p>Senior AE · Shopify B2B AMER · Q2 FY26</p>
+<!-- APP -->
+<div id="app">
+  <header>
+    <div class="header-left">
+      <div class="header-logo">⚡</div>
+      <div>
+        <div class="header-name">Mercedes Boykin-Sabalones</div>
+        <div class="header-role">Sr. Account Executive · B2B AMER</div>
+      </div>
     </div>
-    <div class="header-actions">
-      <a href="#settings" class="btn-ghost" onclick="document.getElementById('settings').scrollIntoView({behavior:'smooth'});return false;">⚙ Settings</a>
-      <button class="btn-ghost" onclick="lock()">🔒 Lock</button>
+    <div class="header-right" id="hdate"></div>
+  </header>
+
+  <main>
+    <div class="greeting">Good <span id="tod"></span>, Chase.</div>
+    <div class="greeting-sub" id="gsub">Loading...</div>
+
+    <div class="sections">
+      <!-- Section 1: Dashboard -->
+      <a href="dashboard/" class="section-card">
+        <div class="card-icon">📊</div>
+        <div class="card-num">01</div>
+        <div class="card-title">Sales Dashboard</div>
+        <div class="card-desc">Pipeline board, PBR, hot deals, risks, and left-to-close items — all in one view.</div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <!-- Section 2: Deal Review -->
+      <a href="deal-review/" class="section-card">
+        <div class="card-icon">🎯</div>
+        <div class="card-num">02</div>
+        <div class="card-title">Deal Review Rooms</div>
+        <div class="card-desc">MEDDIC qualification, strategy notes, risks, blockers, and next steps — one room per deal.</div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <!-- Section 3: MAP Hub -->
+      <a href="map-hub/" class="section-card">
+        <div class="card-icon">🗺️</div>
+        <div class="card-num">03</div>
+        <div class="card-title">MAP Hub</div>
+        <div class="card-desc">All Mutual Action Plans in one place. View deal status, open MAPs, and proposal decks by quarter.</div>
+        <div class="card-arrow">→</div>
+      </a>
     </div>
-  </div>
-</header>
+  </main>
 
-<main>
-  <p class="section-label">Tools</p>
-  <div class="cards">
-    <a href="dashboard/" class="card">
-      <div class="card-icon">📊</div>
-      <h2>Sales Dashboard</h2>
-      <p>Pipeline board, forecast, PBR, hot deals, risks, and left-to-close — all in one view.</p>
-      <div class="card-arrow">Open Dashboard →</div>
-    </a>
-    <a href="deal-review/" class="card">
-      <div class="card-icon">🎯</div>
-      <h2>Deal Review Rooms</h2>
-      <p>Manager review callouts, compelling event, who signs, why it won't close, and your checklist — one room per deal.</p>
-      <div class="card-arrow">Open Deal Rooms →</div>
-    </a>
-  </div>
-
-  <p class="section-label" id="settings">Setup & Settings</p>
-
-  <div class="settings-card">
-    <h3>🐙 GitHub Sync</h3>
-    <p>Your deal data is stored in your GitHub repo (<code>mercedesboykin/hub</code>). Enter a Personal Access Token with <code>contents:write</code> permission to enable sync.</p>
-    <div class="input-group">
-      <input type="password" id="pat-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
-      <button class="btn-pink" onclick="savePAT()">Save</button>
-    </div>
-    <p class="pat-status" id="pat-status">
-      <span class="status-dot" id="pat-dot"></span><span id="pat-text">Not configured</span>
-    </p>
-    <p style="font-size:0.78rem;color:#999;margin-top:8px;">
-      Get a token: <a href="https://github.com/settings/tokens/new?description=MercedesHub&scopes=repo" target="_blank" style="color:var(--pink)">github.com/settings/tokens</a> → select <em>repo</em> scope → Generate.
-    </p>
-  </div>
-
-  <div class="settings-card">
-    <h3>☁️ Salesforce Session</h3>
-    <p>Paste your Salesforce session token to enable live pipeline sync from the dashboard. Get it from your SF browser session (Network tab → any SF API call → Authorization header) or your Salesforce admin.</p>
-    <div class="input-group">
-      <input type="password" id="sf-input" placeholder="00D... Salesforce session ID" />
-      <button class="btn-pink" onclick="saveSFToken()">Save</button>
-    </div>
-    <p class="pat-status" id="sf-status">
-      <span class="status-dot" id="sf-dot"></span><span id="sf-text">Not configured</span>
-    </p>
-  </div>
-</main>
-
-<footer>Mercedes's Hub · Shopify B2B AMER · Q2 FY26</footer>
+  <footer>Mercedes Boykin-Sabalones · Shopify B2B · Internal use only</footer>
+</div>
 
 <script>
-  const CORRECT_PIN = '2026';
-  let currentPin = '';
+  const PASSCODE = '0000';
+  const SESSION_KEY = 'hub-auth';
+  let input = '';
 
-  function checkSession() {
-    const unlocked = sessionStorage.getItem('hub_unlocked');
-    if (unlocked === 'true') {
-      document.getElementById('passcode-overlay').classList.add('hidden');
-    }
-  }
-
-  function pressKey(k) {
-    if (currentPin.length >= 6) return;
-    currentPin += k;
-    updateDisplay();
-    if (currentPin.length === CORRECT_PIN.length) {
-      setTimeout(checkPin, 120);
-    }
-  }
-
-  function pressBackspace() {
-    currentPin = currentPin.slice(0, -1);
-    updateDisplay();
-    document.getElementById('pin-error').textContent = '';
-  }
-
-  function updateDisplay() {
-    const d = document.getElementById('pin-display');
-    d.textContent = currentPin.length ? '●'.repeat(currentPin.length) : ' ';
-  }
-
-  function checkPin() {
-    if (currentPin === CORRECT_PIN) {
-      sessionStorage.setItem('hub_unlocked', 'true');
-      document.getElementById('passcode-overlay').classList.add('hidden');
-    } else {
-      document.getElementById('pin-error').textContent = 'Incorrect — try again';
-      currentPin = '';
-      updateDisplay();
-    }
-  }
-
-  function lock() {
-    sessionStorage.removeItem('hub_unlocked');
-    currentPin = '';
-    updateDisplay();
-    document.getElementById('pin-error').textContent = '';
-    document.getElementById('passcode-overlay').classList.remove('hidden');
-  }
-
-  function savePAT() {
-    const val = document.getElementById('pat-input').value.trim();
-    if (!val) return;
-    localStorage.setItem('gh_pat', val);
-    document.getElementById('pat-input').value = '';
-    updatePATStatus();
-    testPAT();
-  }
-
-  function updatePATStatus() {
-    const pat = localStorage.getItem('gh_pat');
-    const dot = document.getElementById('pat-dot');
-    const txt = document.getElementById('pat-text');
-    if (pat) {
-      dot.className = 'status-dot yellow';
-      txt.textContent = 'Token saved (testing…)';
-    } else {
-      dot.className = 'status-dot red';
-      txt.textContent = 'Not configured';
-    }
-  }
-
-  async function testPAT() {
-    const token = localStorage.getItem('gh_pat');
-    if (!token) return;
-    try {
-      const r = await fetch('https://api.github.com/repos/mercedesboykin/hub', {
-        headers: { 'Authorization': `token ${token}` }
-      });
-      const dot = document.getElementById('pat-dot');
-      const txt = document.getElementById('pat-text');
-      if (r.ok) {
-        dot.className = 'status-dot green';
-        txt.textContent = 'Connected to mercedesboykin/hub ✓';
+  function numPress(k) {
+    const err = document.getElementById('lock-err');
+    err.textContent = '';
+    if (k === 'del') { input = input.slice(0, -1); updateDots(); return; }
+    if (input.length >= 4) return;
+    input += k;
+    updateDots();
+    if (input.length === 4) {
+      if (input === PASSCODE) {
+        sessionStorage.setItem(SESSION_KEY, '1');
+        document.getElementById('lock').style.display = 'none';
+        document.getElementById('app').style.display = 'flex';
+        initApp();
       } else {
-        dot.className = 'status-dot red';
-        txt.textContent = `Error: ${r.status} — check token or repo name`;
+        err.textContent = 'Incorrect passcode';
+        input = '';
+        updateDots();
       }
-    } catch(e) {
-      document.getElementById('pat-dot').className = 'status-dot red';
-      document.getElementById('pat-text').textContent = 'Connection failed';
     }
   }
 
-  function saveSFToken() {
-    const val = document.getElementById('sf-input').value.trim();
-    if (!val) return;
-    localStorage.setItem('sf_session', val);
-    document.getElementById('sf-input').value = '';
-    const dot = document.getElementById('sf-dot');
-    const txt = document.getElementById('sf-text');
-    dot.className = 'status-dot green';
-    txt.textContent = 'SF session token saved';
+  function updateDots() {
+    for (let i = 0; i < 4; i++) {
+      document.getElementById('d' + i).classList.toggle('filled', i < input.length);
+    }
   }
 
-  // Keyboard support
   document.addEventListener('keydown', e => {
-    if (document.getElementById('passcode-overlay').classList.contains('hidden')) return;
-    if (e.key >= '0' && e.key <= '9') pressKey(e.key);
-    if (e.key === 'Backspace') pressBackspace();
+    if (document.getElementById('lock').style.display === 'none') return;
+    if (/^[0-9]$/.test(e.key)) numPress(e.key);
+    if (e.key === 'Backspace') numPress('del');
   });
 
-  // Init
-  checkSession();
-  updatePATStatus();
-  const sfSession = localStorage.getItem('sf_session');
-  if (sfSession) {
-    document.getElementById('sf-dot').className = 'status-dot green';
-    document.getElementById('sf-text').textContent = 'SF session token saved';
+  function initApp() {
+    const now = new Date();
+    const h = now.getHours();
+    const tod = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening';
+    document.getElementById('tod').textContent = tod;
+
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    document.getElementById('hdate').textContent = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+
+    // Sub-heading
+    const subs = [
+      'What are we closing this quarter?',
+      'Make today count.',
+      'Every deal has a next step.',
+      'Compounding reps compound results.',
+    ];
+    document.getElementById('gsub').textContent = subs[now.getDay() % subs.length];
   }
-  if (localStorage.getItem('gh_pat')) testPAT();
+
+  // Check session
+  if (sessionStorage.getItem(SESSION_KEY) === '1') {
+    document.getElementById('lock').style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+    initApp();
+  }
 </script>
 </body>
 </html>

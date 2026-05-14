@@ -1,607 +1,1640 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Deal Review · Mercedes's Hub</title>
-<style>
-  :root {
-    --pink: #D63680; --pink-light: #F06292; --pink-bg: #FFF0F7;
-    --pink-border: #F0C4DA; --pink-dark: #8B1A4A; --pink-pale: #FDE8F3;
-    --text: #1a1a1a; --subtle: #666; --white: #fff;
-    --shadow: 0 2px 12px rgba(214,54,128,0.10);
-    --green: #16a34a; --yellow: #d97706; --blue: #2563eb;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--pink-bg); height: 100vh; display: flex; flex-direction: column; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deal Review · Mercedes Boykin-Sabalones</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --green: #00a86b;
+      --green-dim: rgba(0,168,107,.10);
+      --green-glow: rgba(0,168,107,.30);
+      --red: #dc2626;
+      --red-dim: rgba(220,38,38,.10);
+      --amber: #d97706;
+      --amber-dim: rgba(217,119,6,.12);
+      --blue: #2563eb;
+      --blue-dim: rgba(37,99,235,.08);
+      --text: #0f172a;
+      --muted: #64748b;
+      --card: #f1f5f9;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
 
-  /* Auth gate */
-  #auth-gate { position: fixed; inset: 0; background: var(--pink-dark); display: flex; align-items: center; justify-content: center; z-index: 999; }
-  #auth-gate.hidden { display: none; }
-  .auth-msg { color: #fff; text-align: center; }
-  .auth-msg a { color: var(--pink-light); }
+    header {
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 14px 24px; display: flex; align-items: center; gap: 16px; flex-shrink: 0;
+    }
+    .back-btn {
+      width: 32px; height: 32px; background: var(--card); border: 1px solid var(--border);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      text-decoration: none; color: var(--muted); font-size: 16px; transition: all .15s;
+    }
+    .back-btn:hover { border-color: var(--green); color: var(--green); }
+    .hbreadcrumb { font-size: 12px; color: var(--muted); }
+    .hbreadcrumb a { color: var(--muted); text-decoration: none; }
+    .hbreadcrumb a:hover { color: var(--green); }
+    .htitle { font-size: 16px; font-weight: 800; margin-left: auto; }
 
-  /* Nav */
-  nav {
-    background: linear-gradient(90deg, #8B1A4A 0%, #D63680 100%);
-    padding: 14px 24px; display: flex; align-items: center; justify-content: space-between;
-    flex-shrink: 0;
-  }
-  .breadcrumb { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.7); font-size: 0.88rem; }
-  .breadcrumb a { color: rgba(255,255,255,0.7); text-decoration: none; }
-  .breadcrumb a:hover { color: #fff; }
-  .breadcrumb span { color: #fff; font-weight: 600; }
-  .btn-nav {
-    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
-    color: #fff; padding: 7px 14px; border-radius: 7px; cursor: pointer;
-    font-size: 0.83rem; font-weight: 600; transition: background 0.15s;
-  }
-  .btn-nav:hover { background: rgba(255,255,255,0.28); }
+    /* LAYOUT */
+    .layout { display: flex; flex: 1; min-height: 0; height: calc(100vh - 57px); }
 
-  /* Main layout */
-  .layout { display: flex; flex: 1; overflow: hidden; }
+    /* SIDEBAR */
+    .sidebar {
+      width: 240px; flex-shrink: 0; background: var(--surface);
+      border-right: 1px solid var(--border); overflow-y: auto;
+      display: flex; flex-direction: column;
+    }
+    .sidebar-label {
+      font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase;
+      letter-spacing: .08em; padding: 20px 16px 8px;
+    }
+    .deal-item {
+      padding: 12px 16px; cursor: pointer; border-left: 3px solid transparent;
+      transition: all .15s; border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .deal-item:hover { background: var(--card); }
+    .deal-item.active { background: var(--card); border-left-color: var(--green); }
+    .di-name { font-size: 13px; font-weight: 700; padding-right: 44px; }
+    .di-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .di-stage {
+      font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px;
+      margin-top: 6px; display: inline-block;
+    }
+    .di-score {
+      position: absolute; top: 12px; right: 12px;
+      font-size: 10px; font-weight: 800; padding: 3px 7px; border-radius: 5px;
+      line-height: 1; letter-spacing: 0;
+    }
+    .di-score .di-score-frac { opacity: .55; font-weight: 700; margin-left: 1px; }
+    .di-score.band-strong     { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-glow); }
+    .di-score.band-developing { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(217,119,6,.3); }
+    .di-score.band-weak       { background: var(--red-dim);   color: var(--red);   border: 1px solid rgba(220,38,38,.3); }
+    .s-propose { background: rgba(37,99,235,.10); color: #2563eb; }
+    .s-negotiate { background: var(--green-dim); color: var(--green); }
+    .s-qualify { background: var(--amber-dim); color: var(--amber); }
 
-  /* Sidebar */
-  .sidebar {
-    width: 260px; background: var(--white); border-right: 1px solid var(--pink-border);
-    display: flex; flex-direction: column; flex-shrink: 0;
-  }
-  .sidebar-header { padding: 16px; border-bottom: 1px solid var(--pink-border); display: flex; align-items: center; justify-content: space-between; }
-  .sidebar-header h2 { font-size: 0.88rem; font-weight: 700; color: var(--pink-dark); }
-  .btn-add-deal {
-    background: var(--pink); color: #fff; border: none; border-radius: 7px;
-    padding: 6px 12px; font-size: 0.78rem; font-weight: 600; cursor: pointer;
-    transition: background 0.15s;
-  }
-  .btn-add-deal:hover { background: var(--pink-dark); }
-  .deal-list { flex: 1; overflow-y: auto; padding: 10px; }
-  .deal-list-item {
-    padding: 12px; border-radius: 10px; cursor: pointer; margin-bottom: 6px;
-    border: 1px solid transparent; transition: all 0.15s;
-  }
-  .deal-list-item:hover { background: var(--pink-pale); border-color: var(--pink-border); }
-  .deal-list-item.active { background: var(--pink-pale); border-color: var(--pink); }
-  .dli-name { font-size: 0.87rem; font-weight: 700; color: var(--text); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .dli-amount { font-size: 0.82rem; color: var(--pink-dark); font-weight: 600; }
-  .intent-badge {
-    display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 2px 7px;
-    border-radius: 99px; margin-top: 4px;
-  }
-  .intent-badge.committed { background: #dcfce7; color: var(--green); }
-  .intent-badge.at-risk { background: #fef9c3; color: var(--yellow); }
-  .intent-badge.uncommitted { background: #dbeafe; color: var(--blue); }
-  .intent-badge.none { background: var(--pink-bg); color: var(--subtle); }
-  .empty-sidebar { text-align: center; padding: 32px 16px; color: var(--subtle); font-size: 0.83rem; }
+    .qtr-label {
+      font-size: 10px; font-weight: 700; color: var(--green); text-transform: uppercase;
+      letter-spacing: .1em; padding: 14px 16px 6px; border-top: 1px solid var(--border);
+    }
+    .qtr-label:first-child { border-top: none; padding-top: 10px; }
 
-  /* Main panel */
-  .main-panel { flex: 1; overflow-y: auto; padding: 24px; }
-  .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--subtle); text-align: center; }
-  .empty-state .icon { font-size: 3rem; margin-bottom: 12px; }
-  .empty-state h3 { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+    .del-btn {
+      flex-shrink: 0; width: 20px; height: 20px; border-radius: 4px;
+      background: transparent; border: none; color: var(--border);
+      font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all .15s; line-height: 1; padding: 0;
+    }
+    .del-btn:hover { background: var(--red-dim); color: var(--red); }
 
-  /* Deal room */
-  .deal-room { max-width: 760px; }
-  .room-header { margin-bottom: 24px; }
-  .room-title { font-size: 1.4rem; font-weight: 700; color: var(--pink-dark); margin-bottom: 6px; }
-  .room-meta { display: flex; gap: 16px; flex-wrap: wrap; font-size: 0.83rem; color: var(--subtle); }
-  .room-meta a { color: var(--pink); text-decoration: none; }
-  .room-meta a:hover { text-decoration: underline; }
+    .add-deal-btn {
+      margin: 12px; padding: 9px; border-radius: 8px;
+      background: transparent; border: 1px dashed var(--border);
+      color: var(--muted); font-size: 12px; font-weight: 600;
+      cursor: pointer; transition: all .15s; text-align: center;
+    }
+    .add-deal-btn:hover { border-color: var(--green-glow); color: var(--green); background: var(--green-dim); }
 
-  /* Section titles */
-  .section-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--subtle); margin-bottom: 12px; margin-top: 28px; }
-  .section-title:first-of-type { margin-top: 0; }
+    /* DETAIL PANEL */
+    .detail { flex: 1; overflow-y: auto; padding: 32px; }
+    .no-deal { display: flex; align-items: center; justify-content: center; height: 100%; color: var(--muted); font-size: 14px; }
 
-  /* Manager Review */
-  .review-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
-  .review-callout {
-    background: var(--white); border-radius: 14px; border: 1px solid var(--pink-border);
-    overflow: hidden; box-shadow: var(--shadow);
-  }
-  .callout-header {
-    background: var(--pink-pale); padding: 12px 16px; display: flex; align-items: center; gap: 8px;
-    border-bottom: 1px solid var(--pink-border);
-  }
-  .callout-icon { font-size: 1.1rem; }
-  .callout-label { font-size: 0.85rem; font-weight: 700; color: var(--pink-dark); }
-  .callout-body { padding: 14px 16px; }
-  .callout-body textarea {
-    width: 100%; border: none; outline: none; resize: none; font-family: inherit;
-    font-size: 0.88rem; color: var(--text); line-height: 1.5; min-height: 56px;
-    background: transparent;
-  }
-  .callout-body textarea::placeholder { color: #bbb; }
+    /* Deal header */
+    .deal-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 28px; }
+    .dh-left { }
+    .dh-company { font-size: 26px; font-weight: 900; margin-bottom: 4px; }
+    .dh-meta { font-size: 13px; color: var(--muted); }
+    .dh-links { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .dh-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 7px;
+      text-decoration: none; transition: all .15s;
+    }
+    .dh-link-map { background: var(--green-dim); border: 1px solid var(--green-glow); color: var(--green); }
+    .dh-link-map:hover { background: rgba(0,168,107,.2); }
+    .dh-link-prop { background: var(--blue-dim); border: 1px solid rgba(37,99,235,.20); color: #2563eb; }
+    .dh-link-prop:hover { background: rgba(37,99,235,.15); }
+    .dh-link-sf { background: rgba(99,102,241,.08); border: 1px solid rgba(99,102,241,.18); color: #6366f1; }
+    .dh-link-sf:hover { background: rgba(99,102,241,.15); }
+    .dh-score-group { display: flex; gap: 12px; flex-shrink: 0; }
+    .dh-score {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px 20px; text-align: center; min-width: 100px;
+    }
+    .dh-score-val { font-size: 28px; font-weight: 900; color: var(--green); }
+    .dh-score-val.pbr-val { color: var(--blue); }
+    .dh-score-sub { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; margin-top: 2px; }
+    .dh-date-input {
+      background: transparent; border: none; outline: none;
+      font-size: 16px; font-weight: 700; color: var(--text);
+      text-align: center; width: 100%; cursor: pointer; font-family: inherit;
+      padding: 4px 0;
+    }
+    .dh-date-input::-webkit-calendar-picker-indicator { opacity: 0.35; cursor: pointer; margin-left: 2px; }
 
-  /* Checklist sections */
-  .checklist-card {
-    background: var(--white); border-radius: 14px; border: 1px solid var(--pink-border);
-    overflow: hidden; box-shadow: var(--shadow); margin-bottom: 16px;
-  }
-  .checklist-header {
-    background: var(--pink-pale); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between;
-    border-bottom: 1px solid var(--pink-border);
-  }
-  .checklist-header-left { display: flex; align-items: center; gap: 8px; }
-  .checklist-title { font-size: 0.88rem; font-weight: 700; color: var(--pink-dark); }
-  .btn-add-item {
-    background: var(--pink); color: #fff; border: none; border-radius: 7px;
-    padding: 6px 12px; font-size: 0.78rem; font-weight: 600; cursor: pointer;
-    transition: background 0.15s; white-space: nowrap;
-  }
-  .btn-add-item:hover { background: var(--pink-dark); }
-  .checklist-body { padding: 10px 12px; min-height: 60px; }
-  .checklist-empty { text-align: center; padding: 16px; color: #ccc; font-size: 0.82rem; }
+    /* Section headers */
+    .section-title {
+      font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase;
+      letter-spacing: .08em; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+    }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-  .check-item {
-    display: flex; align-items: flex-start; gap: 10px; padding: 8px 6px;
-    border-radius: 8px; transition: background 0.1s; group: true;
-  }
-  .check-item:hover { background: var(--pink-bg); }
-  .check-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; cursor: pointer; }
-  .check-text { flex: 1; font-size: 0.87rem; color: var(--text); line-height: 1.4; }
-  .check-text.done { text-decoration: line-through; color: var(--subtle); }
-  .check-del { background: none; border: none; color: #ddd; cursor: pointer; font-size: 0.85rem; opacity: 0; transition: opacity 0.15s; }
-  .check-item:hover .check-del { opacity: 1; }
+    /* MEDDIC */
+    .meddic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 28px; }
+    .med-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px;
+    }
+    .med-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .med-icon { font-size: 16px; }
+    .med-label { font-size: 12px; font-weight: 700; }
+    .med-sublabel { font-size: 10px; color: var(--muted); margin-left: auto; }
+    .med-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+    .dot-green { background: var(--green); }
+    .dot-amber { background: var(--amber); }
+    .dot-red { background: var(--red); }
+    .dot-gray { background: var(--muted); }
+    .med-content {
+      font-size: 12px; color: var(--text); line-height: 1.55;
+      white-space: pre-wrap; word-break: break-word;
+      min-height: 48px; cursor: text;
+      outline: none; border-radius: 6px; padding: 6px 8px; margin: -6px -8px;
+      transition: background .15s;
+    }
+    .med-content:hover { background: rgba(0,0,0,.03); }
+    .med-content:focus { background: rgba(0,0,0,.05); outline: 1px solid var(--border); }
+    .med-content[data-empty="true"] { color: var(--muted); font-style: italic; }
 
-  /* Save bar */
-  .save-bar {
-    position: sticky; bottom: 0; background: rgba(255,240,247,0.95); backdrop-filter: blur(8px);
-    border-top: 1px solid var(--pink-border); padding: 12px 24px;
-    display: flex; align-items: center; justify-content: space-between;
-    margin: 24px -24px -24px;
-  }
-  .save-status { font-size: 0.82rem; color: var(--subtle); }
-  .btn-save {
-    background: var(--pink); color: #fff; border: none; border-radius: 8px;
-    padding: 9px 22px; font-size: 0.9rem; font-weight: 700; cursor: pointer;
-    transition: background 0.15s;
-  }
-  .btn-save:hover { background: var(--pink-dark); }
-  .btn-save:disabled { opacity: 0.5; cursor: not-allowed; }
+    /* Two-col sections */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+    .one-col { margin-bottom: 28px; }
 
-  /* Modals */
-  .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; z-index: 500; padding: 20px; }
-  .modal-backdrop.hidden { display: none; }
-  .modal { background: var(--white); border-radius: 18px; padding: 28px; max-width: 440px; width: 100%; box-shadow: 0 8px 40px rgba(0,0,0,0.18); }
-  .modal h2 { font-size: 1.05rem; font-weight: 700; color: var(--pink-dark); margin-bottom: 12px; }
-  .modal input, .modal textarea {
-    width: 100%; border: 1px solid var(--pink-border); border-radius: 8px;
-    padding: 10px 12px; font-size: 0.9rem; font-family: inherit; outline: none; margin-bottom: 10px;
-  }
-  .modal input:focus, .modal textarea:focus { border-color: var(--pink); }
-  .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 6px; }
-  .btn-pink { background: var(--pink); color: #fff; border: none; border-radius: 8px; padding: 9px 18px; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
-  .btn-pink:hover { background: var(--pink-dark); }
-  .btn-outline { background: var(--white); color: var(--subtle); border: 1px solid var(--pink-border); border-radius: 8px; padding: 9px 18px; font-size: 0.88rem; cursor: pointer; }
+    .panel {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 18px;
+    }
+    .panel-title { font-size: 12px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
 
-  .toast { position: fixed; bottom: 24px; right: 24px; background: var(--pink-dark); color: #fff; padding: 12px 20px; border-radius: 10px; font-size: 0.87rem; font-weight: 600; box-shadow: 0 4px 16px rgba(0,0,0,0.2); z-index: 999; }
-  .toast.hidden { display: none; }
+    /* Risk items */
+    .risk-list { display: flex; flex-direction: column; gap: 8px; }
+    .risk-item { display: flex; gap: 10px; align-items: flex-start; }
+    .risk-sev {
+      font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px;
+      flex-shrink: 0; text-transform: uppercase; margin-top: 1px;
+    }
+    .sev-high { background: var(--red-dim); color: var(--red); }
+    .sev-med { background: var(--amber-dim); color: var(--amber); }
+    .sev-low { background: var(--green-dim); color: var(--green); }
+    .risk-text { font-size: 12px; line-height: 1.5; }
+    .risk-mit { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
-  @media (max-width: 680px) {
-    .sidebar { width: 200px; }
-  }
-</style>
+    .add-risk-btn, .add-done-btn, .add-left-btn {
+      font-size: 12px; font-weight: 600; color: var(--muted);
+      background: transparent; border: 1px dashed var(--border);
+      border-radius: 7px; padding: 7px 12px; cursor: pointer; width: 100%;
+      margin-top: 10px; transition: all .15s;
+    }
+    .add-risk-btn:hover, .add-done-btn:hover, .add-left-btn:hover {
+      border-color: var(--green-glow); color: var(--green); background: var(--green-dim);
+    }
+
+    /* Done / Left */
+    .check-list { display: flex; flex-direction: column; gap: 6px; }
+    .check-item { display: flex; align-items: flex-start; gap: 8px; }
+    .check-box {
+      width: 16px; height: 16px; border-radius: 4px; flex-shrink: 0; margin-top: 1px;
+      display: flex; align-items: center; justify-content: center; font-size: 10px;
+    }
+    .check-done { background: var(--green-dim); border: 1px solid var(--green-glow); color: var(--green); }
+    .check-todo { background: var(--border); border: 1px solid transparent; }
+    .check-text { font-size: 12px; line-height: 1.5; }
+    .check-text.done { text-decoration: line-through; color: var(--muted); }
+
+    /* Notes */
+    .notes-area {
+      width: 100%; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text); font-family: 'Inter', sans-serif;
+      font-size: 13px; line-height: 1.6; padding: 12px 14px; resize: vertical;
+      min-height: 100px; transition: border-color .15s;
+    }
+    .notes-area:focus { outline: none; border-color: var(--green-glow); }
+    .notes-area::placeholder { color: var(--muted); }
+
+    /* Champion / Econ Buyer quick view */
+    .person-chip {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 12px; font-size: 12px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .person-avatar {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--green-dim); border: 1px solid var(--green-glow);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; color: var(--green); flex-shrink: 0;
+    }
+    .person-info .pname { font-weight: 600; }
+    .person-info .ptitle { font-size: 11px; color: var(--muted); }
+
+    /* Last updated */
+    .last-updated { font-size: 11px; color: var(--muted); text-align: right; margin-top: 24px; }
+
+    .save-btn {
+      background: var(--green-dim); border: 1px solid var(--green-glow);
+      color: var(--green); font-size: 12px; font-weight: 600;
+      padding: 7px 16px; border-radius: 8px; cursor: pointer;
+      transition: all .15s; margin-top: 16px;
+    }
+    .save-btn:hover { background: rgba(0,168,107,.22); }
+    .save-flash { color: var(--green); font-size: 12px; display: none; }
+
+    footer { text-align: center; padding: 20px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
+
+    /* Save indicator */
+    .save-indicator { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 6px; opacity: 0; transition: opacity .3s; }
+    .save-indicator.saving { background: var(--amber-dim); color: var(--amber); opacity: 1; }
+    .save-indicator.saved  { background: var(--green-dim); color: var(--green); opacity: 1; }
+    .save-indicator.error  { background: var(--red-dim); color: var(--red); opacity: 1; }
+    .token-btn { background: var(--card); border: 1px solid var(--border); color: var(--muted); border-radius: 8px; padding: 5px 10px; font-size: 11px; font-weight: 600; cursor: pointer; transition: all .15s; }
+    .token-btn:hover { border-color: var(--green-glow); color: var(--green); }
+    .last-refreshed { font-size: 11px; color: var(--muted); margin-left: auto; }
+
+    /* Token modal */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.65); z-index: 200; display: none; align-items: center; justify-content: center; }
+    .modal-overlay.show { display: flex; }
+    .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px; width: 420px; }
+    .modal-title { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+    .modal-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.55; }
+    .modal-sub code { background: var(--border); border-radius: 4px; padding: 1px 5px; font-size: 11px; }
+    .modal-input { width: 100%; background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: monospace; font-size: 12px; padding: 10px 12px; outline: none; }
+    .modal-input:focus { border-color: var(--green-glow); }
+    .modal-btns { display: flex; gap: 8px; margin-top: 16px; justify-content: flex-end; }
+    .modal-btn-primary { background: var(--green-dim); border: 1px solid var(--green-glow); color: var(--green); font-size: 13px; font-weight: 600; padding: 8px 18px; border-radius: 8px; cursor: pointer; }
+    .modal-btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--muted); font-size: 13px; font-weight: 600; padding: 8px 18px; border-radius: 8px; cursor: pointer; }
+
+    /* Gut Check */
+    .mq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 28px; }
+    .mq-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+    .mq-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .mq-icon { font-size: 16px; }
+    .mq-label { font-size: 12px; font-weight: 700; flex: 1; }
+    .mq-sub { font-size: 10px; color: var(--muted); }
+    .gut-row { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 6px; }
+    .gut-btn { width: 32px; height: 32px; border-radius: 7px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 12px; font-weight: 700; cursor: pointer; transition: all .15s; }
+    .gut-btn:hover { border-color: var(--amber); color: var(--amber); background: var(--amber-dim); }
+    .gut-btn.g-low  { background: var(--red-dim);   border-color: rgba(255,48,0,.4);   color: var(--red); }
+    .gut-btn.g-mid  { background: var(--amber-dim); border-color: rgba(245,158,11,.4); color: var(--amber); }
+    .gut-btn.g-high { background: var(--green-dim); border-color: var(--green-glow);   color: var(--green); }
+    .map-flags { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+    .map-flag { font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 5px; border: 1px solid var(--border); cursor: pointer; transition: all .15s; color: var(--muted); background: transparent; }
+    .map-flag:hover { border-color: var(--green-glow); color: var(--green); }
+    .map-flag.f-yes { background: var(--green-dim); border-color: var(--green-glow); color: var(--green); }
+    .map-flag.f-no  { background: var(--red-dim);   border-color: rgba(255,48,0,.3);  color: var(--red); }
+    .mq-question { font-size: 11px; color: var(--muted); font-style: italic; margin-bottom: 8px; line-height: 1.5; }
+
+    /* ── MEDDPICC total badge in deal header ── */
+    .dh-score-meddpicc { position: relative; }
+    .dh-score-meddpicc .dh-score-val {
+      font-size: 22px; font-weight: 900; line-height: 1.1;
+    }
+    .dh-score-meddpicc .dh-frac { font-size: 13px; color: var(--muted); font-weight: 700; margin-left: 2px; }
+    .dh-band {
+      display: inline-block; font-size: 9px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .06em; padding: 2px 7px; border-radius: 5px; margin-top: 4px;
+    }
+    .band-strong { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-glow); }
+    .band-developing { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(217,119,6,.3); }
+    .band-weak { background: var(--red-dim); color: var(--red); border: 1px solid rgba(220,38,38,.3); }
+
+    /* ── Tabs ── */
+    .tab-bar {
+      display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: transparent; border: none; padding: 10px 14px; cursor: pointer;
+      font-family: inherit; font-size: 12px; font-weight: 600; color: var(--muted);
+      border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .15s;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: var(--green); border-bottom-color: var(--green); }
+    .tab-btn .tab-count {
+      background: var(--card); color: var(--muted); font-size: 10px; font-weight: 800;
+      padding: 1px 6px; border-radius: 8px; min-width: 18px; text-align: center;
+    }
+    .tab-btn.active .tab-count { background: var(--green-dim); color: var(--green); }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; animation: fadeIn .18s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: none; } }
+
+    /* ── MEDDPICC card with score badge + rubric tooltip ── */
+    .meddpicc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .mp-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px; position: relative;
+    }
+    .mp-card.score-2 { border-color: var(--green-glow); }
+    .mp-card.score-1 { border-color: rgba(217,119,6,.3); }
+    .mp-card.score-0 { border-color: rgba(220,38,38,.25); }
+    .mp-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .mp-icon { font-size: 16px; }
+    .mp-letter {
+      font-size: 11px; font-weight: 800; color: var(--muted);
+      background: var(--surface); border: 1px solid var(--border);
+      width: 22px; height: 22px; border-radius: 5px; display: inline-flex;
+      align-items: center; justify-content: center;
+    }
+    .mp-label { font-size: 12px; font-weight: 700; flex: 1; }
+    .mp-score-badge {
+      font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 6px;
+      cursor: help; user-select: none; position: relative;
+    }
+    .mp-score-badge.s2 { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-glow); }
+    .mp-score-badge.s1 { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(217,119,6,.3); }
+    .mp-score-badge.s0 { background: var(--red-dim); color: var(--red); border: 1px solid rgba(220,38,38,.3); }
+    .mp-content {
+      font-size: 12px; color: var(--text); line-height: 1.55;
+      white-space: pre-wrap; word-break: break-word;
+      min-height: 48px; cursor: text;
+      outline: none; border-radius: 6px; padding: 6px 8px; margin: -6px -8px;
+      transition: background .15s;
+    }
+    .mp-content:hover { background: rgba(0,0,0,.03); }
+    .mp-content:focus { background: rgba(0,0,0,.05); outline: 1px solid var(--border); }
+    .mp-content[data-empty="true"] { color: var(--muted); font-style: italic; }
+
+    /* Rubric tooltip — Victoria's exact 0/1/2 strings */
+    .mp-rubric {
+      position: absolute; z-index: 50; right: 0; top: calc(100% + 6px);
+      background: var(--text); color: var(--surface); border-radius: 8px;
+      padding: 10px 12px; min-width: 260px; max-width: 320px;
+      font-size: 11px; line-height: 1.5; font-weight: 500;
+      box-shadow: 0 8px 24px rgba(0,0,0,.18); pointer-events: none;
+      opacity: 0; transform: translateY(-2px); transition: opacity .15s, transform .15s;
+    }
+    .mp-rubric strong { font-weight: 800; }
+    .mp-rubric .rb-row { display: flex; gap: 6px; margin-bottom: 4px; }
+    .mp-rubric .rb-row:last-child { margin-bottom: 0; }
+    .mp-rubric .rb-row .rb-num {
+      font-weight: 800; min-width: 14px;
+    }
+    .mp-rubric .rb-row.r0 .rb-num { color: #fca5a5; }
+    .mp-rubric .rb-row.r1 .rb-num { color: #fcd34d; }
+    .mp-rubric .rb-row.r2 .rb-num { color: #86efac; }
+    .mp-score-badge:hover .mp-rubric { opacity: 1; transform: none; pointer-events: auto; }
+    .mp-score-row {
+      display: flex; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border);
+    }
+    .mp-score-btn {
+      flex: 1; font-size: 11px; font-weight: 700; padding: 5px 0; border-radius: 6px;
+      border: 1px solid var(--border); background: transparent; color: var(--muted);
+      cursor: pointer; transition: all .15s;
+    }
+    .mp-score-btn:hover { border-color: var(--green-glow); color: var(--green); }
+    .mp-score-btn.active.s0 { background: var(--red-dim); border-color: rgba(220,38,38,.3); color: var(--red); }
+    .mp-score-btn.active.s1 { background: var(--amber-dim); border-color: rgba(217,119,6,.3); color: var(--amber); }
+    .mp-score-btn.active.s2 { background: var(--green-dim); border-color: var(--green-glow); color: var(--green); }
+
+    /* ── Victoria Forte's full MEDDPICC scorecard reference table ── */
+    .scorecard-ref {
+      margin-top: 32px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden;
+    }
+    .scorecard-ref-head {
+      padding: 14px 18px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .scorecard-ref-head h3 { font-size: 13px; font-weight: 800; letter-spacing: -.01em; }
+    .scorecard-ref-head p { font-size: 11px; color: var(--muted); margin-left: auto; }
+    .sc-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+    .sc-table thead th {
+      padding: 10px 12px; font-size: 10px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .07em; text-align: center; border-bottom: 2px solid var(--border);
+    }
+    .sc-table thead th:first-child { text-align: left; width: 170px; color: var(--muted); background: var(--card); }
+    .sc-th-0 { background: #fef3c7; color: #92400e; }
+    .sc-th-1 { background: #fecaca; color: #991b1b; }
+    .sc-th-2 { background: #bbf7d0; color: #166534; }
+    .sc-th-score { background: var(--card); color: var(--muted); width: 70px; }
+    .sc-table tbody tr { border-bottom: 1px solid var(--border); }
+    .sc-table tbody tr:last-child { border-bottom: none; }
+    .sc-table tbody td {
+      padding: 12px; vertical-align: top; font-size: 11.5px; line-height: 1.5;
+      border-bottom: 1px solid var(--border);
+    }
+    .sc-table tbody tr:last-child td { border-bottom: none; }
+    .sc-element-cell {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--card); padding: 12px;
+    }
+    .sc-badge {
+      width: 32px; height: 32px; border-radius: 7px;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 12px; color: #fff; flex-shrink: 0;
+    }
+    .sc-badge-m  { background: #ef4444; }
+    .sc-badge-e  { background: #ef4444; }
+    .sc-badge-dc { background: #f97316; }
+    .sc-badge-dp { background: #f97316; }
+    .sc-badge-p  { background: #22c55e; }
+    .sc-badge-i  { background: #22c55e; }
+    .sc-badge-ch { background: #1e293b; }
+    .sc-badge-co { background: #1e293b; }
+    .sc-element-name { font-size: 12px; font-weight: 700; }
+    .sc-cell {
+      cursor: pointer; border-left: 1px solid var(--border);
+      transition: filter .15s, box-shadow .15s;
+    }
+    .sc-cell:hover { filter: brightness(.97); }
+    .sc-cell.sel-0 { background: #fef9e7; box-shadow: inset 0 0 0 2px #eab308; }
+    .sc-cell.sel-1 { background: #fde8e8; box-shadow: inset 0 0 0 2px #ef4444; }
+    .sc-cell.sel-2 { background: #e8f8f0; box-shadow: inset 0 0 0 2px #22c55e; }
+    .sc-score-cell {
+      text-align: center; border-left: 1px solid var(--border);
+      font-weight: 700; vertical-align: middle !important;
+    }
+    .sc-score-val {
+      display: inline-block; width: 30px; height: 30px; line-height: 30px;
+      border-radius: 7px; font-size: 13px; font-weight: 800;
+    }
+    .sc-score-0 { background: #fef3c7; color: #92400e; }
+    .sc-score-1 { background: #fecaca; color: #991b1b; }
+    .sc-score-2 { background: #bbf7d0; color: #166534; }
+
+    @media (max-width: 1100px) {
+      .sc-table thead th, .sc-table tbody td { padding: 8px 6px; font-size: 10.5px; }
+      .sc-table thead th:first-child { width: 130px; }
+    }
+
+    /* ── Questions tab ── */
+    .qlist { display: flex; flex-direction: column; gap: 14px; }
+    .qsection {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px;
+    }
+    .qsection-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .qsection-head .mp-letter { background: var(--surface); }
+    .qsection-head .qsection-label { font-size: 12px; font-weight: 700; flex: 1; }
+    .qsection-head .mp-score-badge { font-size: 10px; padding: 2px 7px; cursor: default; }
+    .q-item {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+      padding: 10px 12px; margin-bottom: 8px; position: relative;
+    }
+    .q-item:last-child { margin-bottom: 0; }
+    .q-text {
+      font-size: 12px; font-weight: 600; line-height: 1.5; outline: none;
+      cursor: text; border-radius: 4px; padding: 2px 4px; margin: -2px -4px;
+    }
+    .q-text:focus { background: rgba(0,0,0,.04); }
+    .q-why {
+      font-size: 11px; color: var(--muted); font-style: italic; line-height: 1.5;
+      margin-top: 4px; outline: none; cursor: text;
+      border-radius: 4px; padding: 2px 4px; margin-left: -4px; margin-right: -4px;
+    }
+    .q-why:focus { background: rgba(0,0,0,.04); font-style: normal; }
+    .q-why::before { content: 'Why: '; font-weight: 700; color: var(--text); font-style: normal; }
+    .q-del {
+      position: absolute; top: 6px; right: 6px;
+      width: 22px; height: 22px; border-radius: 5px;
+      background: transparent; border: none; color: var(--border);
+      cursor: pointer; font-size: 14px; line-height: 1; padding: 0;
+    }
+    .q-del:hover { background: var(--red-dim); color: var(--red); }
+    .add-q-btn {
+      font-size: 11px; font-weight: 600; color: var(--muted);
+      background: transparent; border: 1px dashed var(--border);
+      border-radius: 7px; padding: 6px 12px; cursor: pointer; width: 100%;
+      margin-top: 6px; transition: all .15s;
+    }
+    .add-q-btn:hover { border-color: var(--green-glow); color: var(--green); background: var(--green-dim); }
+    .qlist-empty {
+      text-align: center; color: var(--muted); font-size: 12px; font-style: italic;
+      padding: 36px 20px;
+    }
+  </style>
 </head>
 <body>
 
-<div id="auth-gate">
-  <div class="auth-msg">
-    <p>🔒 Session expired</p>
-    <p style="margin-top:8px;font-size:0.9rem;"><a href="../">Return to Hub to unlock</a></p>
+<!-- Token modal -->
+<div class="modal-overlay" id="token-modal">
+  <div class="modal-box">
+    <div class="modal-title">GitHub Token</div>
+    <div class="modal-sub">Paste a Personal Access Token with <code>contents:write</code> on <code>mercedesboykin/hub</code>. Stored in your browser only — never sent anywhere except the GitHub API.</div>
+    <input type="password" class="modal-input" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
+    <div class="modal-btns">
+      <button class="modal-btn-secondary" onclick="hideTokenModal()">Cancel</button>
+      <button class="modal-btn-primary" onclick="saveToken()">Save &amp; Sync</button>
+    </div>
   </div>
 </div>
 
-<nav>
-  <div class="breadcrumb">
-    <a href="../">← Hub</a>
-    <span style="color:rgba(255,255,255,0.4)">/</span>
-    <span>🎯 Deal Review Rooms</span>
-  </div>
-</nav>
+<header>
+  <a href="../" class="back-btn">←</a>
+  <span class="hbreadcrumb"><a href="../">Hub</a> / Deal Review</span>
+  <span class="htitle">🎯 Deal Review Rooms</span>
+  <span class="save-indicator" id="save-indicator"></span>
+  <span class="last-refreshed" id="last-refreshed"></span>
+  <button class="token-btn" onclick="showTokenModal()" title="Set GitHub token for shared saving">⚙ Sync</button>
+</header>
 
 <div class="layout">
-  <!-- Sidebar -->
+  <!-- SIDEBAR -->
   <div class="sidebar">
-    <div class="sidebar-header">
-      <h2>Active Deals</h2>
-      <button class="btn-add-deal" onclick="openNewDealModal()">+ New</button>
-    </div>
-    <div class="deal-list" id="deal-list">
-      <div class="empty-sidebar">No deals yet.<br>Click <strong>+ New</strong> to add one.</div>
-    </div>
+    <div class="sidebar-label">Active Deals</div>
+    <div id="deal-list"></div>
+    <button class="add-deal-btn" onclick="addDeal()">+ New Deal Room</button>
   </div>
 
-  <!-- Main panel -->
-  <div class="main-panel" id="main-panel">
-    <div class="empty-state">
-      <div class="icon">🎯</div>
-      <h3>Select a deal to open its review room</h3>
-      <p style="font-size:0.85rem;margin-top:4px;">Or click <strong>+ New</strong> to add a deal manually.</p>
-    </div>
+  <!-- DETAIL -->
+  <div class="detail" id="detail">
+    <div class="no-deal">← Select a deal to open its review room</div>
   </div>
 </div>
-
-<!-- Add item modal -->
-<div class="modal-backdrop hidden" id="item-modal">
-  <div class="modal">
-    <h2 id="item-modal-title">Add item</h2>
-    <textarea id="item-text" rows="3" placeholder="Describe this item…"></textarea>
-    <div class="modal-actions">
-      <button class="btn-outline" onclick="closeModal('item-modal')">Cancel</button>
-      <button class="btn-pink" onclick="confirmAddItem()">Add</button>
-    </div>
-  </div>
-</div>
-
-<!-- New deal modal -->
-<div class="modal-backdrop hidden" id="new-deal-modal">
-  <div class="modal">
-    <h2>➕ Add Deal Room</h2>
-    <input type="text" id="nd-name" placeholder="Deal / Account name *" />
-    <input type="text" id="nd-amount" placeholder="Amount (e.g. 82800)" />
-    <input type="text" id="nd-close" placeholder="Close date (YYYY-MM-DD)" />
-    <select id="nd-intent" style="width:100%;border:1px solid var(--pink-border);border-radius:8px;padding:10px 12px;font-size:0.9rem;outline:none;margin-bottom:10px;font-family:inherit;">
-      <option value="">Merchant Intent</option>
-      <option value="Committed">Committed</option>
-      <option value="Committed at Risk">Committed at Risk</option>
-      <option value="Uncommitted">Uncommitted</option>
-    </select>
-    <input type="text" id="nd-sf-url" placeholder="Salesforce URL (optional)" />
-    <div class="modal-actions">
-      <button class="btn-outline" onclick="closeModal('new-deal-modal')">Cancel</button>
-      <button class="btn-pink" onclick="confirmNewDeal()">Create Room</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast hidden" id="toast"></div>
 
 <script>
-  const GITHUB_OWNER = 'mercedesboykin';
-  const GITHUB_REPO = 'hub';
+// ─────────────────────────────────────────────────────────────
+//  DEALS — pre-populated data. Persisted to localStorage.
+// ─────────────────────────────────────────────────────────────
+const STORAGE_KEY = 'hub-deal-review-v1';
 
-  // Auth check
-  if (sessionStorage.getItem('hub_unlocked') !== 'true') {
-    document.getElementById('auth-gate').classList.remove('hidden');
-  } else {
-    document.getElementById('auth-gate').classList.add('hidden');
-    init();
-  }
+const DEFAULT_DEALS = [
+  {
+    id: 'national-gym-supply',
+    name: 'National Gym Supply',
+    industry: 'Fitness Equipment Wholesale · US',
+    stage: 'Pre-Qualified',
+    close: 'Jun 30, 2026',
+    pbr: 0,
+    se: null,
+    map_url: '',
+    proposal_url: '',
+    sf_url: 'https://banff.lightning.force.com/lightning/r/Opportunity/006OG00000NT4vpYAD/view',
+    meddic: {
+      metrics: 'Revenue $7.5M, 28 employees. 500–1000 orders/day at peak. ROI not yet quantified — no TCO or Shopify uplift modeled. Urgency driver: Everest ERP end-of-life forces platform migration by Dec 2026.',
+      economic_buyer: 'Tony Meirovitz, CEO of National Gym Supply. Identified via DYODE requirements doc. Not yet directly engaged — all communication through DYODE (Tim Katz, Elana Katz). Brian Chow (IT/ERP lead) is technical gatekeeper.',
+      decision_criteria: 'Must replicate custom .NET modules on Shopify Plus: cable configurator, RA/repairs workflow, Cash for Course buyback, sell-parts. NetSuite as ERP target (replacing Everest). Partner ecosystem for SI implementation required.',
+      decision_process: 'Partner-introduced deal via DYODE. Requirements form sent May 2026. Next meeting May 16 for technical discovery. SE not yet assigned. Formal eval process and procurement path not yet mapped.',
+      pain: 'Everest ERP reaching end-of-life — no long-term support path. Current custom .NET platform requires full rebuild. Business pain is existential: must migrate entire ecommerce + ERP stack by Dec 2026. Highly specialized custom modules add complexity.',
+      champion: 'DYODE team (Tim Katz, co-founder; Elana Katz, Director Ops & Product) are the internal advocates. Brian Chow (IT/ERP) is the internal technical champion. Direct champion at NGS exec level not yet engaged.',
+    },
+    strategy: 'DYODE-sourced deal with real urgency — Everest EOL is a hard deadline. Priority: assign SE before May 16 tech session, confirm CEO Tony Meirovitz is engaged, and scope custom module complexity to size the deal. DYODE partnership is the key relationship to protect.',
+    risks: [
+      { sev: 'high', text: 'SE not yet assigned — tech session May 16 at risk', mit: 'Escalate SE assignment immediately. Prepare technical discovery brief before call.' },
+      { sev: 'high', text: 'PBR $0 — no commercial signal', mit: 'Get ballpark scope from SE on custom module complexity. Establish PBR before close date.' },
+      { sev: 'med', text: 'Custom modules (cable configurator, RA/repairs, Cash for Course) may require heavy SI investment', mit: 'Quantify rebuild scope with SE before committing to solution. Surface SI partner options.' },
+      { sev: 'med', text: 'Close date Jun 30 is aspirational given Pre-Qualified stage', mit: 'Align close date to realistic timeline post-SE engagement and requirements review.' },
+    ],
+    done: [
+      'Requirements doc received via DYODE — full custom module requirements documented',
+      'Key stakeholders identified: Tony Meirovitz (CEO), Brian Chow (IT/ERP), Mike (Ops)',
+      'Partner context established: DYODE (Tim Katz, Elana Katz)',
+    ],
+    left: [
+      'Assign SE — required before May 16 tech session',
+      'Direct outreach to Tony Meirovitz to confirm executive sponsorship',
+      'Scope custom module complexity with SE before May 16 call',
+      'Establish commercial ballpark and update PBR from $0',
+    ],
+    last_call: '2026-05-05',
+    next_call: '2026-05-16',
+    notes: 'Introduced via DYODE partner (Tim Katz). Everest ERP EOL is the forcing function. Company does 500–1000 peak orders/day, $7.5M revenue, 28 employees. Highly specialized custom modules: cable configurator, RA/repairs, Cash for Course buyback, sell-parts. These are mission-critical and will require a capable SI partner.',
+  },
+  {
+    id: 'allen-company',
+    name: 'Allen Company',
+    industry: 'Outdoor Sporting Goods · Louisville, CO',
+    stage: 'Pre-Qualified',
+    close: 'Aug 31, 2026',
+    pbr: 115755,
+    se: null,
+    map_url: '',
+    proposal_url: '',
+    sf_url: 'https://banff.lightning.force.com/lightning/r/Opportunity/006OG00000NISAHYA5/view',
+    meddic: {
+      metrics: 'DTC online revenue ~$500K (excl. ~$1.5M acquisition brand). B2B online ~$50K last year — majority of B2B done offline via reps/fax/email. Cost comparison: NetSuite SuiteCommerce = 3x current Magento spend. Total wholesale revenue unknown (Alli does not own that P&L).',
+      economic_buyer: 'Not yet identified above Alli Boggs. Alli (Director of E-commerce) is primary contact and evaluator but flagged cost as a constraint she cannot unilaterally approve — final sign-off is above her. Buying committee not yet mapped.',
+      decision_criteria: 'Must be cheaper than NetSuite SuiteCommerce (~3x Magento). Requires: NetSuite ERP feed for custom pricing + case pack configs, no-code site updates (Sidekick/AI), sales rep portal access to customer orders and tracking. Plus vs Advanced still an open question given DTC revenue size.',
+      decision_process: 'Mercedes to send Plus vs Advanced comparison materials by Mon May 11. Alli to review. Technical follow-up scheduled after Allen DTC site #2 launches (~May 12–13). Broader buying committee and paper process not yet mapped.',
+      pain: 'Adobe Commerce (Magento) requires dev/IT consultant for simple site changes (banners, video). Two separate Magento instances (DTC + B2B) = operational overhead. B2B portal adoption near zero — reps still use fax/email/CS manually. NetSuite SuiteCommerce alternative is 3x cost and Alli is not excited about it.',
+      champion: 'Alli Boggs (Director of E-commerce). Engaged and enthusiastic about Shopify. Limited financial authority — final say likely above her. Julie Marcott (AE buddy) co-owns relationship and joined May 7 call.',
+    },
+    strategy: 'DTC migration to Shopify Advanced is already happening across 4–5 brands. The strategic prize is native B2B on Plus — winning this before Alli gets locked into NetSuite SuiteCommerce. Alli is explicitly not excited about NetSuite. Priority: Plus vs Advanced comparison by Mon May 11, then technical call with SE to close the loop on case packs + ERP feed objections.',
+    risks: [
+      { sev: 'high', text: 'Economic buyer not identified — Alli may not have budget authority for Plus', mit: 'Identify EB on next technical call. Frame Plus ROI around B2B growth and dealer adoption to get exec attention.' },
+      { sev: 'high', text: 'DTC revenue ($500K) may not justify Plus pricing', mit: 'Model Plus pricing relative to B2B growth potential. If Plus requires >$30K/year, deal may stay on Advanced.' },
+      { sev: 'med', text: 'B2B timeline undefined — DTC migration could push B2B decision to Q4+', mit: 'Send materials by Mon May 11, schedule technical call proactively.' },
+      { sev: 'med', text: 'NetSuite SuiteCommerce still on table', mit: 'Price delta (3x) is our best defense. Keep comparison explicit in materials.' },
+    ],
+    done: [
+      'Discovery call May 7 — Adobe Commerce pain documented, B2B requirements surfaced',
+      'Confirmed Shopify Payments eligibility (supportability doc complete, cleared May 5)',
+      'Confirmed Shopify supports: custom pricing per account, case pack configs, NetSuite ERP feed, sales rep portal',
+      'Identified competition: NetSuite SuiteCommerce (3x cost, low enthusiasm from Alli)',
+    ],
+    left: [
+      'Send Plus vs Advanced comparison materials by Mon May 11 (action item from call)',
+      'Schedule technical follow-up after Allen DTC site #2 launches (~May 12–13)',
+      'Identify economic buyer above Alli Boggs',
+      'Map full buying committee before technical call',
+      'Get Alli to send existing Shopify site URLs',
+    ],
+    last_call: '2026-05-07',
+    next_call: null,
+    notes: 'Director of E-commerce Alli Boggs (allison.boggs@allencompany.net) is primary contact. DTC already migrating to Shopify Advanced across 4–5 brands. B2B is the strategic play — currently $50K online but large offline dealer network (gun shops, ranges) not digitized. ERP: NetSuite. DTC off Magento by mid-to-late June. Shopify Payments cleared May 5.',
+  },
+  {
+    id: 'caravela-coffee',
+    name: 'Caravela Coffee',
+    industry: 'B2B Coffee Wholesale · London, UK',
+    stage: 'Envision',
+    close: 'Sep 30, 2026',
+    pbr: 110882,
+    se: null,
+    map_url: '',
+    proposal_url: '',
+    sf_url: 'https://banff.lightning.force.com/lightning/r/Opportunity/006OG00000N1TdpYAF/view',
+    meddic: {
+      metrics: 'Revenue ~$35M, ~200 employees, London HQ. 90% of revenue is wholesale — almost entirely undigitized. No ROI quantified yet. Hypothesis: digitizing wholesale ordering could significantly reduce manual CS overhead.',
+      economic_buyer: 'Not yet identified. Nicole Freydell is primary contact (role/seniority unclear). No executive sponsor or budget owner mapped.',
+      decision_criteria: 'Not yet fully surfaced. Known needs: B2B portal for specialty coffee wholesale buyers, integration requirements TBD (IT Director joining next call), multi-currency likely required (London HQ, international accounts).',
+      decision_process: 'Transferred from Grant Dugas (SDR who declined intro meeting). Intro call Apr 29 with Nicole. Technical deep dive pending — IT Director joining next call. Formal eval criteria, competing platforms, and wider stakeholders all unknown.',
+      pain: '90% of business is wholesale and almost none of it is digitized — customers ordering manually. WooCommerce DTC site not meeting B2B needs. Nicole confirmed desire for a B2B wholesale portal.',
+      champion: 'Nicole Freydell is engaged but title, seniority, and internal influence are unknown. No confirmed champion with budget authority.',
+    },
+    strategy: 'THIN — 2/16 MEDDPICC. Needs discovery depth before it can advance. Priority on next call: surface economic buyer and IT Director\'s authority, quantify the wholesale order volume pain, and identify competing platforms. The 90% wholesale angle is a perfect B2B story — but it needs a champion with authority.',
+    risks: [
+      { sev: 'high', text: 'THIN QUALIFICATION: EB, competition, and decision criteria all unknown', mit: 'Next call must surface EB and IT Director\'s role. Treat as a discovery call, not a demo.' },
+      { sev: 'high', text: 'Transferred deal — Nicole\'s context and motivation unclear', mit: 'Understand why Grant declined the intro. Ensure Nicole has real authority to drive a decision.' },
+      { sev: 'med', text: 'International HQ (London) may introduce VAT/compliance and multi-currency complexity', mit: 'Confirm region and currency requirements before proposing solution.' },
+      { sev: 'med', text: 'No stated internal deadline or project trigger', mit: 'Surface urgency on next call — what is forcing action now?' },
+    ],
+    done: [
+      'Intro call Apr 29 — confirmed B2B wholesale need, platform is WooCommerce (DTC)',
+      'Technical deep dive scheduled with IT Director joining',
+    ],
+    left: [
+      'Surface economic buyer on next call',
+      'Understand IT Director\'s role and technical requirements',
+      'Quantify wholesale order volume and manual processing overhead',
+      'Identify competing platforms being evaluated',
+      'Map buying committee and decision criteria',
+    ],
+    last_call: '2026-04-29',
+    next_call: null,
+    notes: 'Specialty coffee B2B wholesale, 90% wholesale, $35M rev, ~200 employees, London HQ. Contact: Nicole Freydell (nicole.freydell@caravela.coffee). Transferred from Grant Dugas. Current platform: WooCommerce (DTC only). IT Director joining next call — critical discovery session. Confirm multi-currency, VAT, and ERP context.',
+  },
+  {
+    id: 'artificial-turf-supply',
+    name: 'Artificial Turf Supply',
+    industry: 'Turf & Landscaping · US',
+    stage: 'Envision',
+    close: 'Oct 30, 2026',
+    pbr: 165689,
+    se: 'Jordan Murphy',
+    map_url: '',
+    proposal_url: '',
+    sf_url: 'https://banff.lightning.force.com/lightning/r/Opportunity/006OG00000MmGc7YAF/view',
+    meddic: {
+      metrics: 'PBR $165K. Business revenue, order volume, and SKU count not captured in discovery. ROI case not yet built — integration replacement (Salesforce + Sage) is the stated driver.',
+      economic_buyer: 'Not yet identified. Kyle Boyd (kyle@artificialturfsupply.com) is primary contact but title and budget authority unknown. No executive sponsor mapped.',
+      decision_criteria: 'Q4 go-live target (Oct 2026). Build starts July. Must integrate with Salesforce (CRM) and Sage (ERP/accounting) to replace legacy systems. Integration data flows not yet documented.',
+      decision_process: 'Technical discovery completed May 5 with Kyle Boyd and Jordan Murphy (SE). Next meeting first week of July after build scope confirmed. Formal eval process, competitive shortlist, and other stakeholders not yet mapped.',
+      pain: 'Legacy Salesforce + Sage integrations require replacement — current setup creating operational friction. Q4 switchover is a stated business target with build starting July, indicating real urgency.',
+      champion: 'Kyle Boyd is engaged and actively moving the deal forward with Jordan Murphy (SE). Authority level not confirmed. Jordan Murphy is SE champion on the Shopify side.',
+    },
+    strategy: 'THIN — 4/16 MEDDPICC. SE Jordan Murphy is the key asset. Leverage the July meeting to surface economic buyer, build the ROI case, and nail down integration scope for Salesforce + Sage before build starts. Stay in touch with Kyle during the May–July gap to prevent deal from going cold.',
+    risks: [
+      { sev: 'high', text: 'THIN QUALIFICATION: EB not identified, metrics not captured', mit: 'July meeting must surface EB and business case. Prep Jordan with EB discovery questions.' },
+      { sev: 'high', text: '6-week gap May → July — deal can go cold', mit: 'Monthly check-in with Kyle. Send value-add content (integration docs, case studies) to stay top of mind.' },
+      { sev: 'med', text: 'Salesforce + Sage integration complexity could extend timeline past Q4', mit: 'SE Jordan Murphy to map integration scope in July session. Identify certified SI partner early.' },
+      { sev: 'med', text: 'No competitive intel — unknown what alternatives are being evaluated', mit: 'Ask Kyle directly on next check-in: who else are you talking to?' },
+    ],
+    done: [
+      'Technical discovery call May 5 with Kyle Boyd + Jordan Murphy (SE)',
+      'Integration requirements identified: Salesforce + Sage (replace legacy)',
+      'Q4 switchover target and July build start confirmed',
+    ],
+    left: [
+      'Surface economic buyer at or before July meeting',
+      'Quantify business metrics and build ROI case',
+      'Map Salesforce + Sage integration scope with Jordan Murphy (SE)',
+      'Identify competing platforms',
+      'Stay in touch with Kyle during May–July dark period',
+    ],
+    last_call: '2026-05-05',
+    next_call: '2026-07-01',
+    notes: 'Contact: Kyle Boyd (kyle@artificialturfsupply.com). SE: Jordan Murphy (jordan.murphy@shopify.com). Technical discovery May 5. Build starts July, Q4 go-live target. Integrations: Salesforce (CRM) + Sage (ERP/accounting) replacing legacy. Next meeting 1st week of July.',
+  },
+];
 
-  let allDeals = [];
-  let currentDeal = null;
-  let currentRoom = null;
-  let roomSha = null;
-  let addingToSection = null; // 'done' or 'todo'
+// Deals removed from pipeline — prune from any cached localStorage
+const REMOVED_IDS = [];
 
-  async function init() {
-    allDeals = await loadDealList();
-    renderSidebar();
-    // If we came from dashboard with a deal in URL, open it
-    const params = new URLSearchParams(location.search);
-    const openId = params.get('deal');
-    if (openId) {
-      const d = allDeals.find(x => x.id === openId);
-      if (d) openDeal(d);
-    }
-  }
+function fmtPBR(n) {
+  if (!n || n === 0) return '—';
+  if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
+  if (n >= 1000) return '$' + Math.round(n/1000) + 'k';
+  return '$' + n.toLocaleString();
+}
 
-  // GitHub helpers
-  async function ghGet(path) {
-    const token = localStorage.getItem('gh_pat');
-    const r = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`, {
-      headers: token ? { 'Authorization': `token ${token}` } : {}
-    });
-    if (!r.ok) throw new Error(r.status);
-    const d = await r.json();
-    return { data: JSON.parse(atob(d.content.replace(/\n/g,''))), sha: d.sha };
-  }
+// ── GitHub-backed storage ────────────────────────────────────────
+const REPO     = 'mercedesboykin/hub';
+const API_URL  = `https://api.github.com/repos/${REPO}/contents/deal-data.json`;
+const RAW_URL  = `https://raw.githubusercontent.com/${REPO}/main/deal-data.json`;
+const TOKEN_KEY = 'hub-gh-token';
+let fileSha = null;
+let saveTimer = null;
 
-  async function ghPut(path, content, sha) {
-    const token = localStorage.getItem('gh_pat');
-    if (!token) throw new Error('no_token');
-    const r = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`, {
-      method: 'PUT',
-      headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: `Update ${path}`, content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))), sha: sha || undefined, branch: 'main' })
-    });
-    if (!r.ok) { const e = await r.json(); throw new Error(e.message || r.status); }
-    const res = await r.json();
-    return res.content?.sha;
-  }
+function getToken() { return localStorage.getItem(TOKEN_KEY) || ''; }
 
-  async function loadDealList() {
-    try {
-      const { data } = await ghGet('data/deals.json');
-      localStorage.setItem('deals_cache', JSON.stringify(data));
-      return data.deals || [];
-    } catch(e) {
-      const c = localStorage.getItem('deals_cache');
-      return c ? (JSON.parse(c).deals || []) : [];
-    }
-  }
+function b64Enc(str) { return btoa(unescape(encodeURIComponent(str))); }
+function b64Dec(str) { return decodeURIComponent(escape(atob(str.replace(/\s/g,'')))); }
 
-  async function loadRoom(dealId) {
-    const path = `data/deal-rooms/${dealId}.json`;
-    try {
-      const { data, sha } = await ghGet(path);
-      roomSha = sha;
-      return data;
-    } catch(e) {
-      roomSha = null;
-      // Check localStorage
-      const cached = localStorage.getItem(`room_${dealId}`);
-      if (cached) return JSON.parse(cached);
-      return emptyRoom(dealId);
-    }
-  }
+function setSaveStatus(state) {
+  const el = document.getElementById('save-indicator');
+  if (!el) return;
+  el.className = 'save-indicator' + (state ? ' ' + state : '');
+  const labels = { saving:'Saving…', saved:'✓ Saved', error:'Save failed' };
+  el.textContent = labels[state] || '';
+  if (state === 'saved' || state === 'error') setTimeout(() => { el.className = 'save-indicator'; el.textContent = ''; }, 3000);
+}
 
-  function emptyRoom(dealId) {
-    return {
-      dealId,
-      managerReview: { compellingEvent: '', whoSigns: '', whyWontClose: '' },
-      whatsDone: [],
-      whatsLeft: [],
-      lastUpdated: null
+let remoteData = null;
+
+function fmtISODate(iso) {
+  if (!iso) return '';
+  const [y, m, d] = iso.split('-').map(Number);
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${months[m-1]} ${d}, ${y}`;
+}
+
+function serializeData() {
+  const deals = {};
+  DEALS.forEach(d => {
+    const prev = remoteData && remoteData.deals && remoteData.deals[d.id];
+    deals[d.id] = {
+      sf: prev && prev.sf ? prev.sf : undefined,
+      meddpicc: d.meddpicc,
+      strategy: d.strategy || '',
+      risks: d.risks || [],
+      done: d.done || [],
+      left: d.left || [],
+      notes: d.notes || '',
+      last_call: d.last_call || '',
+      next_call: d.next_call || '',
+      manager_q: d.manager_q || {},
+      forecast: (d.forecast === 'commit' || d.forecast === 'bestcase')
+        ? d.forecast
+        : (d.forecast === true ? 'commit' : null)
     };
-  }
+  });
+  return { version: 3, updated: remoteData ? remoteData.updated : new Date().toISOString(), deals };
+}
 
-  function renderSidebar() {
-    const list = document.getElementById('deal-list');
-    if (!allDeals.length) {
-      list.innerHTML = '<div class="empty-sidebar">No deals yet.<br>Click <strong>+ New</strong> to add one.</div>';
-      return;
+function applyRemoteData(data) {
+  if (!data || !data.deals) return;
+  remoteData = data;
+  DEALS.forEach(d => {
+    const r = data.deals[d.id];
+    if (!r) return;
+    if (r.sf) {
+      if (r.sf.pbr !== undefined) d.pbr = r.sf.pbr;
+      if (r.sf.stage) d.stage = r.sf.stage;
+      if (r.sf.close) d.close = fmtISODate(r.sf.close);
+      if (r.sf.created) d.created = r.sf.created;
     }
-    list.innerHTML = allDeals.map(d => {
-      const intentClass = !d.merchantIntent ? 'none' : d.merchantIntent === 'Committed' ? 'committed' : d.merchantIntent === 'Committed at Risk' ? 'at-risk' : 'uncommitted';
-      const intentLabel = d.merchantIntent || 'No intent';
-      return `<div class="deal-list-item ${currentDeal?.id === d.id ? 'active' : ''}" onclick="openDeal(${JSON.stringify(d).replace(/"/g,'&quot;')})">
-        <div class="dli-name">${esc(d.accountName || d.name)}</div>
-        <div class="dli-amount">${fmtAmt(d.amount)}</div>
-        <span class="intent-badge ${intentClass}">${esc(intentLabel)}</span>
-      </div>`;
+    if (r.meddpicc)                d.meddpicc  = r.meddpicc;
+    else if (r.meddic)             d.meddpicc  = migrateLegacyMeddic(r.meddic);
+    if (r.strategy !== undefined)  d.strategy  = r.strategy;
+    if (r.risks)                   d.risks     = r.risks;
+    if (r.done)                    d.done      = r.done;
+    if (r.left)                    d.left      = r.left;
+    if (r.notes !== undefined)     d.notes     = r.notes;
+    if (r.last_call !== undefined) d.last_call = r.last_call;
+    if (r.next_call !== undefined) d.next_call = r.next_call;
+    if (r.manager_q)               d.manager_q = r.manager_q;
+    if (r.forecast !== undefined) {
+      if (r.forecast === 'commit' || r.forecast === 'bestcase') d.forecast = r.forecast;
+      else if (r.forecast === true) d.forecast = 'commit';
+      else d.forecast = null;
+    }
+  });
+  if (data.updated) {
+    const dt = new Date(data.updated);
+    const fmt = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
+    const el = document.getElementById('last-refreshed');
+    if (el) el.textContent = `SF refreshed ${fmt}`;
+  }
+}
+
+async function fetchRemote() {
+  const token = getToken();
+  const headers = { Accept: 'application/vnd.github.v3+json' };
+  if (token) headers.Authorization = `token ${token}`;
+  try {
+    const res = await fetch(API_URL, { headers });
+    if (res.ok) {
+      const meta = await res.json();
+      fileSha = meta.sha;
+      return JSON.parse(b64Dec(meta.content));
+    }
+  } catch(e) {}
+  try {
+    const res = await fetch(RAW_URL + '?cb=' + Date.now());
+    if (res.ok) return await res.json();
+  } catch(e) {}
+  return null;
+}
+
+async function pushRemote(data) {
+  const token = getToken();
+  if (!token) { showTokenModal(); return false; }
+  if (!fileSha) {
+    try {
+      const r = await fetch(API_URL, { headers: { Authorization: `token ${token}` } });
+      if (r.ok) { const m = await r.json(); fileSha = m.sha; }
+    } catch(e) {}
+  }
+  try {
+    const payload = { message:`Update deal data ${new Date().toISOString().slice(0,10)}`, content: b64Enc(JSON.stringify(data,null,2)) };
+    if (fileSha) payload.sha = fileSha;
+    const res = await fetch(API_URL, {
+      method: 'PUT',
+      headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (res.status === 409) { fileSha = null; return pushRemote(data); }
+    if (res.ok) { const r = await res.json(); fileSha = r.content.sha; localStorage.setItem(STORAGE_KEY, JSON.stringify(DEALS)); return true; }
+    if (res.status === 401) { localStorage.removeItem(TOKEN_KEY); showTokenModal(); return false; }
+  } catch(e) {}
+  return false;
+}
+
+function saveDeals() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(DEALS));
+  clearTimeout(saveTimer);
+  setSaveStatus('saving');
+  saveTimer = setTimeout(async () => {
+    const ok = await pushRemote(serializeData());
+    setSaveStatus(ok ? 'saved' : 'error');
+  }, 1200);
+}
+
+window.showTokenModal = () => {
+  document.getElementById('token-input').value = getToken();
+  document.getElementById('token-modal').classList.add('show');
+};
+window.hideTokenModal = () => { document.getElementById('token-modal').classList.remove('show'); };
+window.saveToken = () => {
+  const val = document.getElementById('token-input').value.trim();
+  if (val) { localStorage.setItem(TOKEN_KEY, val); hideTokenModal(); saveDeals(); }
+};
+
+let DEALS = JSON.parse(JSON.stringify(DEFAULT_DEALS));
+let currentId = null;
+
+function parseClose(c) {
+  if (!c || c === 'TBD') return null;
+  const d = new Date(c);
+  return isNaN(d) ? null : d;
+}
+
+function getQuarter(dateStr) {
+  const d = parseClose(dateStr);
+  if (!d) return 'No Close Date';
+  const q = Math.floor(d.getMonth() / 3) + 1;
+  return `Q${q} ${d.getFullYear()}`;
+}
+
+function renderSidebar() {
+  const stageClass = { 'Pre-Qualified':'s-qualify', 'Envision':'s-qualify', 'Solution':'s-propose', 'Demonstrate':'s-negotiate', 'Closed Won':'s-negotiate' };
+
+  const sorted = [...DEALS].sort((a,b) => {
+    const da = parseClose(a.close), db = parseClose(b.close);
+    if (!da && !db) return 0;
+    if (!da) return 1;
+    if (!db) return -1;
+    return da - db;
+  });
+
+  const groups = {};
+  sorted.forEach(d => {
+    const q = getQuarter(d.close);
+    if (!groups[q]) groups[q] = [];
+    groups[q].push(d);
+  });
+
+  let html = '';
+  for (const [qtr, deals] of Object.entries(groups)) {
+    html += `<div class="qtr-label">${qtr}</div>`;
+    html += deals.map(d => {
+      ensureMeddpicc(d);
+      const total = totalScore(d);
+      const band = scoreBand(total);
+      return `
+      <div class="deal-item ${currentId === d.id ? 'active' : ''}" onclick="openDeal('${d.id}')">
+        <span class="di-score ${band.cls}" title="MEDDPICC ${total}/16 · ${band.label}">${total}<span class="di-score-frac">/16</span></span>
+        <div class="di-name">${d.name}</div>
+        <div class="di-meta">${d.close}</div>
+        <span class="di-stage ${stageClass[d.stage] || 's-qualify'}">${d.stage}</span>
+      </div>
+    `;
     }).join('');
   }
 
-  async function openDeal(deal) {
-    currentDeal = deal;
-    renderSidebar();
-    document.getElementById('main-panel').innerHTML = '<div class="empty-state"><div class="icon">⏳</div><h3>Loading…</h3></div>';
-    currentRoom = await loadRoom(deal.id);
-    renderRoom();
+  document.getElementById('deal-list').innerHTML = html;
+}
+
+const MP_LETTERS = [
+  { key:'metrics',           letter:'M',  badge:'sc-badge-m',  badgeLetter:'M', icon:'📈', label:'Metrics',
+    rubric:['No relevant metrics','Few/limited metrics','Several highly relevant metrics'],
+    fullRubric:[
+      'Seller has not identified any relevant metrics and cannot identify where we have solved similar issues before.',
+      'Seller has identified very few metrics which provide limited relevance to current customer.',
+      'Seller has identified several metrics which are highly relevant to customer\'s issues and pains.'
+    ] },
+  { key:'economic_buyer',    letter:'E',  badge:'sc-badge-e',  badgeLetter:'E', icon:'💼', label:'Economic Buyer',
+    rubric:['Not identified','Identified but no access/preference','Access established + preference confirmed'],
+    fullRubric:[
+      'Seller has not identified the Economic Buyer for the opportunity.',
+      'Seller has identified the Economic Buyer but has not established access and/or cannot define his/her solution preference.',
+      'Seller has established access with the Economic Buyer and confirmed his/her preference for our solution.'
+    ] },
+  { key:'decision_criteria', letter:'DC', badge:'sc-badge-dc', badgeLetter:'D', icon:'✅', label:'Decision Criteria',
+    rubric:['Not identified or unfavorable','Identified but not influenced','Identified + actively influenced in our favour'],
+    fullRubric:[
+      'Seller has not identified the decision criteria OR the criteria are unfavourable to us.',
+      'Seller has identified the Decision Criteria but has not influenced them and/or cannot define their priority or weighting.',
+      'Seller has identified the decision criteria and has played an active role in influencing them in our favour.'
+    ] },
+  { key:'decision_process',  letter:'DP', badge:'sc-badge-dp', badgeLetter:'D', icon:'🗺️', label:'Decision Process',
+    rubric:['Can\'t define steps','Steps known but missing players/timelines','Full steps + resources + timelines'],
+    fullRubric:[
+      'Seller cannot define the steps involved in the customer\'s decision process.',
+      'Seller can describe the steps of the Decision Process but has not identified all of the players and/or timelines.',
+      'Seller can describe the steps of the Decision Process along with the resources and timelines for each step.'
+    ] },
+  { key:'paper_process',     letter:'P',  badge:'sc-badge-p',  badgeLetter:'P', icon:'📜', label:'Paper Process',
+    rubric:['Can\'t define','Steps known but missing players/timelines','Full steps + resources + timelines'],
+    fullRubric:[
+      'Seller cannot define the steps involved in the customer\'s paper process.',
+      'Seller can describe the steps of the Paper Process but has not identified all of the players and/or timelines.',
+      'Seller can describe the steps of the Paper Process along with the resources and timelines for each step.'
+    ] },
+  { key:'identified_pain',   letter:'I',  badge:'sc-badge-i',  badgeLetter:'I', icon:'🔥', label:'Identified Pain',
+    rubric:['Not identified','Identified but unquantified/unowned','Quantified impact + know who\'s impacted'],
+    fullRubric:[
+      'Seller has not identified the pain or compelling event that would cause the customer to take action.',
+      'Seller has identified the Pain but cannot define who\'s impacted or what the quantified impact is.',
+      'Seller understands the customer\'s pains and knows who is impacted and what the quantified impact will be.'
+    ] },
+  { key:'champion',          letter:'Ch', badge:'sc-badge-ch', badgeLetter:'C', icon:'⭐', label:'Champion',
+    rubric:['No credible champion','1 tested champion','Multiple tested champions across org'],
+    fullRubric:[
+      'Seller has not identified a credible champion.',
+      'Seller has identified and tested at least 1 champion within the organization but has not established a wider base.',
+      'Seller has identified and tested several Champions and has multiple points of support across the customer\'s org.'
+    ] },
+  { key:'competition',       letter:'Co', badge:'sc-badge-co', badgeLetter:'C', icon:'⚔️', label:'Competition',
+    rubric:['Not identified','Identified but no differentiation','Critical few identified + differentiation defended'],
+    fullRubric:[
+      'Seller has not identified competitive offerings or initiatives.',
+      'Seller has identified legitimate competitors but has not established or confirmed differentiation.',
+      'Seller has identified the critical few competitors & can describe and defend our differentiation.'
+    ] },
+];
+
+function emptyMeddpicc() {
+  const m = {};
+  MP_LETTERS.forEach(f => { m[f.key] = { text:'', score:0, questions:[] }; });
+  return m;
+}
+
+function migrateLegacyMeddic(meddic) {
+  const m = emptyMeddpicc();
+  if (meddic) {
+    if (meddic.metrics)            m.metrics.text = meddic.metrics;
+    if (meddic.economic_buyer)     m.economic_buyer.text = meddic.economic_buyer;
+    if (meddic.decision_criteria)  m.decision_criteria.text = meddic.decision_criteria;
+    if (meddic.decision_process)   m.decision_process.text = meddic.decision_process;
+    if (meddic.pain)               m.identified_pain.text = meddic.pain;
+    if (meddic.champion)           m.champion.text = meddic.champion;
   }
+  return m;
+}
 
-  function renderRoom() {
-    const d = currentDeal;
-    const r = currentRoom;
-    const panel = document.getElementById('main-panel');
-
-    panel.innerHTML = `
-      <div class="deal-room">
-        <div class="room-header">
-          <div class="room-title">${esc(d.accountName || d.name)}</div>
-          <div class="room-meta">
-            <span>💰 ${fmtAmt(d.amount)}</span>
-            <span>📅 Close ${fmtDate(d.closeDate)}</span>
-            ${d.sfUrl ? `<a href="${esc(d.sfUrl)}" target="_blank">Open in Salesforce ↗</a>` : ''}
-          </div>
-        </div>
-
-        <p class="section-title">🧠 Manager Review</p>
-        <div class="review-grid">
-          <div class="review-callout">
-            <div class="callout-header"><span class="callout-icon">⚡</span><span class="callout-label">Compelling Event</span></div>
-            <div class="callout-body"><textarea id="rv-compelling" placeholder="What is the specific event or deadline driving action for this deal? (e.g. contract renewal, launch date, board meeting)" oninput="markDirty()">${esc(r.managerReview.compellingEvent)}</textarea></div>
-          </div>
-          <div class="review-callout">
-            <div class="callout-header"><span class="callout-icon">✍️</span><span class="callout-label">Who Signs</span></div>
-            <div class="callout-body"><textarea id="rv-signs" placeholder="Who is the economic buyer / contract signatory? What do you know about their approval process?" oninput="markDirty()">${esc(r.managerReview.whoSigns)}</textarea></div>
-          </div>
-          <div class="review-callout">
-            <div class="callout-header"><span class="callout-icon">🚧</span><span class="callout-label">Why It Won't Close</span></div>
-            <div class="callout-body"><textarea id="rv-risk" placeholder="What is the most likely reason this deal slips or dies? Be honest." oninput="markDirty()">${esc(r.managerReview.whyWontClose)}</textarea></div>
-          </div>
-        </div>
-
-        <p class="section-title" style="margin-top:28px;">✅ What's Done</p>
-        <div class="checklist-card">
-          <div class="checklist-header">
-            <div class="checklist-header-left"><span style="font-size:1rem;">✅</span><span class="checklist-title">Completed items</span></div>
-            <button class="btn-add-item" onclick="openAddItem('done')">+ Add completed item</button>
-          </div>
-          <div class="checklist-body" id="done-list">${renderCheckItems(r.whatsDone, 'done')}</div>
-        </div>
-
-        <p class="section-title">📋 What's Left to Do</p>
-        <div class="checklist-card">
-          <div class="checklist-header">
-            <div class="checklist-header-left"><span style="font-size:1rem;">📋</span><span class="checklist-title">Remaining items</span></div>
-            <button class="btn-add-item" onclick="openAddItem('todo')">+ Add remaining item</button>
-          </div>
-          <div class="checklist-body" id="todo-list">${renderCheckItems(r.whatsLeft, 'todo')}</div>
-        </div>
-
-        <div class="save-bar">
-          <span class="save-status" id="save-status">All changes saved</span>
-          <button class="btn-save" id="save-btn" onclick="saveRoom()">💾 Save to GitHub</button>
-        </div>
-      </div>
-    `;
+function ensureMeddpicc(deal) {
+  if (!deal.meddpicc) {
+    deal.meddpicc = deal.meddic ? migrateLegacyMeddic(deal.meddic) : emptyMeddpicc();
   }
-
-  function renderCheckItems(items, section) {
-    if (!items || !items.length) {
-      return `<div class="checklist-empty">${section === 'done' ? 'No completed items yet' : 'No items yet — add one above'}</div>`;
-    }
-    return items.map((item, i) => `
-      <div class="check-item" id="${section}-item-${i}">
-        <span class="check-icon" title="${section === 'done' ? 'Mark incomplete' : 'Mark done'}" onclick="toggleItem('${section}', ${i})">${section === 'done' ? '✅' : '⬜'}</span>
-        <span class="check-text ${section === 'done' ? 'done' : ''}">${esc(item.text)}</span>
-        <button class="check-del" onclick="deleteItem('${section}', ${i})" title="Delete">✕</button>
-      </div>
-    `).join('');
-  }
-
-  function openAddItem(section) {
-    addingToSection = section;
-    const title = section === 'done' ? '✅ Add completed item' : '📋 Add remaining item';
-    document.getElementById('item-modal-title').textContent = title;
-    document.getElementById('item-text').value = '';
-    document.getElementById('item-modal').classList.remove('hidden');
-    setTimeout(() => document.getElementById('item-text').focus(), 50);
-  }
-
-  function confirmAddItem() {
-    const text = document.getElementById('item-text').value.trim();
-    if (!text) return;
-    const item = { text, createdAt: new Date().toISOString() };
-    if (addingToSection === 'done') {
-      currentRoom.whatsDone.push(item);
-      document.getElementById('done-list').innerHTML = renderCheckItems(currentRoom.whatsDone, 'done');
+  MP_LETTERS.forEach(f => {
+    const cur = deal.meddpicc[f.key];
+    if (!cur || typeof cur !== 'object') {
+      deal.meddpicc[f.key] = { text:'', score:0, questions:[] };
     } else {
-      currentRoom.whatsLeft.push(item);
-      document.getElementById('todo-list').innerHTML = renderCheckItems(currentRoom.whatsLeft, 'todo');
-    }
-    closeModal('item-modal');
-    markDirty();
-  }
-
-  function toggleItem(section, idx) {
-    if (section === 'done') {
-      // Move back to todo
-      const [item] = currentRoom.whatsDone.splice(idx, 1);
-      currentRoom.whatsLeft.push(item);
-    } else {
-      // Move to done
-      const [item] = currentRoom.whatsLeft.splice(idx, 1);
-      currentRoom.whatsDone.push(item);
-    }
-    document.getElementById('done-list').innerHTML = renderCheckItems(currentRoom.whatsDone, 'done');
-    document.getElementById('todo-list').innerHTML = renderCheckItems(currentRoom.whatsLeft, 'todo');
-    markDirty();
-  }
-
-  function deleteItem(section, idx) {
-    if (section === 'done') currentRoom.whatsDone.splice(idx, 1);
-    else currentRoom.whatsLeft.splice(idx, 1);
-    document.getElementById(`${section}-list`).innerHTML = renderCheckItems(section === 'done' ? currentRoom.whatsDone : currentRoom.whatsLeft, section);
-    markDirty();
-  }
-
-  let dirty = false;
-  function markDirty() {
-    dirty = true;
-    const s = document.getElementById('save-status');
-    if (s) s.textContent = 'Unsaved changes';
-  }
-
-  async function saveRoom() {
-    if (!currentDeal || !currentRoom) return;
-    // Read textarea values back
-    const tvs = id => (document.getElementById(id) || {}).value || '';
-    currentRoom.managerReview = {
-      compellingEvent: tvs('rv-compelling'),
-      whoSigns: tvs('rv-signs'),
-      whyWontClose: tvs('rv-risk')
-    };
-    currentRoom.lastUpdated = new Date().toISOString();
-
-    const btn = document.getElementById('save-btn');
-    const status = document.getElementById('save-status');
-    btn.disabled = true;
-    btn.textContent = 'Saving…';
-
-    // Save to localStorage always
-    localStorage.setItem(`room_${currentDeal.id}`, JSON.stringify(currentRoom));
-
-    // Try GitHub
-    try {
-      const token = localStorage.getItem('gh_pat');
-      if (!token) throw new Error('no_token');
-      const path = `data/deal-rooms/${currentDeal.id}.json`;
-      const newSha = await ghPut(path, currentRoom, roomSha);
-      roomSha = newSha;
-      status.textContent = `Saved to GitHub · ${new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}`;
-      showToast('✅ Saved to GitHub');
-    } catch(e) {
-      const msg = e.message === 'no_token' ? 'Saved locally (add GitHub token in Settings to sync)' : `Saved locally — GitHub error: ${e.message}`;
-      status.textContent = msg;
-      showToast('💾 Saved locally');
-    }
-
-    dirty = false;
-    btn.disabled = false;
-    btn.textContent = '💾 Save to GitHub';
-  }
-
-  // New deal
-  function openNewDealModal() {
-    document.getElementById('nd-name').value = '';
-    document.getElementById('nd-amount').value = '';
-    document.getElementById('nd-close').value = '';
-    document.getElementById('nd-intent').value = '';
-    document.getElementById('nd-sf-url').value = '';
-    document.getElementById('new-deal-modal').classList.remove('hidden');
-    setTimeout(() => document.getElementById('nd-name').focus(), 50);
-  }
-
-  async function confirmNewDeal() {
-    const name = document.getElementById('nd-name').value.trim();
-    if (!name) { document.getElementById('nd-name').focus(); return; }
-    const deal = {
-      id: 'manual_' + Date.now(),
-      name,
-      accountName: name,
-      amount: parseFloat(document.getElementById('nd-amount').value) || 0,
-      closeDate: document.getElementById('nd-close').value || '',
-      merchantIntent: document.getElementById('nd-intent').value || 'Uncommitted',
-      sfUrl: document.getElementById('nd-sf-url').value.trim() || ''
-    };
-
-    allDeals.push(deal);
-
-    // Try to save deals list
-    try {
-      let sha = null;
-      try { const e = await ghGet('data/deals.json'); sha = e.sha; allDeals = [...(e.data.deals || []).filter(d => d.id !== deal.id), deal]; } catch(_) {}
-      const cached = localStorage.getItem('deals_cache');
-      const data = cached ? JSON.parse(cached) : { meta: { quota: 1000000 }, deals: [] };
-      data.deals = allDeals;
-      localStorage.setItem('deals_cache', JSON.stringify(data));
-      if (localStorage.getItem('gh_pat')) await ghPut('data/deals.json', data, sha);
-    } catch(e) { console.warn('Save deals failed', e); }
-
-    closeModal('new-deal-modal');
-    renderSidebar();
-    openDeal(deal);
-    showToast('✅ Deal room created');
-  }
-
-  function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
-
-  // Keyboard: Enter to confirm modal
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && e.ctrlKey) {
-      if (!document.getElementById('item-modal').classList.contains('hidden')) confirmAddItem();
-      if (!document.getElementById('new-deal-modal').classList.contains('hidden')) confirmNewDeal();
-    }
-    if (e.key === 'Escape') {
-      closeModal('item-modal'); closeModal('new-deal-modal');
+      if (typeof cur.text !== 'string')   cur.text = '';
+      if (typeof cur.score !== 'number')  cur.score = 0;
+      if (!Array.isArray(cur.questions))  cur.questions = [];
     }
   });
+  return deal.meddpicc;
+}
 
-  function esc(s) { return String(s || '').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-  function fmtAmt(n) { return n ? '$' + Number(n).toLocaleString() : '$—'; }
-  function fmtDate(s) {
-    if (!s) return '—';
-    const d = new Date(s + 'T00:00:00');
-    return d.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+function totalScore(deal) {
+  const m = ensureMeddpicc(deal);
+  return MP_LETTERS.reduce((sum, f) => sum + (m[f.key].score || 0), 0);
+}
+
+function scoreBand(total) {
+  if (total >= 12) return { cls:'band-strong', label:'Strong' };
+  if (total >= 8)  return { cls:'band-developing', label:'Developing' };
+  return { cls:'band-weak', label:'Weak' };
+}
+
+function escHtml(s) {
+  return (s == null ? '' : String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function rubricTooltipHtml(f) {
+  return `<div class="mp-rubric">
+    <div class="rb-row r0"><span class="rb-num">0</span><span>${escHtml(f.rubric[0])}</span></div>
+    <div class="rb-row r1"><span class="rb-num">1</span><span>${escHtml(f.rubric[1])}</span></div>
+    <div class="rb-row r2"><span class="rb-num">2</span><span>${escHtml(f.rubric[2])}</span></div>
+  </div>`;
+}
+
+function openDeal(id) {
+  currentId = id;
+  history.replaceState(null, '', '#' + id);
+  renderSidebar();
+  const deal = DEALS.find(d => d.id === id);
+  if (!deal) return;
+  ensureMeddpicc(deal);
+
+  const total = totalScore(deal);
+  const band = scoreBand(total);
+  const totalQuestions = MP_LETTERS.reduce((n, f) => n + deal.meddpicc[f.key].questions.length, 0);
+
+  document.getElementById('detail').innerHTML = `
+    <div class="deal-header">
+      <div class="dh-left">
+        <div class="dh-company">${escHtml(deal.name)}</div>
+        <div class="dh-meta">${escHtml(deal.industry)} · Close ${escHtml(deal.close)} · SE: ${escHtml(deal.se || '—')}</div>
+        <div class="dh-links">
+          ${deal.map_url ? `<a href="${escHtml(deal.map_url)}" target="_blank" class="dh-link dh-link-map">🗺️ Open MAP</a>` : ''}
+          ${deal.proposal_url ? `<a href="${escHtml(deal.proposal_url)}" target="_blank" class="dh-link dh-link-prop">📄 View Proposal</a>` : ''}
+          ${deal.sf_url ? `<a href="${escHtml(deal.sf_url)}" target="_blank" class="dh-link dh-link-sf">☁️ Salesforce</a>` : ''}
+        </div>
+      </div>
+      <div class="dh-score-group">
+        <div class="dh-score">
+          <input class="dh-date-input" type="date" value="${deal.last_call || ''}" onchange="saveCallDate('${id}','last_call',this.value)" title="Last call date">
+          <div class="dh-score-sub">Last Call</div>
+        </div>
+        <div class="dh-score">
+          <input class="dh-date-input" type="date" value="${deal.next_call || ''}" onchange="saveCallDate('${id}','next_call',this.value)" title="Next call date">
+          <div class="dh-score-sub">Next Call</div>
+        </div>
+        <div class="dh-score">
+          <div class="dh-score-val pbr-val">${fmtPBR(deal.pbr)}</div>
+          <div class="dh-score-sub">PBR · Salesforce</div>
+        </div>
+        <div class="dh-score dh-score-meddpicc">
+          <div class="dh-score-val"><span id="dh-mp-total-${id}">${total}</span><span class="dh-frac">/16</span></div>
+          <div class="dh-band ${band.cls}" id="dh-mp-band-${id}">${band.label}</div>
+          <div class="dh-score-sub" style="margin-top:4px">MEDDPICC</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-bar" id="tab-bar-${id}">
+      <button class="tab-btn active" data-tab="mp" onclick="switchTab('${id}','mp')">🎯 MEDDPICC <span class="tab-count" id="tab-count-mp-${id}">${total}/16</span></button>
+      <button class="tab-btn" data-tab="q" onclick="switchTab('${id}','q')">❓ Questions <span class="tab-count" id="tab-count-q-${id}">${totalQuestions}</span></button>
+      <button class="tab-btn" data-tab="mq" onclick="switchTab('${id}','mq')">🫀 Gut Check</button>
+      <button class="tab-btn" data-tab="know" onclick="switchTab('${id}','know')">📋 What We Know</button>
+    </div>
+
+    <div class="tab-pane active" data-tab="mp">
+      <div class="meddpicc-grid" id="mp-grid-${id}"></div>
+      <div class="scorecard-ref" id="sc-ref-${id}"></div>
+    </div>
+
+    <div class="tab-pane" data-tab="q">
+      <div class="qlist" id="qlist-${id}"></div>
+    </div>
+
+    <div class="tab-pane" data-tab="mq">
+      <div class="mq-grid" id="mq-grid-${id}"></div>
+    </div>
+
+    <div class="tab-pane" data-tab="know">
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-title">🧠 Strategy & Narrative</div>
+          <textarea class="notes-area" id="strategy-${id}" oninput="saveStrategy('${id}',this.value)" placeholder="Deal strategy, positioning narrative, competitive notes…" rows="8">${escHtml(deal.strategy || '')}</textarea>
+        </div>
+        <div class="panel">
+          <div class="panel-title">⚠️ Risks & Mitigations</div>
+          <div class="risk-list" id="risks-${id}"></div>
+          <button class="add-risk-btn" onclick="addRisk('${id}')">+ Add Risk</button>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-title">✅ What's Done</div>
+          <div class="check-list" id="done-${id}"></div>
+          <button class="add-done-btn" onclick="addDone('${id}')">+ Add Completed Item</button>
+        </div>
+        <div class="panel">
+          <div class="panel-title">🔲 What's Left to Close</div>
+          <div class="check-list" id="left-${id}"></div>
+          <button class="add-left-btn" onclick="addLeft('${id}')">+ Add Remaining Item</button>
+        </div>
+      </div>
+      <div class="one-col">
+        <div class="section-title">Notes</div>
+        <div class="panel">
+          <textarea class="notes-area" id="notes-${id}" oninput="saveNotes('${id}',this.value)" placeholder="Anything else — call recaps, stakeholder dynamics, open questions…" rows="5">${escHtml(deal.notes || '')}</textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="last-updated" id="last-updated-${id}">Last saved: never</div>
+  `;
+
+  renderMeddpicc(id);
+  renderScorecardRef(id);
+  renderQuestions(id);
+  renderMQ(id);
+  renderRisks(id);
+  renderDone(id);
+  renderLeft(id);
+}
+
+window.switchTab = (id, tab) => {
+  const bar = document.getElementById(`tab-bar-${id}`);
+  if (!bar) return;
+  bar.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  const detail = document.getElementById('detail');
+  detail.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.dataset.tab === tab));
+};
+
+function renderMeddpicc(id) {
+  const deal = DEALS.find(d => d.id === id);
+  const grid = document.getElementById(`mp-grid-${id}`);
+  if (!deal || !grid) return;
+  ensureMeddpicc(deal);
+
+  grid.innerHTML = MP_LETTERS.map(f => {
+    const cur = deal.meddpicc[f.key];
+    const val = cur.text || '';
+    const isEmpty = val.trim().length === 0;
+    const score = cur.score || 0;
+    return `<div class="mp-card score-${score}">
+      <div class="mp-header">
+        <span class="mp-letter">${f.letter}</span>
+        <span class="mp-icon">${f.icon}</span>
+        <span class="mp-label">${f.label}</span>
+        <span class="mp-score-badge s${score}">${score}/2${rubricTooltipHtml(f)}</span>
+      </div>
+      <div class="mp-content" contenteditable="true"
+        data-empty="${isEmpty}"
+        onblur="saveMeddpiccText('${id}','${f.key}',this)"
+        onfocus="if(this.dataset.empty==='true'){this.textContent='';this.dataset.empty='false';}"
+        >${isEmpty ? `Enter ${f.label.toLowerCase()}…` : escHtml(val)}</div>
+      <div class="mp-score-row">
+        ${[0,1,2].map(n => `<button class="mp-score-btn ${score===n?'active s'+n:''}" onclick="setMeddpiccScore('${id}','${f.key}',${n})" title="${escHtml(f.rubric[n])}">${n}</button>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderScorecardRef(id) {
+  const deal = DEALS.find(d => d.id === id);
+  const wrap = document.getElementById(`sc-ref-${id}`);
+  if (!deal || !wrap) return;
+  ensureMeddpicc(deal);
+
+  const rows = MP_LETTERS.map(f => {
+    const score = deal.meddpicc[f.key].score || 0;
+    const cells = [0,1,2].map(n =>
+      `<td class="sc-cell ${score===n?'sel-'+n:''}" onclick="setMeddpiccScore('${id}','${f.key}',${n})" title="Click to set ${f.label} = ${n}">${escHtml(f.fullRubric[n])}</td>`
+    ).join('');
+    return `<tr>
+      <td class="sc-element-cell">
+        <span class="sc-badge ${f.badge}">${f.badgeLetter}</span>
+        <span class="sc-element-name">${escHtml(f.label)}</span>
+      </td>
+      ${cells}
+      <td class="sc-score-cell"><span class="sc-score-val sc-score-${score}">${score}</span></td>
+    </tr>`;
+  }).join('');
+
+  const total = totalScore(deal);
+  const band = scoreBand(total);
+
+  wrap.innerHTML = `
+    <div class="scorecard-ref-head">
+      <h3>📋 Scorecard Reference — Victoria Forte's MEDDPICC Rubric</h3>
+      <p>Click any cell to set the score · Total ${total}/16 · ${band.label}</p>
+    </div>
+    <table class="sc-table">
+      <thead>
+        <tr>
+          <th>Elements</th>
+          <th class="sc-th-0">0</th>
+          <th class="sc-th-1">1</th>
+          <th class="sc-th-2">2</th>
+          <th class="sc-th-score">Score</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+window.saveMeddpiccText = (id, key, el) => {
+  const deal = DEALS.find(d => d.id === id);
+  if (!deal) return;
+  ensureMeddpicc(deal);
+  const f = MP_LETTERS.find(x => x.key === key);
+  const placeholder = `Enter ${f.label.toLowerCase()}…`;
+  const val = el.innerText.trim();
+  if (val === placeholder || val === '') {
+    deal.meddpicc[key].text = '';
+    el.dataset.empty = 'true';
+    el.innerText = placeholder;
+  } else {
+    deal.meddpicc[key].text = val;
+    el.dataset.empty = 'false';
   }
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.remove('hidden');
-    setTimeout(() => t.classList.add('hidden'), 3000);
+  saveDeals(); touch(id);
+};
+
+window.setMeddpiccScore = (id, key, n) => {
+  const deal = DEALS.find(d => d.id === id);
+  if (!deal) return;
+  ensureMeddpicc(deal);
+  deal.meddpicc[key].score = n;
+  saveDeals(); touch(id);
+  renderMeddpicc(id);
+  renderScorecardRef(id);
+  renderQuestions(id);
+  refreshTotals(id);
+  renderSidebar();
+};
+
+function refreshTotals(id) {
+  const deal = DEALS.find(d => d.id === id);
+  if (!deal) return;
+  const total = totalScore(deal);
+  const band = scoreBand(total);
+  const totalQ = MP_LETTERS.reduce((n, f) => n + deal.meddpicc[f.key].questions.length, 0);
+  const totalEl = document.getElementById(`dh-mp-total-${id}`);
+  const bandEl = document.getElementById(`dh-mp-band-${id}`);
+  const tabMpEl = document.getElementById(`tab-count-mp-${id}`);
+  const tabQEl = document.getElementById(`tab-count-q-${id}`);
+  if (totalEl) totalEl.textContent = total;
+  if (bandEl) { bandEl.textContent = band.label; bandEl.className = 'dh-band ' + band.cls; }
+  if (tabMpEl) tabMpEl.textContent = total + '/16';
+  if (tabQEl) tabQEl.textContent = totalQ;
+}
+
+function renderQuestions(id) {
+  const deal = DEALS.find(d => d.id === id);
+  const wrap = document.getElementById(`qlist-${id}`);
+  if (!deal || !wrap) return;
+  ensureMeddpicc(deal);
+
+  const sections = MP_LETTERS.map(f => {
+    const cur = deal.meddpicc[f.key];
+    const qs = cur.questions || [];
+    if (qs.length === 0) return null;
+    return { f, qs, score: cur.score || 0 };
+  }).filter(Boolean);
+
+  if (sections.length === 0) {
+    wrap.innerHTML = `<div class="qlist-empty">No qualifying questions yet — score weak letters in the MEDDPICC tab, then add questions here.</div>`;
+    const weak = MP_LETTERS.filter(f => (deal.meddpicc[f.key].score || 0) < 2);
+    if (weak.length > 0) {
+      wrap.innerHTML += weak.map(f => qsectionHtml(id, f, deal.meddpicc[f.key], [])).join('');
+    }
+    return;
   }
+
+  const renderedKeys = new Set(sections.map(s => s.f.key));
+  const weak = MP_LETTERS.filter(f => !renderedKeys.has(f.key) && (deal.meddpicc[f.key].score || 0) < 2);
+  const all = [
+    ...sections,
+    ...weak.map(f => ({ f, qs: [], score: deal.meddpicc[f.key].score || 0 })),
+  ];
+
+  wrap.innerHTML = all.map(s => qsectionHtml(id, s.f, deal.meddpicc[s.f.key], s.qs)).join('');
+}
+
+function qsectionHtml(id, f, cur, qs) {
+  const score = cur.score || 0;
+  return `<div class="qsection">
+    <div class="qsection-head">
+      <span class="mp-letter">${f.letter}</span>
+      <span class="mp-icon">${f.icon}</span>
+      <span class="qsection-label">${f.label}</span>
+      <span class="mp-score-badge s${score}">${score}/2</span>
+    </div>
+    ${qs.map((q, i) => `
+      <div class="q-item">
+        <div class="q-text" contenteditable="true" onblur="saveQuestion('${id}','${f.key}',${i},'q',this.innerText)">${escHtml(q.q || '')}</div>
+        <div class="q-why" contenteditable="true" onblur="saveQuestion('${id}','${f.key}',${i},'why',this.innerText)">${escHtml(q.why || '')}</div>
+        <button class="q-del" onclick="deleteQuestion('${id}','${f.key}',${i})" title="Delete">×</button>
+      </div>
+    `).join('')}
+    <button class="add-q-btn" onclick="addQuestion('${id}','${f.key}')">+ Add question for ${escHtml(f.label)}</button>
+  </div>`;
+}
+
+window.saveQuestion = (id, key, idx, field, val) => {
+  const deal = DEALS.find(d => d.id === id);
+  if (!deal) return;
+  ensureMeddpicc(deal);
+  const qs = deal.meddpicc[key].questions;
+  if (!qs[idx]) return;
+  qs[idx][field] = val.trim();
+  saveDeals(); touch(id);
+};
+
+window.addQuestion = (id, key) => {
+  const deal = DEALS.find(d => d.id === id);
+  if (!deal) return;
+  ensureMeddpicc(deal);
+  deal.meddpicc[key].questions.push({ q:'New question…', why:'Why this matters for this deal…' });
+  saveDeals(); touch(id); renderQuestions(id); refreshTotals(id);
+};
+
+window.deleteQuestion = (id, key, idx) => {
+  const deal = DEALS.find(d => d.id === id);
+  if (!deal) return;
+  ensureMeddpicc(deal);
+  deal.meddpicc[key].questions.splice(idx, 1);
+  saveDeals(); touch(id); renderQuestions(id); refreshTotals(id);
+};
+
+const MQ_DEFAULTS = { compelling_event:'', map_created:null, map_shared:null, map_agreed:null, map_notes:'', who_signs:'', urgency:'', risk_to_close:'', gut:0 };
+
+function mqFlagClass(v) { return v===true ? 'f-yes' : v===false ? 'f-no' : ''; }
+function mqFlagLabel(name, v) { return (v===true ? '✓ ' : v===false ? '✗ ' : '? ') + name; }
+
+function renderGutBtns(id) {
+  const deal = DEALS.find(d => d.id === id);
+  const gut = deal && deal.manager_q ? (deal.manager_q.gut || 0) : 0;
+  return [1,2,3,4,5,6,7,8,9,10].map(n => {
+    const active = gut === n;
+    const cls = active ? (n<=4 ? 'g-low' : n<=7 ? 'g-mid' : 'g-high') : '';
+    return `<button class="gut-btn ${cls}" onclick="setGut('${id}',${n})">${n}</button>`;
+  }).join('');
+}
+
+function renderMQ(id) {
+  const deal = DEALS.find(d => d.id === id);
+  const el = document.getElementById(`mq-grid-${id}`);
+  if (!deal || !el) return;
+  deal.manager_q = Object.assign({}, MQ_DEFAULTS, deal.manager_q || {});
+  const mq = deal.manager_q;
+
+  const fields = [
+    { key:'compelling_event', icon:'⚡', label:'Compelling Event',   q:'What is the compelling event? Is there ROI associated with it? What happens if they miss it?',             ph:'Enter your answer…' },
+    { key:'who_signs',        icon:'✍️', label:'Who Signs?',          q:'Who signs the contract? Are we currently speaking with — or do we have direct access to — that person?', ph:'Enter your answer…' },
+    { key:'urgency',          icon:'⏱️', label:'Urgency',             q:'What urgency is associated with the timeline? If there isn\'t any natural urgency, how do we build it?', ph:'Enter your answer…' },
+    { key:'risk_to_close',    icon:'🚫', label:'Why It Won\'t Close', q:'Why would this deal NOT close? What is the single biggest thing standing in the way?',                   ph:'Enter your answer…' },
+  ];
+
+  const gut = mq.gut || 0;
+  const gutHint = gut ? (gut<=4 ? '⚠️ Low confidence — what needs to change?' : gut<=7 ? '📊 What would push this higher?' : '💪 High confidence — protect it.') : 'Click a number to score your confidence.';
+
+  el.innerHTML = fields.map(f => {
+    const val = mq[f.key] || '';
+    const isEmpty = !val.trim();
+    return `<div class="mq-card">
+      <div class="mq-header"><span class="mq-icon">${f.icon}</span><span class="mq-label">${f.label}</span></div>
+      <div class="mq-question">${f.q}</div>
+      <div class="med-content" contenteditable="true" data-mqfield="${f.key}" data-empty="${isEmpty}"
+        oninput="saveMQ('${id}','${f.key}',this)"
+        onfocus="if(this.dataset.empty==='true'){this.textContent='';this.dataset.empty='false';}"
+        onblur="if(!this.textContent.trim()){this.dataset.empty='true';this.textContent='${f.ph}';}"
+        >${isEmpty ? f.ph : val.replace(/</g,'&lt;')}</div>
+    </div>`;
+  }).join('') + `
+    <div class="mq-card">
+      <div class="mq-header"><span class="mq-icon">🗺️</span><span class="mq-label">Mutual Action Plan</span></div>
+      <div class="mq-question">Do you have a mutual action plan? Has it been created, shared with the merchant, and agreed upon by both sides?</div>
+      <div class="map-flags">
+        <button class="map-flag ${mqFlagClass(mq.map_created)}" id="mf-${id}-map_created" onclick="cycleMAPFlag('${id}','map_created')">${mqFlagLabel('Created',mq.map_created)}</button>
+        <button class="map-flag ${mqFlagClass(mq.map_shared)}"  id="mf-${id}-map_shared"  onclick="cycleMAPFlag('${id}','map_shared')">${mqFlagLabel('Shared',mq.map_shared)}</button>
+        <button class="map-flag ${mqFlagClass(mq.map_agreed)}"  id="mf-${id}-map_agreed"  onclick="cycleMAPFlag('${id}','map_agreed')">${mqFlagLabel('Agreed',mq.map_agreed)}</button>
+      </div>
+      <div class="med-content" contenteditable="true" data-mqfield="map_notes" data-empty="${!mq.map_notes}"
+        oninput="saveMQ('${id}','map_notes',this)"
+        onfocus="if(this.dataset.empty==='true'){this.textContent='';this.dataset.empty='false';}"
+        onblur="if(!this.textContent.trim()){this.dataset.empty='true';this.textContent='Notes on MAP status...';}"
+        >${mq.map_notes ? mq.map_notes.replace(/</g,'&lt;') : 'Notes on MAP status...'}</div>
+    </div>
+    <div class="mq-card">
+      <div class="mq-header"><span class="mq-icon">🎯</span><span class="mq-label">Gut Score</span></div>
+      <div class="mq-question">What is your gut score out of 10 that this deal comes in this quarter?</div>
+      <div class="gut-row" id="gut-row-${id}">${renderGutBtns(id)}</div>
+      <div style="font-size:11px;color:var(--muted)">${gutHint}</div>
+    </div>`;
+}
+
+window.saveMQ = (id, field, el) => {
+  const deal = DEALS.find(d => d.id === id);
+  if (!deal) return;
+  if (!deal.manager_q) deal.manager_q = Object.assign({}, MQ_DEFAULTS);
+  const val = el.textContent.trim();
+  deal.manager_q[field] = val;
+  el.dataset.empty = val ? 'false' : 'true';
+  saveDeals(); touch(id);
+};
+
+window.setGut = (id, n) => {
+  const deal = DEALS.find(d => d.id === id);
+  if (!deal) return;
+  if (!deal.manager_q) deal.manager_q = Object.assign({}, MQ_DEFAULTS);
+  deal.manager_q.gut = deal.manager_q.gut === n ? 0 : n;
+  saveDeals(); touch(id);
+  const rowEl = document.getElementById(`gut-row-${id}`);
+  if (rowEl) rowEl.innerHTML = renderGutBtns(id);
+  const gut = deal.manager_q.gut || 0;
+  const hint = gut ? (gut<=4 ? '⚠️ Low confidence — what needs to change?' : gut<=7 ? '📊 What would push this higher?' : '💪 High confidence — protect it.') : 'Click a number to score your confidence.';
+  if (rowEl && rowEl.nextSibling) rowEl.nextSibling.textContent = hint;
+};
+
+window.cycleMAPFlag = (id, field) => {
+  const deal = DEALS.find(d => d.id === id);
+  if (!deal) return;
+  if (!deal.manager_q) deal.manager_q = Object.assign({}, MQ_DEFAULTS);
+  const cur = deal.manager_q[field];
+  deal.manager_q[field] = cur === null ? true : cur === true ? false : null;
+  saveDeals(); touch(id);
+  const btn = document.getElementById(`mf-${id}-${field}`);
+  if (btn) {
+    const v = deal.manager_q[field];
+    btn.className = 'map-flag ' + mqFlagClass(v);
+    btn.textContent = mqFlagLabel(field.replace('map_','').charAt(0).toUpperCase() + field.replace('map_','').slice(1), v);
+  }
+};
+
+window.saveStrategy = (id, val) => {
+  const deal = DEALS.find(d => d.id === id);
+  if (deal) { deal.strategy = val; saveDeals(); touch(id); }
+};
+
+window.saveNotes = (id, val) => {
+  const deal = DEALS.find(d => d.id === id);
+  if (deal) { deal.notes = val; saveDeals(); touch(id); }
+};
+
+window.saveCallDate = (id, field, val) => {
+  const deal = DEALS.find(d => d.id === id);
+  if (deal) { deal[field] = val; saveDeals(); touch(id); }
+};
+
+function touch(id) {
+  const el = document.getElementById(`last-updated-${id}`);
+  if (el) el.textContent = 'Last saved: ' + new Date().toLocaleTimeString();
+}
+
+function renderRisks(id) {
+  const deal = DEALS.find(d => d.id === id);
+  const el = document.getElementById(`risks-${id}`);
+  if (!deal || !el) return;
+  const sevClass = { high:'sev-high', med:'sev-med', low:'sev-low' };
+  el.innerHTML = deal.risks.map((r,i) => `
+    <div class="risk-item">
+      <span class="risk-sev ${sevClass[r.sev] || 'sev-med'}" title="Click to cycle severity" style="cursor:pointer" onclick="cycleRiskSev('${id}',${i})">${r.sev}</span>
+      <div style="flex:1">
+        <div class="risk-text" contenteditable="true" onblur="saveRisk('${id}',${i},'text',this.innerText)">${r.text}</div>
+        <div class="risk-mit" contenteditable="true" onblur="saveRisk('${id}',${i},'mit',this.innerText)">→ ${r.mit}</div>
+      </div>
+      <button class="del-btn" onclick="deleteRisk('${id}',${i})" title="Delete">×</button>
+    </div>
+  `).join('');
+}
+
+window.cycleRiskSev = (id, i) => {
+  const deal = DEALS.find(d => d.id === id);
+  const sevs = ['high','med','low'];
+  deal.risks[i].sev = sevs[(sevs.indexOf(deal.risks[i].sev) + 1) % sevs.length];
+  saveDeals(); renderRisks(id); touch(id);
+};
+
+window.saveRisk = (id, i, field, val) => {
+  const deal = DEALS.find(d => d.id === id);
+  if (deal) { deal.risks[i][field] = val.replace(/^→\s*/,'').trim(); saveDeals(); touch(id); }
+};
+
+window.addRisk = (id) => {
+  const deal = DEALS.find(d => d.id === id);
+  if (deal) { deal.risks.push({ sev:'med', text:'New risk', mit:'Mitigation TBD' }); saveDeals(); renderRisks(id); touch(id); }
+};
+window.deleteRisk = (id, i) => {
+  const d = DEALS.find(x => x.id === id);
+  if (d) { d.risks.splice(i, 1); saveDeals(); renderRisks(id); touch(id); }
+};
+
+function renderDone(id) {
+  const deal = DEALS.find(d => d.id === id);
+  const el = document.getElementById(`done-${id}`);
+  if (!deal || !el) return;
+  el.innerHTML = deal.done.map((t,i) => `
+    <div class="check-item">
+      <div class="check-box check-done">✓</div>
+      <div class="check-text done" contenteditable="true" onblur="saveDone('${id}',${i},this.innerText)" style="flex:1">${t}</div>
+      <button class="del-btn" onclick="deleteDone('${id}',${i})" title="Delete">×</button>
+    </div>
+  `).join('');
+}
+
+function renderLeft(id) {
+  const deal = DEALS.find(d => d.id === id);
+  const el = document.getElementById(`left-${id}`);
+  if (!deal || !el) return;
+  el.innerHTML = deal.left.map((t,i) => `
+    <div class="check-item">
+      <div class="check-box check-todo" title="Click to mark done" style="cursor:pointer" onclick="markDone('${id}',${i})"></div>
+      <div class="check-text" contenteditable="true" onblur="saveLeft('${id}',${i},this.innerText)" style="flex:1">${t}</div>
+      <button class="del-btn" onclick="deleteLeft('${id}',${i})" title="Delete">×</button>
+    </div>
+  `).join('');
+}
+
+window.saveDone = (id,i,v) => { const d=DEALS.find(x=>x.id===id); if(d){d.done[i]=v.trim();saveDeals();touch(id);} };
+window.saveLeft = (id,i,v) => { const d=DEALS.find(x=>x.id===id); if(d){d.left[i]=v.trim();saveDeals();touch(id);} };
+window.deleteDone = (id,i) => { const d=DEALS.find(x=>x.id===id); if(d){d.done.splice(i,1);saveDeals();renderDone(id);touch(id);} };
+window.deleteLeft = (id,i) => { const d=DEALS.find(x=>x.id===id); if(d){d.left.splice(i,1);saveDeals();renderLeft(id);touch(id);} };
+window.markDone = (id,i) => {
+  const d=DEALS.find(x=>x.id===id);
+  if(d){ const t=d.left.splice(i,1)[0]; d.done.push(t); saveDeals(); renderDone(id); renderLeft(id); touch(id); }
+};
+window.addDone = (id) => { const d=DEALS.find(x=>x.id===id); if(d){d.done.push('Completed item');saveDeals();renderDone(id);touch(id);} };
+window.addLeft = (id) => { const d=DEALS.find(x=>x.id===id); if(d){d.left.push('Remaining item');saveDeals();renderLeft(id);touch(id);} };
+
+window.addDeal = () => {
+  const name = prompt('Company name:');
+  if (!name) return;
+  const id = name.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+  DEALS.push({
+    id, name,
+    industry: 'Industry · Location',
+    stage: 'Pre-Qualified',
+    close: 'TBD',
+    se: 'TBD',
+    map_url: '',
+    proposal_url: '',
+    meddpicc: emptyMeddpicc(),
+    manager_q: { compelling_event:'', map_created:null, map_shared:null, map_agreed:null, map_notes:'', who_signs:'', urgency:'', risk_to_close:'', gut:0 },
+    strategy: '',
+    risks: [],
+    done: [],
+    left: [],
+    notes: '',
+  });
+  saveDeals();
+  renderSidebar();
+  openDeal(id);
+};
+
+(async () => {
+  renderSidebar();
+  const hash = location.hash.replace('#','');
+  let openId = hash && DEALS.find(d=>d.id===hash) ? hash : (DEALS[0] ? DEALS[0].id : null);
+  if (openId) openDeal(openId);
+
+  const remote = await fetchRemote();
+  if (remote) {
+    applyRemoteData(remote);
+  } else {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const saved = JSON.parse(raw).filter(d => !REMOVED_IDS.includes(d.id));
+        applyRemoteData({ deals: Object.fromEntries(saved.map(d => [d.id, d])) });
+      }
+    } catch(e) {}
+  }
+  renderSidebar();
+  if (openId) openDeal(openId);
+})();
 </script>
+
 </body>
 </html>
