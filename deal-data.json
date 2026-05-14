@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "updated": "2026-05-14T00:00:00.000Z",
   "deals": {
     "national-gym-supply": {
@@ -9,20 +9,70 @@
         "close": "2026-06-30",
         "pbr": 0
       },
-      "meddic": {
-        "metrics": "Revenue $7.5M, 28 employees. 500–1000 orders/day at peak. ROI not yet quantified — no TCO or Shopify uplift modeled. Urgency driver: Everest ERP end-of-life forces platform migration by Dec 2026.",
-        "economic_buyer": "Tony Meirovitz, CEO of National Gym Supply. Identified via DYODE requirements doc. Not yet directly engaged — all communication through DYODE (Tim Katz, Elana Katz). Brian Chow (IT/ERP lead) is technical gatekeeper.",
-        "decision_criteria": "Must replicate existing custom .NET modules on Shopify Plus: cable configurator, RA/repairs workflow, Cash for Course buyback, sell-parts. NetSuite as ERP target (replacing Everest). Partner ecosystem for SI implementation required.",
-        "decision_process": "Partner-introduced deal via DYODE. Requirements form sent May 2026. Next meeting May 16 for technical discovery. SE not yet assigned. Formal eval process and procurement path not yet mapped.",
-        "pain": "Everest ERP reaching end-of-life — no long-term support path. Current custom .NET platform requires full rebuild. Business pain is existential: must migrate entire ecommerce + ERP stack by Dec 2026. Highly specialized custom modules add complexity.",
-        "champion": "DYODE team (Tim Katz, co-founder; Elana Katz, Director Ops & Product) are the internal advocates driving this introduction. Brian Chow (IT/ERP) is the internal technical champion. Direct champion at NGS exec level not yet engaged."
+      "meddpicc": {
+        "metrics": {
+          "text": "Revenue $7.5M, 28 employees. 500–1000 orders/day at peak. ROI not yet quantified — no TCO or Shopify uplift modeled. Urgency driver: Everest ERP end-of-life forces platform migration by Dec 2026.",
+          "score": 0,
+          "questions": []
+        },
+        "economic_buyer": {
+          "text": "Tony Meirovitz, CEO of National Gym Supply. Identified via DYODE requirements doc. Not yet directly engaged — all communication through DYODE (Tim Katz, Elana Katz). Brian Chow (IT/ERP lead) is technical gatekeeper.",
+          "score": 0,
+          "questions": []
+        },
+        "decision_criteria": {
+          "text": "Must replicate existing custom .NET modules on Shopify Plus: cable configurator, RA/repairs workflow, Cash for Course buyback, sell-parts. NetSuite as ERP target (replacing Everest). Partner ecosystem for SI implementation required.",
+          "score": 0,
+          "questions": []
+        },
+        "decision_process": {
+          "text": "Partner-introduced deal via DYODE. Requirements form sent May 2026. Next meeting May 16 for technical discovery. SE not yet assigned. Formal eval process and procurement path not yet mapped.",
+          "score": 0,
+          "questions": []
+        },
+        "paper_process": {
+          "text": "",
+          "score": 0,
+          "questions": []
+        },
+        "identified_pain": {
+          "text": "Everest ERP reaching end-of-life — no long-term support path. Current custom .NET platform requires full rebuild. Business pain is existential: must migrate entire ecommerce + ERP stack by Dec 2026. Highly specialized custom modules add complexity.",
+          "score": 0,
+          "questions": []
+        },
+        "champion": {
+          "text": "DYODE team (Tim Katz, co-founder; Elana Katz, Director Ops & Product) are the internal advocates driving this introduction. Brian Chow (IT/ERP) is the internal technical champion. Direct champion at NGS exec level not yet engaged.",
+          "score": 0,
+          "questions": []
+        },
+        "competition": {
+          "text": "Magento",
+          "score": 1,
+          "questions": []
+        }
       },
       "strategy": "DYODE-sourced deal with real urgency — Everest EOL is a hard deadline. Priority: assign SE before May 16 tech session, confirm CEO Tony Meirovitz is engaged, and scope custom module complexity to size the deal. DYODE partnership is the key relationship to protect.",
       "risks": [
-        { "sev": "high", "text": "SE not yet assigned — tech session May 16 at risk", "mit": "Escalate SE assignment immediately. Prepare technical discovery brief before call." },
-        { "sev": "high", "text": "PBR $0 — no commercial signal", "mit": "Get ballpark scope from SE on custom module complexity. Establish PBR before close date." },
-        { "sev": "med", "text": "Custom modules (cable configurator, RA/repairs, Cash for Course) may require heavy SI investment", "mit": "Quantify rebuild scope with SE before committing to solution. Surface SI partner options." },
-        { "sev": "med", "text": "Close date Jun 30 is aspirational given Pre-Qualified stage", "mit": "Align close date to realistic timeline post-SE engagement and requirements review." }
+        {
+          "sev": "high",
+          "text": "SE not yet assigned — tech session May 16 at risk",
+          "mit": "Escalate SE assignment immediately. Prepare technical discovery brief before call."
+        },
+        {
+          "sev": "high",
+          "text": "PBR $0 — no commercial signal",
+          "mit": "Get ballpark scope from SE on custom module complexity. Establish PBR before close date."
+        },
+        {
+          "sev": "med",
+          "text": "Custom modules (cable configurator, RA/repairs, Cash for Course) may require heavy SI investment",
+          "mit": "Quantify rebuild scope with SE before committing to solution. Surface SI partner options."
+        },
+        {
+          "sev": "med",
+          "text": "Close date Jun 30 is aspirational given Pre-Qualified stage",
+          "mit": "Align close date to realistic timeline post-SE engagement and requirements review."
+        }
       ],
       "done": [
         "Requirements doc received via DYODE — full custom module requirements documented",
@@ -38,6 +88,17 @@
       "notes": "Introduced via DYODE partner (Tim Katz). Everest ERP EOL is the forcing function. Company does 500–1000 peak orders/day, $7.5M revenue, 28 employees, Louisville CO area. Highly specialized custom modules: cable configurator, RA/repairs, Cash for Course buyback, sell-parts. These are mission-critical and will require a capable SI partner.",
       "last_call": "2026-05-05",
       "next_call": "2026-05-16",
+      "manager_q": {
+        "compelling_event": "",
+        "map_created": null,
+        "map_shared": null,
+        "map_agreed": null,
+        "map_notes": "",
+        "who_signs": "",
+        "urgency": "",
+        "risk_to_close": "",
+        "gut": 0
+      },
       "forecast": null
     },
     "allen-company": {
@@ -47,20 +108,70 @@
         "close": "2026-08-31",
         "pbr": 115755
       },
-      "meddic": {
-        "metrics": "DTC online revenue ~$500K (excl. ~$1.5M acquisition brand just added). B2B online only ~$50K last year — vast majority of B2B done offline through reps/fax/email. Cost comparison: NetSuite SuiteCommerce = 3x current Magento spend. Total wholesale revenue unknown (Alli does not own that P&L).",
-        "economic_buyer": "Not yet identified above Alli Boggs. Alli (Director of E-commerce) is primary contact and evaluator but flagged cost as a constraint she cannot unilaterally approve — final sign-off is above her. Buying committee not yet mapped.",
-        "decision_criteria": "Must be cheaper than NetSuite SuiteCommerce (~3x Magento). Requires: NetSuite ERP feed for custom pricing + case pack configs, no-code site updates (Sidekick/AI), sales rep portal access to customer orders and tracking. Plus vs Advanced still an open question given DTC revenue size ($500K).",
-        "decision_process": "Mercedes to send Plus vs Advanced comparison materials by Mon May 11. Alli to review. Technical follow-up scheduled after Allen DTC site #2 launches (~May 12–13). Broader buying committee and paper process not yet mapped.",
-        "pain": "Adobe Commerce (Magento) requires dev/IT consultant for simple site changes (banners, video). Two separate Magento instances (DTC + B2B) = operational overhead. B2B portal adoption near zero — reps still use fax/email/CS manually. Evaluating NetSuite SuiteCommerce as B2B replacement but it is 3x cost and Alli is not excited about it.",
-        "champion": "Alli Boggs (Director of E-commerce). Engaged and enthusiastic about Shopify, driving the evaluation. Low financial authority — final say likely above her. Julie Marcott (AE buddy) co-owns relationship and joined May 7 call."
+      "meddpicc": {
+        "metrics": {
+          "text": "DTC online revenue ~$500K (excl. ~$1.5M acquisition brand just added). B2B online only ~$50K last year — vast majority of B2B done offline through reps/fax/email. Cost comparison: NetSuite SuiteCommerce = 3x current Magento spend. Total wholesale revenue unknown (Alli does not own that P&L).",
+          "score": 0,
+          "questions": []
+        },
+        "economic_buyer": {
+          "text": "Not yet identified above Alli Boggs. Alli (Director of E-commerce) is primary contact and evaluator but flagged cost as a constraint she cannot unilaterally approve — final sign-off is above her. Buying committee not yet mapped.",
+          "score": 0,
+          "questions": []
+        },
+        "decision_criteria": {
+          "text": "Must be cheaper than NetSuite SuiteCommerce (~3x Magento). Requires: NetSuite ERP feed for custom pricing + case pack configs, no-code site updates (Sidekick/AI), sales rep portal access to customer orders and tracking. Plus vs Advanced still an open question given DTC revenue size ($500K).",
+          "score": 0,
+          "questions": []
+        },
+        "decision_process": {
+          "text": "Mercedes to send Plus vs Advanced comparison materials by Mon May 11. Alli to review. Technical follow-up scheduled after Allen DTC site #2 launches (~May 12–13). Broader buying committee and paper process not yet mapped.",
+          "score": 0,
+          "questions": []
+        },
+        "paper_process": {
+          "text": "",
+          "score": 0,
+          "questions": []
+        },
+        "identified_pain": {
+          "text": "Adobe Commerce (Magento) requires dev/IT consultant for simple site changes (banners, video). Two separate Magento instances (DTC + B2B) = operational overhead. B2B portal adoption near zero — reps still use fax/email/CS manually. Evaluating NetSuite SuiteCommerce as B2B replacement but it is 3x cost and Alli is not excited about it.",
+          "score": 0,
+          "questions": []
+        },
+        "champion": {
+          "text": "Alli Boggs (Director of E-commerce). Engaged and enthusiastic about Shopify, driving the evaluation. Low financial authority — final say likely above her. Julie Marcott (AE buddy) co-owns relationship and joined May 7 call.",
+          "score": 0,
+          "questions": []
+        },
+        "competition": {
+          "text": "",
+          "score": 0,
+          "questions": []
+        }
       },
       "strategy": "DTC migration to Shopify Advanced is already happening across 4–5 brands. The strategic prize is native B2B on Plus — winning this before Alli gets locked into NetSuite SuiteCommerce. Competitive window: Alli explicitly said she is not excited about NetSuite for B2B. Priority: Plus vs Advanced comparison by Mon May 11, then technical call with SE to close the loop on case packs + ERP feed objections.",
       "risks": [
-        { "sev": "high", "text": "Economic buyer not identified — Alli may not have budget authority for Plus", "mit": "Identify EB on next technical call. Frame Plus ROI around B2B growth and dealer adoption to get exec attention." },
-        { "sev": "high", "text": "DTC revenue ($500K) may not justify Plus pricing — Advanced may be ceiling", "mit": "Model Plus pricing relative to B2B growth potential. If Plus requires >$30K/year, deal may stay on Advanced." },
-        { "sev": "med", "text": "B2B timeline undefined — DTC migration could push B2B decision to Q4+", "mit": "Send materials by Mon May 11, schedule technical call proactively. Don't let B2B become a 2027 conversation." },
-        { "sev": "med", "text": "NetSuite SuiteCommerce still on table as B2B option", "mit": "Price delta (3x) is our best defense. Keep SuiteCommerce comparison explicit in materials." }
+        {
+          "sev": "high",
+          "text": "Economic buyer not identified — Alli may not have budget authority for Plus",
+          "mit": "Identify EB on next technical call. Frame Plus ROI around B2B growth and dealer adoption to get exec attention."
+        },
+        {
+          "sev": "high",
+          "text": "DTC revenue ($500K) may not justify Plus pricing — Advanced may be ceiling",
+          "mit": "Model Plus pricing relative to B2B growth potential. If Plus requires >$30K/year, deal may stay on Advanced."
+        },
+        {
+          "sev": "med",
+          "text": "B2B timeline undefined — DTC migration could push B2B decision to Q4+",
+          "mit": "Send materials by Mon May 11, schedule technical call proactively. Don't let B2B become a 2027 conversation."
+        },
+        {
+          "sev": "med",
+          "text": "NetSuite SuiteCommerce still on table as B2B option",
+          "mit": "Price delta (3x) is our best defense. Keep SuiteCommerce comparison explicit in materials."
+        }
       ],
       "done": [
         "Discovery call May 7 — Adobe Commerce pain documented, B2B requirements surfaced",
@@ -77,7 +188,8 @@
       ],
       "notes": "Director of E-commerce Alli Boggs (allison.boggs@allencompany.net) is primary contact. DTC already migrating to Shopify Advanced across 4–5 brands. B2B is the strategic play — currently $50K online but large offline dealer network (gun shops, ranges) not digitized. ERP: NetSuite. DTC off Magento by mid-to-late June. Competing with NetSuite SuiteCommerce which Alli finds uninspiring and 3x cost. Shopify Payments cleared May 5.",
       "last_call": "2026-05-07",
-      "next_call": null,
+      "next_call": "",
+      "manager_q": {},
       "forecast": null
     },
     "caravela-coffee": {
@@ -87,20 +199,70 @@
         "close": "2026-09-30",
         "pbr": 110882
       },
-      "meddic": {
-        "metrics": "Revenue ~$35M, ~200 employees, London HQ. 90% of revenue is wholesale — almost entirely undigitized. ROI hypothesis: digitizing wholesale ordering could significantly reduce manual CS overhead and improve buyer experience for international accounts. No metrics quantified yet.",
-        "economic_buyer": "Not yet identified. Nicole Freydell is primary contact (role/seniority unclear). No executive sponsor or budget owner mapped.",
-        "decision_criteria": "Not yet fully surfaced. Known needs: B2B portal for specialty coffee wholesale buyers, integration requirements TBD (IT Director joining next call), multi-currency likely required (London HQ, international accounts).",
-        "decision_process": "Transferred from Grant Dugas (SDR, who declined intro meeting). Intro call Apr 29 with Nicole. Technical deep dive pending — IT Director joining next call. Formal eval criteria, competing platforms, and wider stakeholders beyond Nicole all unknown.",
-        "pain": "90% of business is wholesale and almost none of it is digitized — customers ordering manually. WooCommerce DTC site not meeting B2B needs. Nicole confirmed desire for a B2B wholesale portal to replace manual processes.",
-        "champion": "Nicole Freydell is engaged but title, seniority, and internal influence are unknown. No confirmed champion with budget authority."
+      "meddpicc": {
+        "metrics": {
+          "text": "Revenue ~$35M, ~200 employees, London HQ. 90% of revenue is wholesale — almost entirely undigitized. ROI hypothesis: digitizing wholesale ordering could significantly reduce manual CS overhead and improve buyer experience for international accounts. No metrics quantified yet.",
+          "score": 0,
+          "questions": []
+        },
+        "economic_buyer": {
+          "text": "Not yet identified. Nicole Freydell is primary contact (role/seniority unclear). No executive sponsor or budget owner mapped.",
+          "score": 0,
+          "questions": []
+        },
+        "decision_criteria": {
+          "text": "Not yet fully surfaced. Known needs: B2B portal for specialty coffee wholesale buyers, integration requirements TBD (IT Director joining next call), multi-currency likely required (London HQ, international accounts).",
+          "score": 0,
+          "questions": []
+        },
+        "decision_process": {
+          "text": "Transferred from Grant Dugas (SDR, who declined intro meeting). Intro call Apr 29 with Nicole. Technical deep dive pending — IT Director joining next call. Formal eval criteria, competing platforms, and wider stakeholders beyond Nicole all unknown.",
+          "score": 0,
+          "questions": []
+        },
+        "paper_process": {
+          "text": "",
+          "score": 0,
+          "questions": []
+        },
+        "identified_pain": {
+          "text": "90% of business is wholesale and almost none of it is digitized — customers ordering manually. WooCommerce DTC site not meeting B2B needs. Nicole confirmed desire for a B2B wholesale portal to replace manual processes.",
+          "score": 0,
+          "questions": []
+        },
+        "champion": {
+          "text": "Nicole Freydell is engaged but title, seniority, and internal influence are unknown. No confirmed champion with budget authority.",
+          "score": 0,
+          "questions": []
+        },
+        "competition": {
+          "text": "",
+          "score": 0,
+          "questions": []
+        }
       },
       "strategy": "THIN — 2/16 MEDDPICC. This deal needs discovery depth before it can advance. Priority on next call: surface economic buyer and IT Director's authority, quantify the wholesale order volume pain (how many orders/day, how much manual work), and identify competing platforms being evaluated. The 90% wholesale angle is a perfect B2B story — but it needs a champion with authority.",
       "risks": [
-        { "sev": "high", "text": "THIN QUALIFICATION: EB, competition, and decision criteria all unknown", "mit": "Next call must surface EB and IT Director's role. Treat as a discovery call, not a demo." },
-        { "sev": "high", "text": "Transferred deal — Nicole's context and motivation are unclear", "mit": "Understand why Grant declined the intro. Ensure Nicole has real authority to drive a decision." },
-        { "sev": "med", "text": "International HQ (London) may introduce VAT/compliance and multi-currency complexity", "mit": "Confirm region and currency requirements before proposing solution." },
-        { "sev": "med", "text": "No stated internal deadline or project trigger", "mit": "Surface urgency on next call — what's forcing action now?" }
+        {
+          "sev": "high",
+          "text": "THIN QUALIFICATION: EB, competition, and decision criteria all unknown",
+          "mit": "Next call must surface EB and IT Director's role. Treat as a discovery call, not a demo."
+        },
+        {
+          "sev": "high",
+          "text": "Transferred deal — Nicole's context and motivation are unclear",
+          "mit": "Understand why Grant declined the intro. Ensure Nicole has real authority to drive a decision."
+        },
+        {
+          "sev": "med",
+          "text": "International HQ (London) may introduce VAT/compliance and multi-currency complexity",
+          "mit": "Confirm region and currency requirements before proposing solution."
+        },
+        {
+          "sev": "med",
+          "text": "No stated internal deadline or project trigger",
+          "mit": "Surface urgency on next call — what's forcing action now?"
+        }
       ],
       "done": [
         "Intro call Apr 29 — confirmed B2B wholesale need, platform is WooCommerce (DTC)",
@@ -115,7 +277,8 @@
       ],
       "notes": "Specialty coffee B2B wholesale, 90% wholesale, $35M rev, ~200 employees, London HQ. Contact: Nicole Freydell (nicole.freydell@caravela.coffee). Transferred from Grant Dugas (SDR). Current platform: WooCommerce (DTC only). IT Director joining next call — critical discovery session. International business — confirm multi-currency, VAT, and ERP context.",
       "last_call": "2026-04-29",
-      "next_call": null,
+      "next_call": "",
+      "manager_q": {},
       "forecast": null
     },
     "artificial-turf-supply": {
@@ -125,20 +288,70 @@
         "close": "2026-10-30",
         "pbr": 165689
       },
-      "meddic": {
-        "metrics": "PBR $165K. Business revenue, order volume, and SKU count not yet captured in discovery. ROI case not yet built — integration replacement (Salesforce + Sage) is the stated driver.",
-        "economic_buyer": "Not yet identified. Kyle Boyd (kyle@artificialturfsupply.com) is primary contact but title and budget authority unknown. No executive sponsor mapped.",
-        "decision_criteria": "Q4 go-live target (Oct 2026). Build starts July. Must integrate with Salesforce (CRM) and Sage (ERP/accounting) to replace legacy systems. Specific integration data flows not yet documented.",
-        "decision_process": "Technical discovery completed May 5 with Kyle Boyd and Jordan Murphy (SE). Next meeting first week of July after build scope is confirmed. Formal eval process, competitive shortlist, and other stakeholders not yet mapped.",
-        "pain": "Legacy Salesforce + Sage integrations require replacement — current setup creating operational friction. Q4 switchover is a stated business target with build starting July, indicating real urgency to decide quickly.",
-        "champion": "Kyle Boyd is engaged and actively moving the deal forward with Jordan Murphy (SE). Authority level not confirmed. Jordan Murphy is engaged as SE champion on the Shopify side."
+      "meddpicc": {
+        "metrics": {
+          "text": "PBR $165K. Business revenue, order volume, and SKU count not yet captured in discovery. ROI case not yet built — integration replacement (Salesforce + Sage) is the stated driver.",
+          "score": 0,
+          "questions": []
+        },
+        "economic_buyer": {
+          "text": "Not yet identified. Kyle Boyd (kyle@artificialturfsupply.com) is primary contact but title and budget authority unknown. No executive sponsor mapped.",
+          "score": 0,
+          "questions": []
+        },
+        "decision_criteria": {
+          "text": "Q4 go-live target (Oct 2026). Build starts July. Must integrate with Salesforce (CRM) and Sage (ERP/accounting) to replace legacy systems. Specific integration data flows not yet documented.",
+          "score": 0,
+          "questions": []
+        },
+        "decision_process": {
+          "text": "Technical discovery completed May 5 with Kyle Boyd and Jordan Murphy (SE). Next meeting first week of July after build scope is confirmed. Formal eval process, competitive shortlist, and other stakeholders not yet mapped.",
+          "score": 0,
+          "questions": []
+        },
+        "paper_process": {
+          "text": "",
+          "score": 0,
+          "questions": []
+        },
+        "identified_pain": {
+          "text": "Legacy Salesforce + Sage integrations require replacement — current setup creating operational friction. Q4 switchover is a stated business target with build starting July, indicating real urgency to decide quickly.",
+          "score": 0,
+          "questions": []
+        },
+        "champion": {
+          "text": "Kyle Boyd is engaged and actively moving the deal forward with Jordan Murphy (SE). Authority level not confirmed. Jordan Murphy is engaged as SE champion on the Shopify side.",
+          "score": 0,
+          "questions": []
+        },
+        "competition": {
+          "text": "",
+          "score": 0,
+          "questions": []
+        }
       },
       "strategy": "THIN — 4/16 MEDDPICC. SE Jordan Murphy is the key asset here — leverage the July meeting to surface economic buyer, build the ROI case, and nail down integration scope for Salesforce + Sage before the July build start. The July gap (now to July) is 6+ weeks dark — stay in touch with Kyle to maintain momentum.",
       "risks": [
-        { "sev": "high", "text": "THIN QUALIFICATION: EB not identified, metrics not captured", "mit": "July meeting must surface EB and business case. Prep Jordan with EB discovery questions." },
-        { "sev": "high", "text": "6-week gap May → July — deal can go cold", "mit": "Monthly check-in with Kyle. Send value-add content (integration docs, case studies) to stay top of mind." },
-        { "sev": "med", "text": "Salesforce + Sage integration complexity could extend timeline past Q4", "mit": "SE Jordan Murphy to map integration scope in July session. Identify certified SI partner early." },
-        { "sev": "med", "text": "No competitive intel — unknown what alternatives are being evaluated", "mit": "Ask Kyle directly on next check-in: who else are you talking to?" }
+        {
+          "sev": "high",
+          "text": "THIN QUALIFICATION: EB not identified, metrics not captured",
+          "mit": "July meeting must surface EB and business case. Prep Jordan with EB discovery questions."
+        },
+        {
+          "sev": "high",
+          "text": "6-week gap May → July — deal can go cold",
+          "mit": "Monthly check-in with Kyle. Send value-add content (integration docs, case studies) to stay top of mind."
+        },
+        {
+          "sev": "med",
+          "text": "Salesforce + Sage integration complexity could extend timeline past Q4",
+          "mit": "SE Jordan Murphy to map integration scope in July session. Identify certified SI partner early."
+        },
+        {
+          "sev": "med",
+          "text": "No competitive intel — unknown what alternatives are being evaluated",
+          "mit": "Ask Kyle directly on next check-in: who else are you talking to?"
+        }
       ],
       "done": [
         "Technical discovery call May 5 with Kyle Boyd + Jordan Murphy (SE)",
@@ -155,18 +368,8 @@
       "notes": "Contact: Kyle Boyd (kyle@artificialturfsupply.com). SE: Jordan Murphy (jordan.murphy@shopify.com). Technical discovery May 5. Build starts July, Q4 go-live target. Integrations: Salesforce (CRM) + Sage (ERP/accounting) replacing legacy. Next meeting 1st week of July.",
       "last_call": "2026-05-05",
       "next_call": "2026-07-01",
+      "manager_q": {},
       "forecast": null
     }
-  },
-  "closed_won": {
-    "fy": { "year": 2026, "count": 0, "pbr": 0 },
-    "current_quarter": "Q2",
-    "quarters": {
-      "Q1": { "year": 2026, "count": 0, "pbr": 0, "deals": [] },
-      "Q2": { "year": 2026, "count": 0, "pbr": 0, "deals": [] },
-      "Q3": { "year": 2026, "count": 0, "pbr": 0, "deals": [] },
-      "Q4": { "year": 2026, "count": 0, "pbr": 0, "deals": [] }
-    },
-    "updated": "2026-05-14T00:00:00.000Z"
   }
 }
