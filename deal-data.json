@@ -37,7 +37,7 @@
         },
         "identified_pain": {
           "text": "Legacy ERP (~20 years old) creates extreme site lag — 700+ individual API calls per part lookup. Current site not mobile-friendly (Google SEO penalties). Previous $250K replatform failed: not vetted, not tested, slammed to production — customers reverted immediately. Large B2B customers (24 Hour Fitness, LA Fitness) send 75–100 line item POs that CS agents manually key. Two warehouse locations cause double shipping charges and inability to mix cart items from both. Old failed site still being indexed by Google (Tony actioning).",
-          "score": 0,
+          "score": 2,
           "questions": []
         },
         "champion": {
