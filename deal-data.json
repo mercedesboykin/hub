@@ -1,6 +1,6 @@
 {
-  "version": 4,
-  "updated": "2026-05-14T00:00:00.000Z",
+  "version": 5,
+  "updated": "2026-05-21T00:00:00.000Z",
   "deals": {
     "national-gym-supply": {
       "sf": {
@@ -12,22 +12,22 @@
       "se": "Jordan Murphy",
       "meddpicc": {
         "metrics": {
-          "text": "Revenue $7.5M, 28 employees. 500–1000 orders/day at peak. PBR $120K. Nov 2026 go-live target drives urgency — 5-6 month build means July contract start is the drop-dead point. Everest ERP EOL is the existential forcing function.",
+          "text": "Revenue ~$12M GMV (internal estimate — Tony has not confirmed actuals). 300–400 orders/day including quotes and repair authorizations; 60% through website, 40% via phone/manual PO. 65–70% straight price book purchases, 30–35% custom quoting. 40,000 SKU-intensive catalog — market leader in fitness equipment parts space. Previous failed replatform cost $250K+. Soft launch target: EOY 2026. Full relaunch: early 2027.",
           "score": 0,
           "questions": []
         },
         "economic_buyer": {
-          "text": "Tony Meirovitz, VP of E-commerce — confirmed primary DM (Tim Katz: 'he trusts us so much, not one iota of debate'). Tony has BigCommerce background from prior role but DYODE and Intech's own Shopify setup have already reaffirmed Shopify direction. Tony is joining the May 20 discovery call directly.",
+          "text": "Vince Smith (Interim CEO / Chairman, PE firm) is the real economic buyer — has empowered Tony to 'just go' with no lengthy approval process. Tony Meirovitz (VP E-commerce, 4 weeks tenure) is DM for day-to-day decisions; oversees E-commerce, Marketing, and Customer Service. Mike Montoy (Head of Operations, 22+ years) is key operational stakeholder. All three attended May 20 discovery call.",
           "score": 0,
           "questions": []
         },
         "decision_criteria": {
-          "text": "Modern website redesign + ease of use for internal team. Unique branded B2B customer portal per company (Shopify B2B company model confirmed as fit). Flat file ERP integration interim until NetSuite is ready (Everest integration dropped). Must replicate custom modules: cable configurator, RA/repairs, Cash for Course buyback, sell-parts. SI partner required for build.",
+          "text": "B2B + D2C on Shopify Plus. Jordan confirmed 80% OOB Shopify (meta fields + meta objects); 20% custom with DYODE. Custom modules: cable CPQ (fixed labor + component retail cost), electronics exchange and buyback program (separate pricing tier), repair return shipping labels (UPS API). Four-tier B2B pricing with volume discounts. Net 30 terms standard; credit card payments primary. Consolidated single shipping charge from two warehouses (LA electronics + Illinois general parts). Shopify native search first — upgrade to Algolia later only if needed (Tony has SearchSpring scar tissue). Flat file ERP bridge until NetSuite migration (before April 2027). AI/agentic commerce via Universal Commerce Protocol (auto-on with Shopify). AutoZone-style make/model/brand → parts filter with PDF line drawings and installation videos.",
           "score": 0,
           "questions": []
         },
         "decision_process": {
-          "text": "SE Jordan Murphy assigned — already prepping integration approach. Technical discovery May 20 4pm with Tony Meirovitz, Jordan Murphy, DYODE (Tim Katz, Elana K.). Evaluation hub shared with DYODE and being forwarded to Tony pre-call. Tim Katz requesting contract reviews start in parallel within 2 weeks. Formal procurement path not yet mapped.",
+          "text": "DYODE (Tim Katz co-founder, Elana K. Director Ops & Product, Paul Sr. Dev/SA, Kevin Stites Director Web Dev) is confirmed implementation partner. May 20 discovery completed — Tony, Mike Montoy, Vince Smith attended. Next: Jordan + Mercedes reconnect with DYODE (Tim/Elana) to plan broader team demo. Mercedes proposed parallel contract review on call; Tony confirmed Vince moves fast with no lengthy approvals. Formal procurement path not yet mapped.",
           "score": 0,
           "questions": []
         },
@@ -37,70 +37,73 @@
           "questions": []
         },
         "identified_pain": {
-          "text": "Everest ERP reaching end-of-life — no long-term support path. Current custom .NET platform requires full rebuild. Business pain is existential: must migrate entire ecommerce + ERP stack by Dec 2026. Highly specialized custom modules add complexity. Website is outdated — internal team cannot make basic updates without dev support.",
+          "text": "Legacy ERP (~20 years old) creates extreme site lag — 700+ individual API calls per part lookup. Current site not mobile-friendly (Google SEO penalties). Previous $250K replatform failed: not vetted, not tested, slammed to production — customers reverted immediately. Large B2B customers (24 Hour Fitness, LA Fitness) send 75–100 line item POs that CS agents manually key. Two warehouse locations cause double shipping charges and inability to mix cart items from both. Old failed site still being indexed by Google (Tony actioning).",
           "score": 0,
           "questions": []
         },
         "champion": {
-          "text": "DYODE team (Tim Katz, co-founder; Elana K., Director Ops & Product) are internal advocates driving the introduction and actively pushing Shopify direction. Tony Meirovitz (VP E-comm) is DM — trusts DYODE's recommendation fully. Intech (sister company) already setting up Shopify Basic store, which strengthens Shopify preference going into Tony's first call.",
+          "text": "DYODE team (Tim Katz, Elana K., Paul SA, Kevin Stites) are strongest advocates — Tim: 'only group I would trust.' Tony Meirovitz (VP E-comm) is DM — 20+ years e-commerce experience, prior Shopify familiarity, DYODE ally. Vince Smith (Interim CEO/Chairman, PE) is executive sponsor who moves fast. Jordan Murphy (SE) confirmed 80% OOB Shopify fit on May 20 call.",
           "score": 0,
           "questions": []
         },
         "competition": {
-          "text": "BigCommerce — Tony's previous company used BigCommerce. Tim Katz and Elana K. are firmly Shopify ('not one iota of debate'). Evaluation hub includes Shopify vs BigCommerce comparison at DYODE's request to help Tony confirm direction.",
+          "text": "No direct competitors mentioned. Previous platform was a bespoke custom .NET site. Evaluating Shopify vs status quo rebuild. BigCommerce not raised. Tony has prior Shopify experience.",
           "score": 1,
           "questions": []
         }
       },
-      "strategy": "Strong DYODE-sourced deal with confirmed DM (Tony) joining May 20. Priority: nail the discovery call — surface Tony's specific requirements, validate custom module scope with Jordan Murphy, and confirm contract start timeline. Tim Katz wants parallel contract pathing within 2 weeks — push for a Jul 15 close. DYODE relationship is the key asset to protect.",
+      "strategy": "Discovery complete — Tony confirmed Shopify direction, Vince (PE/Interim CEO) is economic buyer with mandate to move fast. DYODE (Paul + Kevin) are the confirmed build team. Jordan confirmed 80% OOB Shopify on May 20. Critical path: (1) schedule DYODE reconnect + broader team demo, (2) send contracts for parallel review (Vince = fast approvals), (3) scope custom modules (cable CPQ, electronics exchange) and identify app vs custom route. Timeline: EOY 2026 soft launch → early 2027 full relaunch — contract must close Q3 2026.",
       "risks": [
         {
           "sev": "high",
-          "text": "Custom modules (cable configurator, RA/repairs, Cash for Course) — scope complexity unknown",
-          "mit": "Jordan Murphy to assess module complexity on May 20 discovery call. Identify SI partner options early."
+          "text": "Custom module scope — cable CPQ, electronics exchange/buyback, repair return labels. Tony 'a little nervous' about customization. Must confirm app vs custom route with DYODE.",
+          "mit": "DYODE (Paul SA) to assess at next reconnect. Identify Shopify app options for CPQ and exchange programs before scoping custom dev."
         },
         {
           "sev": "high",
-          "text": "Contract review parallel path — Tim Katz requested within 2 weeks; Shopify legal/commercial not yet engaged",
-          "mit": "Kick off contract review process after May 20 call. Loop in Shopify commercial team ASAP."
+          "text": "Revenue/GMV not confirmed on May 20 call — Tony hasn't shared actuals. $12M is internal estimate. Affects Shopify Plus pricing conversation.",
+          "mit": "Ask Tony directly for 2025 revenue numbers on DYODE reconnect call."
         },
         {
           "sev": "med",
-          "text": "Jul 15 close date is aggressive for Envision stage — design + scoping must complete before contract",
-          "mit": "Align on realistic timeline at May 20 — confirm July start is achievable given 5-6 month build."
+          "text": "Jul 15 close date — soft launch EOY 2026 requires Q3 contract; Vince moves fast but DYODE quote turnaround time unknown.",
+          "mit": "Align on timeline at DYODE reconnect. Confirm July build start is achievable given 5-6 month build."
         },
         {
           "sev": "med",
-          "text": "Flat file ERP interim approach — technical unknowns around data structure and Shopify integration points",
-          "mit": "Jordan Murphy to define flat file integration spec at discovery call. Document before contract signed."
+          "text": "Search is Tony's top priority — SearchSpring scar tissue means bar is high. Shopify native search must be validated before commit.",
+          "mit": "Demo Shopify search and discovery on broader team call. Confirm serial number and part number fuzzy matching meets requirements."
         }
       ],
       "done": [
         "Requirements doc received via DYODE — full custom module requirements documented",
-        "Key stakeholders identified: Tony Meirovitz (VP E-comm / DM), Tim Katz (DYODE), Elana K. (DYODE)",
-        "DYODE Reconnect May 15 — Tony DM confirmed, evaluation hub shared and accepted, flat file ERP approach aligned, SE Jordan Murphy engaged",
+        "Key stakeholders identified: Tony Meirovitz (VP E-comm/DM), Tim Katz (DYODE), Elana K. (DYODE)",
+        "DYODE Reconnect May 15 — Tony DM confirmed, evaluation hub shared, flat file ERP aligned, SE Jordan Murphy engaged",
         "Evaluation hub (national-gym-supply-shopify.quick.shopify.io) built and shared with DYODE for Tony",
-        "Intech (sister co.) on Shopify Basic — strengthens Shopify preference entering discovery"
+        "Intech (sister co.) on Shopify Basic — strengthens Shopify preference",
+        "May 20 discovery call completed — Tony, Mike Montoy, Vince Smith attended. All critical requirements validated: 4-tier pricing, cable CPQ, electronics exchange, consolidated shipping, search. Jordan confirmed 80% OOB Shopify fit.",
+        "Contracts: Mercedes proposed parallel review on May 20 call — Tony confirmed Vince (PE/Interim CEO) moves fast with no lengthy approvals"
       ],
       "left": [
-        "Lead discovery call May 20 4pm — surface Tony's requirements, validate custom module scope with Jordan Murphy",
-        "Kick off contract review parallel path (Tim Katz requested within 2 weeks of May 15)",
-        "Update evaluation hub with flat file ERP approach and accelerated July timeline",
-        "Confirm Jul 15 close date with Tony on May 20 call",
-        "Scope custom module complexity and identify SI partner"
+        "Schedule DYODE reconnect (Tim/Elana) for next steps + broader team demo",
+        "Send contracts for legal review (Vince = fast approvals, PE-backed urgency)",
+        "Confirm actual GMV/revenue numbers — Tony hasn't shared actuals yet",
+        "Align on Jul 15 close path — EOY 2026 soft launch requires Q3 contract",
+        "Map custom module scope with DYODE: cable CPQ, electronics exchange — app vs custom route",
+        "Tony to suppress old mothballed site still being indexed by Google"
       ],
-      "notes": "Introduced via DYODE partner (Tim Katz). Everest ERP EOL is the forcing function. Company does 500–1000 peak orders/day, $7.5M revenue, 28 employees, Louisville CO area. Highly specialized custom modules: cable configurator, RA/repairs, Cash for Course buyback, sell-parts. Evaluation hub shared pre-call. Tony joining May 20 discovery call.",
-      "last_call": "2026-05-15",
-      "next_call": "2026-05-20",
+      "notes": "Introduced via DYODE partner (Tim Katz). Legacy ERP EOL + $250K failed replatform are the forcing functions. 300-400 orders/day, ~$12M GMV est., 40K SKUs. 'AutoZone for fitness equipment parts' — make/model/brand → parts filter. Two warehouses: LA (electronics repair), Illinois (general parts). Key attendees May 20: Tony Meirovitz (VP E-comm, tmeirovitz@gympart.com), Mike Montoy (Head of Ops, mmontoy@gympart.com), Vince Smith (Interim CEO/Chairman, vsmith@gympart.com). DYODE: Tim Katz (tim@dyode.com), Elana K., Paul (paul@dyode.com), Kevin Stites (kevin.stites@dyode.com).",
+      "last_call": "2026-05-20",
+      "next_call": "",
       "manager_q": {
-        "compelling_event": "Everest ERP EOL — must migrate by Dec 2026. November go-live target.",
+        "compelling_event": "Legacy ERP EOL + $250K failed replatform. EOY 2026 soft launch target.",
         "map_created": null,
         "map_shared": null,
         "map_agreed": null,
         "map_notes": "",
-        "who_signs": "Tony Meirovitz (VP E-commerce)",
-        "urgency": "July build start required for Nov launch — contract must close by mid-July",
-        "risk_to_close": "Custom module scope unknown; contract review not yet started",
+        "who_signs": "Vince Smith (Interim CEO / Chairman)",
+        "urgency": "EOY 2026 soft launch — Q3 contract required. Vince empowered to move fast.",
+        "risk_to_close": "Custom module scope unknown; contracts not yet sent",
         "gut": 0
       },
       "forecast": null
@@ -220,7 +223,7 @@
           "questions": []
         },
         "decision_process": {
-          "text": "Transferred from Grant Dugas (SDR, who declined intro meeting). Intro call Apr 29 with Nicole. Technical deep dive pending — IT Director joining next call. Formal eval criteria, competing platforms, and wider stakeholders beyond Nicole all unknown.",
+          "text": "Transferred from Grant Dugas (SDR, who declined intro meeting). Intro call Apr 29 with Nicole. Jordan Murphy (SE) joined the deal and team is on Microsoft Teams. Technical deep dive May 26 — IT Director joining. Formal eval criteria, competing platforms, and wider stakeholders all unknown.",
           "score": 0,
           "questions": []
         },
@@ -245,12 +248,12 @@
           "questions": []
         }
       },
-      "strategy": "THIN — 2/16 MEDDPICC. This deal needs discovery depth before it can advance. Priority on next call: surface economic buyer and IT Director's authority, quantify the wholesale order volume pain (how many orders/day, how much manual work), and identify competing platforms being evaluated. The 90% wholesale angle is a perfect B2B story — but it needs a champion with authority.",
+      "strategy": "THIN — 2/16 MEDDPICC. This deal needs discovery depth before it can advance. Priority on May 26 call: surface economic buyer and IT Director's authority, quantify the wholesale order volume pain (how many orders/day, how much manual work), and identify competing platforms being evaluated. The 90% wholesale angle is a perfect B2B story — but it needs a champion with authority.",
       "risks": [
         {
           "sev": "high",
           "text": "THIN QUALIFICATION: EB, competition, and decision criteria all unknown",
-          "mit": "Next call must surface EB and IT Director's role. Treat as a discovery call, not a demo."
+          "mit": "May 26 call must surface EB and IT Director's role. Treat as a discovery call, not a demo."
         },
         {
           "sev": "high",
@@ -270,16 +273,16 @@
       ],
       "done": [
         "Intro call Apr 29 — confirmed B2B wholesale need, platform is WooCommerce (DTC)",
-        "Technical deep dive scheduled with IT Director joining"
+        "Jordan Murphy (SE) joined the deal",
+        "Technical deep dive scheduled May 26 — IT Director joining via Microsoft Teams"
       ],
       "left": [
-        "Surface economic buyer on next call",
-        "Understand IT Director's role and technical requirements",
+        "Lead technical deep dive May 26 — surface EB, IT Director's role, decision criteria",
         "Quantify wholesale order volume and manual processing overhead",
         "Identify competing platforms being evaluated",
         "Map buying committee and decision criteria"
       ],
-      "notes": "Specialty coffee B2B wholesale, 90% wholesale, $35M rev, ~200 employees, London HQ. Contact: Nicole Freydell (nicole.freydell@caravela.coffee). Transferred from Grant Dugas (SDR). Current platform: WooCommerce (DTC only). IT Director joining next call — critical discovery session. International business — confirm multi-currency, VAT, and ERP context.",
+      "notes": "Specialty coffee B2B wholesale, 90% wholesale, $35M rev, ~200 employees, London HQ. Contact: Nicole Freydell (nicole.freydell@caravela.coffee). Transferred from Grant Dugas (SDR). Current platform: WooCommerce (DTC only). SE Jordan Murphy joined. IT Director joining May 26 call on Microsoft Teams — critical discovery session. Confirm multi-currency, VAT, and ERP context.",
       "last_call": "2026-04-29",
       "next_call": "2026-05-26",
       "manager_q": {},
@@ -373,6 +376,109 @@
       "last_call": "2026-05-05",
       "next_call": "2026-07-01",
       "manager_q": {},
+      "forecast": null
+    },
+    "viaggio-pontoons": {
+      "sf": {
+        "id": "006OG00000NP5QgYAL",
+        "stage": "Pre-Qualified",
+        "close": "2026-06-30",
+        "pbr": 0
+      },
+      "se": null,
+      "meddpicc": {
+        "metrics": {
+          "text": "~$5M B2B GMV potential (internal estimate). 137 dealers, 5 territories, 7 sales reps. 4 brands: Viaggio Pontoons, Lakota Trailers, SMC, Duo Form (Bristol, Indiana). Revenue not yet confirmed — Nathaniel to provide 2025 B2B/DTC split. Current platform cost: NetSuite SuiteCommerce ~$35K/yr. Quote process: dealer selects options → submits → sales reps recreate in NetSuite (no deposit, fully manual). Target go-live August 2027 (model year 2028 launch).",
+          "score": 0,
+          "questions": []
+        },
+        "economic_buyer": {
+          "text": "Owner Eric (last name unknown) is likely final decision maker — attended Nathaniel's May 12 leadership pitch alongside CFO/Corporate Controller, Head of Sales, and Head of CS. All four stakeholders are now aware of the Shopify evaluation. Nathaniel (Director of IT) is day-to-day champion but lacks budget authority. Neither Mercedes nor Joe have direct contact with Eric or CFO yet.",
+          "score": 0,
+          "questions": []
+        },
+        "decision_criteria": {
+          "text": "Unified Shopify B2B (dealer portal) + D2C (boat owner portal) on one platform. Dealer configurator with rule-based pricing logic. Multi-brand architecture must extend from Viaggio design to Lakota Trailers, SMC, Duo Form. Partner requirements: current tech standards, no IP lock-in, no AI buzzwords. Replace NetSuite SuiteCommerce. Proforma invoices for dealer financing. Two invoices per boat (boat + motor separately).",
+          "score": 0,
+          "questions": []
+        },
+        "decision_process": {
+          "text": "Nathaniel pitched leadership week of May 12 — Owner, CFO, Head of Sales, Head of CS all attended. May 20 debrief — Mercedes' first call as B2B specialist. 8-page requirements doc arriving May 22-23. Technical discovery scheduled May 28-29 noon-1pm ET. Decision deadline: end of June 2026 — Nathaniel: 'if we don't have a decision by the end of June, we're going to be scrambling.' Co-sell: Joe Hemingway is AE (SF opp owner), Mercedes is B2B specialist SE.",
+          "score": 0,
+          "questions": []
+        },
+        "paper_process": {
+          "text": "",
+          "score": 0,
+          "questions": []
+        },
+        "identified_pain": {
+          "text": "NetSuite SuiteCommerce ~$35K/yr explicitly not built for B2B (confirmed by NetSuite engineers themselves). Simple SuiteCommerce changes take 6 months via third-party devs. Nathaniel is a team of one. Quote workflow is fully manual — dealer selects options, submits, then sales reps recreate the entire order in NetSuite with no deposit. Two separate invoices per boat (boat + motor) creates friction. Proforma invoices required for dealer financing add complexity.",
+          "score": 0,
+          "questions": []
+        },
+        "champion": {
+          "text": "Nathaniel Talbot (Director of IT, newly promoted) is the primary internal champion — built the 5-year cost analysis and pitched leadership internally himself. Joe Hemingway (AE) brought the deal. Mercedes Boykin-Sabalones is B2B specialist SE (co-sell). Strong internal conviction — Nathaniel has already done the internal selling.",
+          "score": 0,
+          "questions": []
+        },
+        "competition": {
+          "text": "Status quo (NetSuite SuiteCommerce) is the primary competition. No other platforms mentioned. NetSuite engineers themselves acknowledged SuiteCommerce was not designed for B2B — strong position for Shopify B2B.",
+          "score": 1,
+          "questions": []
+        }
+      },
+      "strategy": "Co-sell with Joe Hemingway (AE). Mercedes is B2B specialist SE. Champion Nathaniel built the internal business case himself — high internal conviction. Decision deadline end of June 2026. Critical path: receive requirements doc (May 22-23) → technical discovery May 28-29 → proposal before June 30. Multi-brand expansion (Lakota, SMC, Duo Form) is the long-term prize. Must get Mercedes + Joe in front of Owner Eric and CFO before June 30.",
+      "risks": [
+        {
+          "sev": "high",
+          "text": "Decision deadline end of June 2026 — very compressed timeline for complex B2B + D2C platform architecture with multi-brand scope",
+          "mit": "Move immediately: review requirements doc May 22-23, nail technical discovery May 28-29, proposal by early June."
+        },
+        {
+          "sev": "high",
+          "text": "Economic buyer (Owner Eric, CFO) not yet in direct contact — Nathaniel is only intermediary. Deal could stall if Eric is not fully committed.",
+          "mit": "Joe + Mercedes to get on a call with Eric and CFO before June close. Nathaniel's internal pitch is strong but needs validation from Mercedes/Joe directly."
+        },
+        {
+          "sev": "med",
+          "text": "Dealer configurator with rule-based pricing logic — complexity not yet documented (8-page requirements doc arriving May 22-23)",
+          "mit": "Review requirements doc closely before May 28-29 technical discovery. Flag configurator as key scoping topic."
+        },
+        {
+          "sev": "med",
+          "text": "Co-sell complexity — Joe is AE, Mercedes is B2B specialist SE, dedicated SE for technical discovery not yet confirmed",
+          "mit": "Align with Joe on roles and division of labor before May 28-29 call."
+        }
+      ],
+      "done": [
+        "May 8 intro call (Joe + Nathaniel) — platform pain documented, vision established",
+        "May 20 debrief (Nathaniel + Mercedes) — leadership pitch recap, scope confirmed B2B + D2C on Shopify Plus, timeline and decision deadline set",
+        "Nathaniel's leadership pitch (week of May 12) — Owner Eric, CFO, Head of Sales, Head of CS all now aware",
+        "8-page requirements doc requested — Nathaniel to send by May 22-23",
+        "Technical discovery scheduled May 28-29 noon-1pm ET"
+      ],
+      "left": [
+        "Receive and review 8-page requirements doc (expected May 22-23)",
+        "Lead technical discovery call May 28-29 — validate dealer configurator, multi-brand architecture",
+        "Confirm SE for technical discovery call",
+        "Build initial architecture/proposal after requirements review",
+        "Get Mercedes + Joe on call with Owner Eric and CFO before June 30"
+      ],
+      "notes": "Co-sell: Joe Hemingway (AE, joseph.hemingway@shopify.com), Mercedes Boykin-Sabalones (B2B specialist SE). SF opp 006OG00000NP5QgYAL owned by Joe. Multi-brand marine manufacturer: Viaggio Pontoons, Lakota Trailers, SMC, Duo Form (Bristol, Indiana). Nathaniel Talbot (Director of IT, ntalbot@viaggiopontoons.com / ntalbot@lakotatrailers.com) is champion — built 5-yr cost analysis internally. 137 dealers, 5 territories, 7 sales reps. DTC very limited; apparel outsourced. Shipping restrictions (e.g. can't ship 4-boat load to WA state). Decision deadline: end of June 2026.",
+      "last_call": "2026-05-20",
+      "next_call": "2026-05-29",
+      "manager_q": {
+        "compelling_event": "Decision deadline end of June 2026 — Nathaniel: 'if we don't have a decision by end of June, we're going to be scrambling'",
+        "map_created": null,
+        "map_shared": null,
+        "map_agreed": null,
+        "map_notes": "",
+        "who_signs": "Owner Eric (last name unknown) + CFO/Corporate Controller",
+        "urgency": "End of June decision deadline. August 2027 go-live for model year 2028.",
+        "risk_to_close": "No direct contact with economic buyer (Eric/CFO); requirements doc not yet received",
+        "gut": 0
+      },
       "forecast": null
     }
   }
