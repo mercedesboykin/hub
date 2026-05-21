@@ -37,7 +37,7 @@
         },
         "identified_pain": {
           "text": "Everest ERP reaching end-of-life — no long-term support path. Current custom .NET platform requires full rebuild. Business pain is existential: must migrate entire ecommerce + ERP stack by Dec 2026. Highly specialized custom modules add complexity. Website is outdated — internal team cannot make basic updates without dev support.",
-          "score": 0,
+          "score": 1,
           "questions": []
         },
         "champion": {
