@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 3,
   "updated": "2026-05-21T00:00:00.000Z",
   "deals": {
     "national-gym-supply": {
@@ -9,7 +9,6 @@
         "close": "2026-06-30",
         "pbr": 120348
       },
-      "se": "Jordan Murphy",
       "meddpicc": {
         "metrics": {
           "text": "Revenue ~$12M GMV (internal estimate — Tony has not confirmed actuals). 300–400 orders/day including quotes and repair authorizations; 60% through website, 40% via phone/manual PO. 65–70% straight price book purchases, 30–35% custom quoting. 40,000 SKU-intensive catalog — market leader in fitness equipment parts space. Previous failed replatform cost $250K+. Soft launch target: EOY 2026. Full relaunch: early 2027.",
@@ -18,7 +17,7 @@
         },
         "economic_buyer": {
           "text": "Vince Smith (Interim CEO / Chairman, PE firm) is the real economic buyer — has empowered Tony to 'just go' with no lengthy approval process. Tony Meirovitz (VP E-commerce, 4 weeks tenure) is DM for day-to-day decisions; oversees E-commerce, Marketing, and Customer Service. Mike Montoy (Head of Operations, 22+ years) is key operational stakeholder. All three attended May 20 discovery call.",
-          "score": 0,
+          "score": 2,
           "questions": []
         },
         "decision_criteria": {
@@ -28,7 +27,7 @@
         },
         "decision_process": {
           "text": "DYODE (Tim Katz co-founder, Elana K. Director Ops & Product, Paul Sr. Dev/SA, Kevin Stites Director Web Dev) is confirmed implementation partner. May 20 discovery completed — Tony, Mike Montoy, Vince Smith attended. Next: Jordan + Mercedes reconnect with DYODE (Tim/Elana) to plan broader team demo. Mercedes proposed parallel contract review on call; Tony confirmed Vince moves fast with no lengthy approvals. Formal procurement path not yet mapped.",
-          "score": 0,
+          "score": 1,
           "questions": []
         },
         "paper_process": {
@@ -38,12 +37,12 @@
         },
         "identified_pain": {
           "text": "Legacy ERP (~20 years old) creates extreme site lag — 700+ individual API calls per part lookup. Current site not mobile-friendly (Google SEO penalties). Previous $250K replatform failed: not vetted, not tested, slammed to production — customers reverted immediately. Large B2B customers (24 Hour Fitness, LA Fitness) send 75–100 line item POs that CS agents manually key. Two warehouse locations cause double shipping charges and inability to mix cart items from both. Old failed site still being indexed by Google (Tony actioning).",
-          "score": 0,
+          "score": 2,
           "questions": []
         },
         "champion": {
           "text": "DYODE team (Tim Katz, Elana K., Paul SA, Kevin Stites) are strongest advocates — Tim: 'only group I would trust.' Tony Meirovitz (VP E-comm) is DM — 20+ years e-commerce experience, prior Shopify familiarity, DYODE ally. Vince Smith (Interim CEO/Chairman, PE) is executive sponsor who moves fast. Jordan Murphy (SE) confirmed 80% OOB Shopify fit on May 20 call.",
-          "score": 0,
+          "score": 2,
           "questions": []
         },
         "competition": {
@@ -385,7 +384,6 @@
         "close": "2026-06-30",
         "pbr": 0
       },
-      "se": null,
       "meddpicc": {
         "metrics": {
           "text": "~$5M B2B GMV potential (internal estimate). 137 dealers, 5 territories, 7 sales reps. 4 brands: Viaggio Pontoons, Lakota Trailers, SMC, Duo Form (Bristol, Indiana). Revenue not yet confirmed — Nathaniel to provide 2025 B2B/DTC split. Current platform cost: NetSuite SuiteCommerce ~$35K/yr. Quote process: dealer selects options → submits → sales reps recreate in NetSuite (no deposit, fully manual). Target go-live August 2027 (model year 2028 launch).",
