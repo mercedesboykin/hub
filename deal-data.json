@@ -477,7 +477,7 @@
         "risk_to_close": "No direct contact with economic buyer (Eric/CFO); requirements doc not yet received",
         "gut": 0
       },
-      "forecast": null
+      "forecast": "bestcase"
     }
   }
 }
