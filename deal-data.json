@@ -417,12 +417,15 @@
     },
     "viaggio-pontoons": {
       "sf": {
-        "id": "006OG00000NP5QgYAL",
+        "id": "006OG00000NzSWnYAN",
         "stage": "Solution",
         "close": "2026-06-30",
-        "pbr": 236201,
+        "pbr": 0,
+        "amount": 82800,
         "merchant_intent": "Committed - At Risk",
-        "last_modified": "2026-05-27"
+        "last_modified": "2026-05-27",
+        "name": "Viaggio Pontoons-D2C & B2B - Split for B2B",
+        "owner": "Mercedes Boykin-Sabalones"
       },
       "meddpicc": {
         "metrics": {
@@ -503,7 +506,7 @@
         "Build initial architecture/proposal after requirements review",
         "Get Mercedes + Joe on call with Owner Eric and CFO before June 30"
       ],
-      "notes": "Co-sell: Joe Hemingway (AE, joseph.hemingway@shopify.com), Mercedes Boykin-Sabalones (B2B specialist SE). SF opp 006OG00000NP5QgYAL owned by Joe. Multi-brand marine manufacturer: Viaggio Pontoons, Lakota Trailers, SMC, Duo Form (Bristol, Indiana). Nathaniel Talbot (Director of IT, ntalbot@viaggiopontoons.com / ntalbot@lakotatrailers.com) is champion — built 5-yr cost analysis internally. 137 dealers, 5 territories, 7 sales reps. DTC very limited; apparel outsourced. Shipping restrictions (e.g. can't ship 4-boat load to WA state). Decision deadline: end of June 2026.",
+      "notes": "Co-sell: Joe Hemingway (AE, joseph.hemingway@shopify.com), Mercedes Boykin-Sabalones (B2B specialist SE). SF opp 006OG00000NzSWnYAN (B2B-split, Mercedes-owned). Parent opp 006OG00000NP5QgYAL is Joe-owned (combined D2C+B2B). Multi-brand marine manufacturer: Viaggio Pontoons, Lakota Trailers, SMC, Duo Form (Bristol, Indiana). Nathaniel Talbot (Director of IT, ntalbot@viaggiopontoons.com / ntalbot@lakotatrailers.com) is champion — built 5-yr cost analysis internally. 137 dealers, 5 territories, 7 sales reps. DTC very limited; apparel outsourced. Shipping restrictions (e.g. can't ship 4-boat load to WA state). Decision deadline: end of June 2026.",
       "last_call": "2026-05-20",
       "next_call": "2026-05-29",
       "manager_q": {
