@@ -1,197 +1,155 @@
 #!/usr/bin/env python3
 """
-Daily Salesforce refresh for deal-data.json
-Updates: pbr, stage, close date, created date for each deal.
-Run via GitHub Actions or manually: python scripts/refresh_deals.py
+Salesforce refresh for deal-data.json.
+
+Reads SF_ACCESS_TOKEN + SF_INSTANCE_URL from the environment, queries each
+opp listed under deals.*.sf.id, and rewrites each `sf` block with the
+current stage, close date, PBR, merchant intent, and last-modified date.
+Also rebuilds the Closed Won FY aggregate for the quota tile.
+
+Uses only the Python stdlib — no simple-salesforce, no requests.
+Invoked nightly by ~/Library/LaunchAgents/com.mercedes.hub-refresh.plist.
 """
 
 import json
 import os
 import sys
+import urllib.parse
+import urllib.request
 from datetime import datetime, timezone
 
-try:
-    from simple_salesforce import Salesforce
-except ImportError:
-    print("ERROR: Run 'pip install simple-salesforce' first.")
-    sys.exit(1)
+API_VERSION = 'v66.0'
 
-try:
-    import requests
-except ImportError:
-    print("ERROR: Run 'pip install requests' first.")
-    sys.exit(1)
+SF_ACCESS_TOKEN = os.environ.get('SF_ACCESS_TOKEN', '').strip()
+SF_INSTANCE_URL = os.environ.get('SF_INSTANCE_URL', '').strip().rstrip('/')
 
-# ── Auth via SF CLI access token (Okta-compatible) ────────────────────────────
-SF_ACCESS_TOKEN = os.environ['SF_ACCESS_TOKEN']
-SF_INSTANCE_URL = os.environ['SF_INSTANCE_URL'].rstrip('/')
+if not SF_ACCESS_TOKEN or not SF_INSTANCE_URL:
+    print('ERROR: SF_ACCESS_TOKEN or SF_INSTANCE_URL missing from env.', file=sys.stderr)
+    sys.exit(2)
 
-sf = Salesforce(session_id=SF_ACCESS_TOKEN, instance_url=SF_INSTANCE_URL)
-print(f"Connected: {SF_INSTANCE_URL}")
 
-# ── Resolve current user (for Closed Won by owner query) ─────────────────────
-CURRENT_USER_ID = None
-try:
-    userinfo = requests.get(
-        f"{SF_INSTANCE_URL}/services/oauth2/userinfo",
-        headers={"Authorization": f"Bearer {SF_ACCESS_TOKEN}"},
-        timeout=15,
-    ).json()
-    CURRENT_USER_ID = userinfo.get('user_id')
-    print(f"Authenticated as: {userinfo.get('preferred_username')} ({CURRENT_USER_ID})")
-except Exception as e:
-    print(f"WARN: Could not resolve current user via userinfo: {e}")
+def soql(query):
+    url = f"{SF_INSTANCE_URL}/services/data/{API_VERSION}/query?q={urllib.parse.quote(query)}"
+    req = urllib.request.Request(url, headers={'Authorization': f'Bearer {SF_ACCESS_TOKEN}'})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return json.load(r)
 
-# ── Load deal-data.json ───────────────────────────────────────────────────────
+
+def userinfo():
+    url = f"{SF_INSTANCE_URL}/services/oauth2/userinfo"
+    req = urllib.request.Request(url, headers={'Authorization': f'Bearer {SF_ACCESS_TOKEN}'})
+    with urllib.request.urlopen(req, timeout=15) as r:
+        return json.load(r)
+
+
 DATA_FILE = os.path.join(os.path.dirname(__file__), '..', 'deal-data.json')
 with open(DATA_FILE) as f:
     data = json.load(f)
 
-# ── Collect Opportunity IDs ───────────────────────────────────────────────────
+# Collect opp IDs to refresh
 sf_ids = []
-id_to_deal = {}
-for deal_id, deal in data['deals'].items():
-    sf_info = deal.get('sf', {})
-    opp_id = sf_info.get('id')
+id_to_slug = {}
+for slug, deal in data['deals'].items():
+    opp_id = (deal.get('sf') or {}).get('id')
     if opp_id:
         sf_ids.append(opp_id)
-        id_to_deal[opp_id] = deal_id
+        id_to_slug[opp_id] = slug
 
 if not sf_ids:
-    print("No Salesforce IDs found in deal-data.json — nothing to refresh.")
+    print('No Salesforce IDs found in deal-data.json — nothing to refresh.')
     sys.exit(0)
 
-# ── Query Salesforce ──────────────────────────────────────────────────────────
 ids_str = "', '".join(sf_ids)
-soql = f"""
-    SELECT Id, Name, StageName, CloseDate, Projected_Billed_Revenue__c, CreatedDate
-    FROM Opportunity
-    WHERE Id IN ('{ids_str}')
-""".strip()
-
-print(f"Querying {len(sf_ids)} opportunities…")
-result = sf.query(soql)
+q = (
+    "SELECT Id, Name, StageName, CloseDate, Projected_Billed_Revenue__c, Amount, "
+    "CreatedDate, LastModifiedDate, Merchant_Intent__c, Owner.Name, Account.Name "
+    f"FROM Opportunity WHERE Id IN ('{ids_str}')"
+)
+print(f'Querying {len(sf_ids)} opportunities…')
+result = soql(q)
 records = result.get('records', [])
-print(f"Got {len(records)} records.")
+print(f'Got {len(records)} records.')
 
-# Stage name passthrough — Shopify Salesforce stages match hub display names
-STAGE_MAP = {
-    'Pre-Qualified': 'Pre-Qualified',
-    'Envision':      'Envision',
-    'Solution':      'Solution',
-    'Demonstrate':   'Demonstrate',
-    'Closed Won':    'Closed Won',
-    # Add any Salesforce-specific stage names that differ:
-    # 'Proposal/Price Quote': 'Solution',
-}
-
-# ── Apply updates ─────────────────────────────────────────────────────────────
-updated_count = 0
+updated = 0
 for rec in records:
-    opp_id   = rec['Id']
-    deal_id  = id_to_deal.get(opp_id)
-    if not deal_id:
+    slug = id_to_slug.get(rec['Id'])
+    if not slug:
         continue
+    old = dict(data['deals'][slug].get('sf') or {})
+    new_sf = {
+        'id': rec['Id'],
+        'stage': rec.get('StageName', ''),
+        'close': rec.get('CloseDate', ''),
+        'pbr': int(rec.get('Projected_Billed_Revenue__c') or 0),
+        'amount': int(rec.get('Amount') or 0),
+        'merchant_intent': rec.get('Merchant_Intent__c') or '',
+        'last_modified': (rec.get('LastModifiedDate') or '')[:10],
+    }
+    if old.get('name'):
+        new_sf['name'] = old['name']
+    if old.get('owner'):
+        new_sf['owner'] = old['owner']
+    data['deals'][slug]['sf'] = new_sf
 
-    sf_node = data['deals'][deal_id].setdefault('sf', {})
-    sf_node['id'] = opp_id
+    diffs = []
+    if old.get('stage') != new_sf['stage']:
+        diffs.append(f"stage {old.get('stage')} → {new_sf['stage']}")
+    if old.get('close') != new_sf['close']:
+        diffs.append(f"close {old.get('close')} → {new_sf['close']}")
+    if old.get('pbr') != new_sf['pbr']:
+        diffs.append(f"PBR ${old.get('pbr', 0):,} → ${new_sf['pbr']:,}")
+    if old.get('merchant_intent') != new_sf['merchant_intent']:
+        diffs.append(f"intent {old.get('merchant_intent') or '∅'} → {new_sf['merchant_intent'] or '∅'}")
+    if diffs:
+        print(f"  {slug}: " + '; '.join(diffs))
+    updated += 1
 
-    # PBR
-    pbr = rec.get('Projected_Billed_Revenue__c')
-    sf_node['pbr'] = int(pbr) if pbr is not None else 0
+# Closed Won FY aggregate
+try:
+    info = userinfo()
+    current_user_id = info.get('user_id')
+except Exception as e:
+    print(f'WARN: userinfo lookup failed: {e}', file=sys.stderr)
+    current_user_id = None
 
-    # Stage
-    stage_sf = rec.get('StageName', '')
-    sf_node['stage'] = STAGE_MAP.get(stage_sf, stage_sf)
-
-    # Close Date — Salesforce returns "YYYY-MM-DD"
-    close = rec.get('CloseDate')
-    if close:
-        sf_node['close'] = close  # keep as ISO YYYY-MM-DD
-
-    # Created Date — Salesforce returns ISO datetime, keep just the date
-    created = rec.get('CreatedDate')
-    if created:
-        sf_node['created'] = created[:10]
-
-    print(f"  {deal_id}: stage={sf_node['stage']}, close={sf_node.get('close')}, pbr={sf_node['pbr']}")
-    updated_count += 1
-
-# ── Closed Won aggregate for current FY (Shopify = calendar year) ─────────────
-if CURRENT_USER_ID:
+if current_user_id:
     now = datetime.now(timezone.utc)
-    fy_start = f"{now.year}-01-01"
-    q = (now.month - 1) // 3 + 1
-    q_start_month = (q - 1) * 3 + 1
-    q_start = f"{now.year}-{q_start_month:02d}-01"
-    q_end_month = q_start_month + 2
-    last_day = [31, 28 if now.year % 4 else 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][q_end_month - 1]
-    if q_end_month == 2 and (now.year % 400 == 0 or (now.year % 4 == 0 and now.year % 100 != 0)):
-        last_day = 29
-    q_end = f"{now.year}-{q_end_month:02d}-{last_day:02d}"
-
-    cw_soql = f"""
-        SELECT Id, Name, StageName, CloseDate, Projected_Billed_Revenue__c
-        FROM Opportunity
-        WHERE OwnerId = '{CURRENT_USER_ID}'
-          AND StageName = 'Closed Won'
-          AND CloseDate >= {fy_start}
-    """.strip()
-    print(f"\nQuerying Closed Won for OwnerId {CURRENT_USER_ID} since {fy_start}…")
-    cw_result = sf.query_all(cw_soql)
-    cw_records = cw_result.get('records', [])
-    print(f"Got {len(cw_records)} Closed Won records.")
-
+    fy_start = f'{now.year}-01-01'
+    cw = soql(
+        'SELECT Id, Name, StageName, CloseDate, Projected_Billed_Revenue__c, Account.Name '
+        f"FROM Opportunity WHERE OwnerId = '{current_user_id}' AND StageName = 'Closed Won' "
+        f'AND CloseDate >= {fy_start}'
+    )
+    quarters = {n: {'count': 0, 'pbr': 0, 'deals': []} for n in (1, 2, 3, 4)}
     fy_count = 0
     fy_pbr = 0
-    # Per-quarter buckets — every quarter in the FY
-    quarters = {n: {'count': 0, 'pbr': 0, 'deals': []} for n in (1, 2, 3, 4)}
-
-    for rec in cw_records:
-        pbr_v = int(rec.get('Projected_Billed_Revenue__c') or 0)
-        close_v = rec.get('CloseDate') or ''
+    for rec in cw.get('records', []):
+        pbr = int(rec.get('Projected_Billed_Revenue__c') or 0)
         fy_count += 1
-        fy_pbr += pbr_v
-        deal_entry = {
-            'id': rec['Id'],
-            'name': rec.get('Name', ''),
-            'pbr': pbr_v,
-            'close': close_v,
-        }
-        # Bucket by quarter (Shopify FY = calendar year)
+        fy_pbr += pbr
+        close_v = rec.get('CloseDate', '')
         if close_v:
-            try:
-                m = int(close_v.split('-')[1])
-                qn = (m - 1) // 3 + 1
-                quarters[qn]['count'] += 1
-                quarters[qn]['pbr'] += pbr_v
-                quarters[qn]['deals'].append(deal_entry)
-            except (ValueError, IndexError):
-                pass
-
+            qn = (int(close_v.split('-')[1]) - 1) // 3 + 1
+            quarters[qn]['count'] += 1
+            quarters[qn]['pbr'] += pbr
+            quarters[qn]['deals'].append({
+                'id': rec['Id'],
+                'name': rec.get('Name', ''),
+                'pbr': pbr,
+                'close': close_v,
+            })
     data['closed_won'] = {
         'fy': {'year': now.year, 'count': fy_count, 'pbr': fy_pbr},
-        'current_quarter': q,
-        'quarters': {
-            'Q1': {'year': now.year, **quarters[1]},
-            'Q2': {'year': now.year, **quarters[2]},
-            'Q3': {'year': now.year, **quarters[3]},
-            'Q4': {'year': now.year, **quarters[4]},
-        },
+        'current_quarter': (now.month - 1) // 3 + 1,
+        'quarters': {f'Q{n}': {'year': now.year, **quarters[n]} for n in (1, 2, 3, 4)},
         'updated': now.strftime('%Y-%m-%dT%H:%M:%SZ'),
     }
-    print(f"  FY {now.year}: {fy_count} deals, ${fy_pbr:,} PBR")
-    for n in (1, 2, 3, 4):
-        print(f"  Q{n} {now.year}: {quarters[n]['count']} deals, ${quarters[n]['pbr']:,} PBR")
-else:
-    print("\nSkipping Closed Won aggregate (no CURRENT_USER_ID).")
+    print(f'Closed Won FY{now.year}: {fy_count} deals, ${fy_pbr:,}')
 
-# ── Update timestamp ──────────────────────────────────────────────────────────
 data['updated'] = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
-data['version'] = 2
+data['version'] = int(data.get('version', 0)) + 1
 
-# ── Write back ────────────────────────────────────────────────────────────────
 with open(DATA_FILE, 'w') as f:
-    json.dump(data, f, indent=2)
+    json.dump(data, f, indent=2, ensure_ascii=False)
 
-print(f"\nDone. {updated_count} deals refreshed. Timestamp: {data['updated']}")
+print(f'Done. {updated} deals refreshed. New version: {data["version"]}.')
