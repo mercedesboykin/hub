@@ -412,7 +412,7 @@
         },
         "identified_pain": {
           "text": "NetSuite SuiteCommerce ~$35K/yr explicitly not built for B2B (confirmed by NetSuite engineers themselves). Simple SuiteCommerce changes take 6 months via third-party devs. Nathaniel is a team of one. Quote workflow is fully manual — dealer selects options, submits, then sales reps recreate the entire order in NetSuite with no deposit. Two separate invoices per boat (boat + motor) creates friction. Proforma invoices required for dealer financing add complexity.",
-          "score": 0,
+          "score": 1,
           "questions": []
         },
         "champion": {
