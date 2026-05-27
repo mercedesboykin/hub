@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 3,
   "updated": "2026-05-27T16:17:23Z",
   "deals": {
     "national-gym-supply": {
@@ -35,7 +35,7 @@
         },
         "paper_process": {
           "text": "",
-          "score": 0,
+          "score": 1,
           "questions": []
         },
         "identified_pain": {
@@ -526,40 +526,5 @@
       },
       "forecast": "bestcase"
     }
-  },
-  "closed_won": {
-    "fy": {
-      "year": 2026,
-      "count": 0,
-      "pbr": 0
-    },
-    "current_quarter": 2,
-    "quarters": {
-      "Q1": {
-        "year": 2026,
-        "count": 0,
-        "pbr": 0,
-        "deals": []
-      },
-      "Q2": {
-        "year": 2026,
-        "count": 0,
-        "pbr": 0,
-        "deals": []
-      },
-      "Q3": {
-        "year": 2026,
-        "count": 0,
-        "pbr": 0,
-        "deals": []
-      },
-      "Q4": {
-        "year": 2026,
-        "count": 0,
-        "pbr": 0,
-        "deals": []
-      }
-    },
-    "updated": "2026-05-27T16:17:23Z"
   }
 }
