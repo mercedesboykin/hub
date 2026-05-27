@@ -1,13 +1,15 @@
 {
-  "version": 3,
-  "updated": "2026-05-21T00:00:00.000Z",
+  "version": 4,
+  "updated": "2026-05-27T16:01:12Z",
   "deals": {
     "national-gym-supply": {
       "sf": {
         "id": "006OG00000NT4vpYAD",
-        "stage": "Envision",
+        "stage": "Demonstrate",
         "close": "2026-06-30",
-        "pbr": 120348
+        "pbr": 306185,
+        "merchant_intent": "Uncommitted",
+        "last_modified": "2026-05-27"
       },
       "meddpicc": {
         "metrics": {
@@ -112,7 +114,9 @@
         "id": "006OG00000NISAHYA5",
         "stage": "Pre-Qualified",
         "close": "2026-08-31",
-        "pbr": 115755
+        "pbr": 115755,
+        "merchant_intent": "",
+        "last_modified": "2026-05-27"
       },
       "meddpicc": {
         "metrics": {
@@ -213,7 +217,9 @@
         "id": "006OG00000N1TdpYAF",
         "stage": "Envision",
         "close": "2026-09-30",
-        "pbr": 110882
+        "pbr": 110881,
+        "merchant_intent": "Uncommitted",
+        "last_modified": "2026-05-27"
       },
       "meddpicc": {
         "metrics": {
@@ -312,7 +318,9 @@
         "id": "006OG00000MmGc7YAF",
         "stage": "Envision",
         "close": "2026-10-30",
-        "pbr": 165689
+        "pbr": 165688,
+        "merchant_intent": "Uncommitted",
+        "last_modified": "2026-05-27"
       },
       "meddpicc": {
         "metrics": {
@@ -410,9 +418,11 @@
     "viaggio-pontoons": {
       "sf": {
         "id": "006OG00000NP5QgYAL",
-        "stage": "Pre-Qualified",
+        "stage": "Solution",
         "close": "2026-06-30",
-        "pbr": 0
+        "pbr": 236201,
+        "merchant_intent": "Committed - At Risk",
+        "last_modified": "2026-05-27"
       },
       "meddpicc": {
         "metrics": {
@@ -509,5 +519,40 @@
       },
       "forecast": "bestcase"
     }
+  },
+  "closed_won": {
+    "fy": {
+      "year": 2026,
+      "count": 0,
+      "pbr": 0
+    },
+    "current_quarter": 2,
+    "quarters": {
+      "Q1": {
+        "year": 2026,
+        "count": 0,
+        "pbr": 0,
+        "deals": []
+      },
+      "Q2": {
+        "year": 2026,
+        "count": 0,
+        "pbr": 0,
+        "deals": []
+      },
+      "Q3": {
+        "year": 2026,
+        "count": 0,
+        "pbr": 0,
+        "deals": []
+      },
+      "Q4": {
+        "year": 2026,
+        "count": 0,
+        "pbr": 0,
+        "deals": []
+      }
+    },
+    "updated": "2026-05-27T16:01:12Z"
   }
 }
