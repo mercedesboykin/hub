@@ -195,7 +195,17 @@
       "notes": "Director of E-commerce Alli Boggs (allison.boggs@allencompany.net) is primary contact. DTC already migrating to Shopify Advanced across 4–5 brands. B2B is the strategic play — currently $50K online but large offline dealer network (gun shops, ranges) not digitized. ERP: NetSuite. DTC off Magento by mid-to-late June. Competing with NetSuite SuiteCommerce which Alli finds uninspiring and 3x cost. Shopify Payments cleared May 5.",
       "last_call": "2026-05-07",
       "next_call": "",
-      "manager_q": {},
+      "manager_q": {
+        "compelling_event": "",
+        "map_created": null,
+        "map_shared": null,
+        "map_agreed": null,
+        "map_notes": "",
+        "who_signs": "",
+        "urgency": "",
+        "risk_to_close": "",
+        "gut": 0
+      },
       "forecast": null
     },
     "caravela-coffee": {
@@ -284,7 +294,17 @@
       "notes": "Specialty coffee B2B wholesale, 90% wholesale, $35M rev, ~200 employees, London HQ. Contact: Nicole Freydell (nicole.freydell@caravela.coffee). Transferred from Grant Dugas (SDR). Current platform: WooCommerce (DTC only). SE Jordan Murphy joined. IT Director joining May 26 call on Microsoft Teams — critical discovery session. Confirm multi-currency, VAT, and ERP context.",
       "last_call": "2026-04-29",
       "next_call": "2026-05-26",
-      "manager_q": {},
+      "manager_q": {
+        "compelling_event": "",
+        "map_created": null,
+        "map_shared": null,
+        "map_agreed": null,
+        "map_notes": "",
+        "who_signs": "",
+        "urgency": "",
+        "risk_to_close": "",
+        "gut": 0
+      },
       "forecast": null
     },
     "artificial-turf-supply": {
@@ -297,7 +317,7 @@
       "meddpicc": {
         "metrics": {
           "text": "PBR $165K. Business revenue, order volume, and SKU count not yet captured in discovery. ROI case not yet built — integration replacement (Salesforce + Sage) is the stated driver.",
-          "score": 0,
+          "score": 1,
           "questions": []
         },
         "economic_buyer": {
@@ -374,7 +394,17 @@
       "notes": "Contact: Kyle Boyd (kyle@artificialturfsupply.com). SE: Jordan Murphy (jordan.murphy@shopify.com). Technical discovery May 5. Build starts July, Q4 go-live target. Integrations: Salesforce (CRM) + Sage (ERP/accounting) replacing legacy. Next meeting 1st week of July.",
       "last_call": "2026-05-05",
       "next_call": "2026-07-01",
-      "manager_q": {},
+      "manager_q": {
+        "compelling_event": "",
+        "map_created": null,
+        "map_shared": null,
+        "map_agreed": null,
+        "map_notes": "",
+        "who_signs": "",
+        "urgency": "",
+        "risk_to_close": "",
+        "gut": 0
+      },
       "forecast": null
     },
     "viaggio-pontoons": {
