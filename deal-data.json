@@ -1,6 +1,6 @@
 {
-  "version": 4,
-  "updated": "2026-05-27T16:01:12Z",
+  "version": 5,
+  "updated": "2026-05-27T16:14:19Z",
   "deals": {
     "national-gym-supply": {
       "sf": {
@@ -8,7 +8,8 @@
         "stage": "Demonstrate",
         "close": "2026-06-30",
         "pbr": 306185,
-        "merchant_intent": "Uncommitted",
+        "amount": 82800,
+        "merchant_intent": "Committed - At Risk",
         "last_modified": "2026-05-27"
       },
       "meddpicc": {
@@ -115,6 +116,7 @@
         "stage": "Pre-Qualified",
         "close": "2026-08-31",
         "pbr": 115755,
+        "amount": 82800,
         "merchant_intent": "",
         "last_modified": "2026-05-27"
       },
@@ -218,6 +220,7 @@
         "stage": "Envision",
         "close": "2026-09-30",
         "pbr": 110881,
+        "amount": 82800,
         "merchant_intent": "Uncommitted",
         "last_modified": "2026-05-27"
       },
@@ -319,6 +322,7 @@
         "stage": "Envision",
         "close": "2026-10-30",
         "pbr": 165688,
+        "amount": 82800,
         "merchant_intent": "Uncommitted",
         "last_modified": "2026-05-27"
       },
@@ -556,6 +560,6 @@
         "deals": []
       }
     },
-    "updated": "2026-05-27T16:01:12Z"
+    "updated": "2026-05-27T16:14:19Z"
   }
 }
