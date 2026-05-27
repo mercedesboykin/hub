@@ -22,7 +22,7 @@
         },
         "decision_criteria": {
           "text": "B2B + D2C on Shopify Plus. Jordan confirmed 80% OOB Shopify (meta fields + meta objects); 20% custom with DYODE. Custom modules: cable CPQ (fixed labor + component retail cost), electronics exchange and buyback program (separate pricing tier), repair return shipping labels (UPS API). Four-tier B2B pricing with volume discounts. Net 30 terms standard; credit card payments primary. Consolidated single shipping charge from two warehouses (LA electronics + Illinois general parts). Shopify native search first — upgrade to Algolia later only if needed (Tony has SearchSpring scar tissue). Flat file ERP bridge until NetSuite migration (before April 2027). AI/agentic commerce via Universal Commerce Protocol (auto-on with Shopify). AutoZone-style make/model/brand → parts filter with PDF line drawings and installation videos.",
-          "score": 0,
+          "score": 2,
           "questions": []
         },
         "decision_process": {
