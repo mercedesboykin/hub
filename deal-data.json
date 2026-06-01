@@ -1,16 +1,16 @@
 {
-  "version": 3,
-  "updated": "2026-05-27T16:17:23Z",
+  "version": 4,
+  "updated": "2026-06-01T14:13:12Z",
   "deals": {
     "national-gym-supply": {
       "sf": {
         "id": "006OG00000NT4vpYAD",
-        "stage": "Demonstrate",
+        "stage": "Deal Craft",
         "close": "2026-06-30",
         "pbr": 306185,
         "amount": 82800,
         "merchant_intent": "Committed - At Risk",
-        "last_modified": "2026-05-27"
+        "last_modified": "2026-06-01"
       },
       "meddpicc": {
         "metrics": {
@@ -118,7 +118,7 @@
         "pbr": 115755,
         "amount": 82800,
         "merchant_intent": "",
-        "last_modified": "2026-05-27"
+        "last_modified": "2026-06-01"
       },
       "meddpicc": {
         "metrics": {
@@ -222,7 +222,7 @@
         "pbr": 110881,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-05-27"
+        "last_modified": "2026-06-01"
       },
       "meddpicc": {
         "metrics": {
@@ -324,7 +324,7 @@
         "pbr": 165688,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-05-27"
+        "last_modified": "2026-06-01"
       },
       "meddpicc": {
         "metrics": {
@@ -423,11 +423,11 @@
       "sf": {
         "id": "006OG00000NzSWnYAN",
         "stage": "Solution",
-        "close": "2026-06-30",
-        "pbr": 0,
-        "amount": 82800,
+        "close": "2026-07-31",
+        "pbr": 143458,
+        "amount": 0,
         "merchant_intent": "Committed - At Risk",
-        "last_modified": "2026-05-27",
+        "last_modified": "2026-06-01",
         "name": "Viaggio Pontoons-D2C & B2B - Split for B2B",
         "owner": "Mercedes Boykin-Sabalones"
       },
@@ -526,5 +526,40 @@
       },
       "forecast": "bestcase"
     }
+  },
+  "closed_won": {
+    "fy": {
+      "year": 2026,
+      "count": 0,
+      "pbr": 0
+    },
+    "current_quarter": 2,
+    "quarters": {
+      "Q1": {
+        "year": 2026,
+        "count": 0,
+        "pbr": 0,
+        "deals": []
+      },
+      "Q2": {
+        "year": 2026,
+        "count": 0,
+        "pbr": 0,
+        "deals": []
+      },
+      "Q3": {
+        "year": 2026,
+        "count": 0,
+        "pbr": 0,
+        "deals": []
+      },
+      "Q4": {
+        "year": 2026,
+        "count": 0,
+        "pbr": 0,
+        "deals": []
+      }
+    },
+    "updated": "2026-06-01T14:13:11Z"
   }
 }
