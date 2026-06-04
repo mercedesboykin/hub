@@ -1,6 +1,6 @@
 {
-  "version": 7,
-  "updated": "2026-06-03T14:13:09Z",
+  "version": 8,
+  "updated": "2026-06-04T15:00:00Z",
   "deals": {
     "national-gym-supply": {
       "sf": {
@@ -10,7 +10,7 @@
         "pbr": 306185,
         "amount": 82800,
         "merchant_intent": "Committed - At Risk",
-        "last_modified": "2026-06-03"
+        "last_modified": "2026-06-04"
       },
       "meddpicc": {
         "metrics": {
@@ -19,7 +19,7 @@
           "questions": []
         },
         "economic_buyer": {
-          "text": "Vince Smith (Interim CEO / Chairman, PE firm) is the real economic buyer — has empowered Tony to 'just go' with no lengthy approval process. Tony Meirovitz (VP E-commerce, 4 weeks tenure) is DM for day-to-day decisions; oversees E-commerce, Marketing, and Customer Service. Mike Montoy (Head of Operations, 22+ years) is key operational stakeholder. All three attended May 20 discovery call.",
+          "text": "Vince Smith (Interim CEO / Chairman, PE firm) is the real economic buyer — has empowered Tony to 'just go' with no lengthy approval process. Tony Meirovitz (VP E-commerce) is DM for day-to-day decisions; oversees E-commerce, Marketing, and Customer Service. Mike Montoy (Head of Operations, 22+ years) is key operational stakeholder. All three attended May 20 discovery call.",
           "score": 2,
           "questions": []
         },
@@ -29,12 +29,12 @@
           "questions": []
         },
         "decision_process": {
-          "text": "DYODE (Tim Katz co-founder, Elana K. Director Ops & Product, Paul Sr. Dev/SA, Kevin Stites Director Web Dev) is confirmed implementation partner. May 20 discovery completed — Tony, Mike Montoy, Vince Smith attended. Next: Jordan + Mercedes reconnect with DYODE (Tim/Elana) to plan broader team demo. Mercedes proposed parallel contract review on call; Tony confirmed Vince moves fast with no lengthy approvals. Formal procurement path not yet mapped.",
-          "score": 1,
+          "text": "DYODE (Tim Katz co-founder, Elana K. Director Ops & Product, Paul Sr. Dev/SA, Kevin Stites Director Web Dev) is confirmed implementation partner. May 20 discovery completed. Run Payments analysis circulated May 29 (Jordan + DYODE). Elana asked for pricing breakdown Jun 3. Mercedes proposed parallel contract review — Tony confirmed Vince moves fast with no lengthy approvals.",
+          "score": 2,
           "questions": []
         },
         "paper_process": {
-          "text": "Tony Shared the Paper process will be Quick",
+          "text": "Tony shared the paper process will be quick — Vince (PE/Interim CEO) empowered to move without lengthy approvals.",
           "score": 1,
           "questions": []
         },
@@ -49,27 +49,27 @@
           "questions": []
         },
         "competition": {
-          "text": "No direct competitors mentioned. Previous platform was a bespoke custom .NET site. Evaluating Shopify vs status quo rebuild. BigCommerce not raised. Tony has prior Shopify experience.",
+          "text": "No direct competitors mentioned. Previous platform was a bespoke custom .NET site. Evaluating Shopify vs status quo rebuild. BigCommerce not raised. Tony has prior Shopify experience. Active topic: Shopify Payments vs Run Payments (Jordan's analysis circulated May 29).",
           "score": 1,
           "questions": []
         }
       },
-      "strategy": "Discovery complete — Tony confirmed Shopify direction, Vince (PE/Interim CEO) is economic buyer with mandate to move fast. DYODE (Paul + Kevin) are the confirmed build team. Jordan confirmed 80% OOB Shopify on May 20. Critical path: (1) schedule DYODE reconnect + broader team demo, (2) send contracts for parallel review (Vince = fast approvals), (3) scope custom modules (cable CPQ, electronics exchange) and identify app vs custom route. Timeline: EOY 2026 soft launch → early 2027 full relaunch — contract must close Q3 2026.",
+      "strategy": "Discovery complete — Tony confirmed Shopify direction, Vince (PE/Interim CEO) is economic buyer with mandate to move fast. DYODE (Paul + Kevin) are the confirmed build team. Jordan confirmed 80% OOB Shopify on May 20. Critical path: (1) close pricing breakdown for Elana (asked Jun 3), (2) lock Run vs Shopify Payments decision, (3) send contracts for parallel review, (4) scope custom modules (cable CPQ, electronics exchange). Stage now Deal Craft — moving to close.",
       "risks": [
         {
           "sev": "high",
           "text": "Custom module scope — cable CPQ, electronics exchange/buyback, repair return labels. Tony 'a little nervous' about customization. Must confirm app vs custom route with DYODE.",
-          "mit": "DYODE (Paul SA) to assess at next reconnect. Identify Shopify app options for CPQ and exchange programs before scoping custom dev."
+          "mit": "DYODE (Paul SA) to assess. Identify Shopify app options for CPQ and exchange programs before scoping custom dev."
         },
         {
           "sev": "high",
           "text": "Revenue/GMV not confirmed on May 20 call — Tony hasn't shared actuals. $12M is internal estimate. Affects Shopify Plus pricing conversation.",
-          "mit": "Ask Tony directly for 2025 revenue numbers on DYODE reconnect call."
+          "mit": "Ask Tony directly for 2025 revenue numbers on next call. Roll into Elana pricing-breakdown response."
         },
         {
           "sev": "med",
-          "text": "Jul 15 close date — soft launch EOY 2026 requires Q3 contract; Vince moves fast but DYODE quote turnaround time unknown.",
-          "mit": "Align on timeline at DYODE reconnect. Confirm July build start is achievable given 5-6 month build."
+          "text": "Jun 30 close date with stage Deal Craft — paper not yet circulating.",
+          "mit": "Send contracts for parallel review this week. Vince empowered to move fast — use it."
         },
         {
           "sev": "med",
@@ -83,18 +83,18 @@
         "DYODE Reconnect May 15 — Tony DM confirmed, evaluation hub shared, flat file ERP aligned, SE Jordan Murphy engaged",
         "Evaluation hub (national-gym-supply-shopify.quick.shopify.io) built and shared with DYODE for Tony",
         "Intech (sister co.) on Shopify Basic — strengthens Shopify preference",
-        "May 20 discovery call completed — Tony, Mike Montoy, Vince Smith attended. All critical requirements validated: 4-tier pricing, cable CPQ, electronics exchange, consolidated shipping, search. Jordan confirmed 80% OOB Shopify fit.",
-        "Contracts: Mercedes proposed parallel review on May 20 call — Tony confirmed Vince (PE/Interim CEO) moves fast with no lengthy approvals"
+        "May 20 discovery call — Tony, Mike Montoy, Vince Smith attended. Jordan confirmed 80% OOB Shopify fit.",
+        "Run Payments vs Shopify Payments analysis circulated May 29 (Jordan + DYODE)"
       ],
       "left": [
-        "Schedule DYODE reconnect (Tim/Elana) for next steps + broader team demo",
-        "Send contracts for legal review (Vince = fast approvals, PE-backed urgency)",
+        "Send Elana the pricing breakdown she asked for Jun 3",
+        "Lock Run vs Shopify Payments decision",
+        "Send contracts for parallel review (Vince = fast approvals, PE-backed urgency)",
         "Confirm actual GMV/revenue numbers — Tony hasn't shared actuals yet",
-        "Align on Jul 15 close path — EOY 2026 soft launch requires Q3 contract",
         "Map custom module scope with DYODE: cable CPQ, electronics exchange — app vs custom route",
         "Tony to suppress old mothballed site still being indexed by Google"
       ],
-      "notes": "Introduced via DYODE partner (Tim Katz). Legacy ERP EOL + $250K failed replatform are the forcing functions. 300-400 orders/day, ~$12M GMV est., 40K SKUs. 'AutoZone for fitness equipment parts' — make/model/brand → parts filter. Two warehouses: LA (electronics repair), Illinois (general parts). Key attendees May 20: Tony Meirovitz (VP E-comm, tmeirovitz@gympart.com), Mike Montoy (Head of Ops, mmontoy@gympart.com), Vince Smith (Interim CEO/Chairman, vsmith@gympart.com). DYODE: Tim Katz (tim@dyode.com), Elana K., Paul (paul@dyode.com), Kevin Stites (kevin.stites@dyode.com).",
+      "notes": "Introduced via DYODE partner (Tim Katz). Legacy ERP EOL + $250K failed replatform are the forcing functions. 300-400 orders/day, ~$12M GMV est., 40K SKUs. 'AutoZone for fitness equipment parts.' Two warehouses: LA (electronics repair), Illinois (general parts). Key attendees May 20: Tony Meirovitz (tmeirovitz@gympart.com), Mike Montoy (mmontoy@gympart.com), Vince Smith (vsmith@gympart.com). DYODE: Tim Katz (tim@dyode.com), Elana K., Paul (paul@dyode.com), Kevin Stites (kevin.stites@dyode.com). Latest activity: Elana asked for pricing breakdown Jun 3; Run Payments analysis from Jordan May 29.",
       "last_call": "2026-05-20",
       "next_call": "",
       "manager_q": {
@@ -105,114 +105,10 @@
         "map_notes": "",
         "who_signs": "Vince Smith (Interim CEO / Chairman)",
         "urgency": "EOY 2026 soft launch — Q3 contract required. Vince empowered to move fast.",
-        "risk_to_close": "Custom module scope unknown; contracts not yet sent",
+        "risk_to_close": "Custom module scope unknown; contracts not yet sent; Elana awaiting pricing breakdown",
         "gut": 0
       },
       "forecast": "commit"
-    },
-    "allen-company": {
-      "sf": {
-        "id": "006OG00000NISAHYA5",
-        "stage": "Closed Lost",
-        "close": "2026-06-01",
-        "pbr": 82800,
-        "amount": 82800,
-        "merchant_intent": "Uncommitted",
-        "last_modified": "2026-06-03"
-      },
-      "meddpicc": {
-        "metrics": {
-          "text": "DTC online revenue ~$500K (excl. ~$1.5M acquisition brand just added). B2B online only ~$50K last year — vast majority of B2B done offline through reps/fax/email. Cost comparison: NetSuite SuiteCommerce = 3x current Magento spend. Total wholesale revenue unknown (Alli does not own that P&L).",
-          "score": 0,
-          "questions": []
-        },
-        "economic_buyer": {
-          "text": "Not yet identified above Alli Boggs. Alli (Director of E-commerce) is primary contact and evaluator but flagged cost as a constraint she cannot unilaterally approve — final sign-off is above her. Buying committee not yet mapped.",
-          "score": 0,
-          "questions": []
-        },
-        "decision_criteria": {
-          "text": "Must be cheaper than NetSuite SuiteCommerce (~3x Magento). Requires: NetSuite ERP feed for custom pricing + case pack configs, no-code site updates (Sidekick/AI), sales rep portal access to customer orders and tracking. Plus vs Advanced still an open question given DTC revenue size ($500K).",
-          "score": 0,
-          "questions": []
-        },
-        "decision_process": {
-          "text": "Mercedes to send Plus vs Advanced comparison materials by Mon May 11. Alli to review. Technical follow-up scheduled after Allen DTC site #2 launches (~May 12–13). Broader buying committee and paper process not yet mapped.",
-          "score": 0,
-          "questions": []
-        },
-        "paper_process": {
-          "text": "",
-          "score": 0,
-          "questions": []
-        },
-        "identified_pain": {
-          "text": "Adobe Commerce (Magento) requires dev/IT consultant for simple site changes (banners, video). Two separate Magento instances (DTC + B2B) = operational overhead. B2B portal adoption near zero — reps still use fax/email/CS manually. Evaluating NetSuite SuiteCommerce as B2B replacement but it is 3x cost and Alli is not excited about it.",
-          "score": 0,
-          "questions": []
-        },
-        "champion": {
-          "text": "Alli Boggs (Director of E-commerce). Engaged and enthusiastic about Shopify, driving the evaluation. Low financial authority — final say likely above her. Julie Marcott (AE buddy) co-owns relationship and joined May 7 call.",
-          "score": 0,
-          "questions": []
-        },
-        "competition": {
-          "text": "",
-          "score": 0,
-          "questions": []
-        }
-      },
-      "strategy": "DTC migration to Shopify Advanced is already happening across 4–5 brands. The strategic prize is native B2B on Plus — winning this before Alli gets locked into NetSuite SuiteCommerce. Competitive window: Alli explicitly said she is not excited about NetSuite for B2B. Priority: Plus vs Advanced comparison by Mon May 11, then technical call with SE to close the loop on case packs + ERP feed objections.",
-      "risks": [
-        {
-          "sev": "high",
-          "text": "Economic buyer not identified — Alli may not have budget authority for Plus",
-          "mit": "Identify EB on next technical call. Frame Plus ROI around B2B growth and dealer adoption to get exec attention."
-        },
-        {
-          "sev": "high",
-          "text": "DTC revenue ($500K) may not justify Plus pricing — Advanced may be ceiling",
-          "mit": "Model Plus pricing relative to B2B growth potential. If Plus requires >$30K/year, deal may stay on Advanced."
-        },
-        {
-          "sev": "med",
-          "text": "B2B timeline undefined — DTC migration could push B2B decision to Q4+",
-          "mit": "Send materials by Mon May 11, schedule technical call proactively. Don't let B2B become a 2027 conversation."
-        },
-        {
-          "sev": "med",
-          "text": "NetSuite SuiteCommerce still on table as B2B option",
-          "mit": "Price delta (3x) is our best defense. Keep SuiteCommerce comparison explicit in materials."
-        }
-      ],
-      "done": [
-        "Discovery call May 7 — Adobe Commerce pain documented, B2B requirements surfaced",
-        "Confirmed Shopify Payments eligibility (supportability doc complete, cleared May 5)",
-        "Confirmed Shopify supports: custom pricing per account, case pack configs, NetSuite ERP feed, sales rep portal",
-        "Identified competition: NetSuite SuiteCommerce (3x cost, low enthusiasm from Alli)"
-      ],
-      "left": [
-        "Send Plus vs Advanced comparison materials by Mon May 11 (action item from call)",
-        "Schedule technical follow-up after Allen DTC site #2 launches (~May 12–13)",
-        "Identify economic buyer above Alli Boggs",
-        "Map full buying committee before technical call",
-        "Get Alli to send existing Shopify site URLs"
-      ],
-      "notes": "Director of E-commerce Alli Boggs (allison.boggs@allencompany.net) is primary contact. DTC already migrating to Shopify Advanced across 4–5 brands. B2B is the strategic play — currently $50K online but large offline dealer network (gun shops, ranges) not digitized. ERP: NetSuite. DTC off Magento by mid-to-late June. Competing with NetSuite SuiteCommerce which Alli finds uninspiring and 3x cost. Shopify Payments cleared May 5.",
-      "last_call": "2026-05-07",
-      "next_call": "",
-      "manager_q": {
-        "compelling_event": "",
-        "map_created": null,
-        "map_shared": null,
-        "map_agreed": null,
-        "map_notes": "",
-        "who_signs": "",
-        "urgency": "",
-        "risk_to_close": "",
-        "gut": 0
-      },
-      "forecast": null
     },
     "caravela-coffee": {
       "sf": {
@@ -222,99 +118,103 @@
         "pbr": 110881,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-06-03"
+        "last_modified": "2026-06-04"
       },
       "meddpicc": {
         "metrics": {
-          "text": "Revenue ~$35M, ~200 employees, London HQ. 90% of revenue is wholesale — almost entirely undigitized. ROI hypothesis: digitizing wholesale ordering could significantly reduce manual CS overhead and improve buyer experience for international accounts. No metrics quantified yet.",
-          "score": 0,
+          "text": "B2B GMV ~$5M global (confirmed by Nicole Apr 29). 90% B2B / 10% DTC. ~300 active B2B accounts globally. 7 Latin American origins (Mexico, Guatemala, Nicaragua, El Salvador, Colombia [largest], Peru, Ecuador). Destination offices: Houston (NA), Dublin & London (EU), Australia (APAC). Founded ~2001. Phase 1 scope: Spot coffee (~15% of inventory). Forward contracting deferred to phase 2.",
+          "score": 2,
           "questions": []
         },
         "economic_buyer": {
-          "text": "Not yet identified. Nicole Freydell is primary contact (role/seniority unclear). No executive sponsor or budget owner mapped.",
-          "score": 0,
+          "text": "Mark Howard (Business & Customer Relations Head) likely economic influencer. Nicole Freydell (Brand Business Leader and Ecom Mgr) is champion candidate. Luz Carime Gomez Cocoma (IT Director, London) owns NetSuite + Roaster Hub stack and joined Jun 2 call.",
+          "score": 2,
           "questions": []
         },
         "decision_criteria": {
-          "text": "Not yet fully surfaced. Known needs: B2B portal for specialty coffee wholesale buyers, integration requirements TBD (IT Director joining next call), multi-currency likely required (London HQ, international accounts).",
-          "score": 0,
+          "text": "Customer approval workflow, sample-first flow, 2–3 sample limit (now with a fee), payment at warehouse release, NetSuite stays SoT for inventory/pricing/payment. Phase 1: Spot coffee only. PIM path open (NetSuite ↔ Atlas vs direct Shopify ↔ Atlas) — Nicole verifying. Forward contract workflow: 3-year contracts, pre-shipment sample approval, invoice when coffee lands in warehouse — phase 2. Pricing complexity: NY C-market daily + origin differentials + variety value + certifications.",
+          "score": 1,
           "questions": []
         },
         "decision_process": {
-          "text": "Transferred from Grant Dugas (SDR, who declined intro meeting). Intro call Apr 29 with Nicole. Jordan Murphy (SE) joined the deal and team is on Microsoft Teams. Technical deep dive May 26 — IT Director joining. Formal eval criteria, competing platforms, and wider stakeholders all unknown.",
-          "score": 0,
+          "text": "Apr 29 intro → May 26 technical discovery → Jun 2 technical discovery (Mercedes, Jordan Murphy SE, Nicole, Luz attended). Next: B2B + NetSuite integration demo (Jordan + Mercedes). Mercedes to send scheduling email for next week / week after, AM ET for Luz's London tz. Close date 2026-08-31 → SF shows 2026-09-30.",
+          "score": 1,
           "questions": []
         },
         "paper_process": {
-          "text": "",
+          "text": "Not yet mapped — close on next call sequence.",
           "score": 0,
           "questions": []
         },
         "identified_pain": {
-          "text": "90% of business is wholesale and almost none of it is digitized — customers ordering manually. WooCommerce DTC site not meeting B2B needs. Nicole confirmed desire for a B2B wholesale portal to replace manual processes.",
-          "score": 0,
+          "text": "Migrating from custom React Roaster Hub on top of NetSuite (not on SuiteCommerce). 90% of business is wholesale and almost none of it is digitized — customers ordering manually. Spot offering is the wedge — micro-roaster self-serve in NA market (~10K new micro-roasters/year per Nicole). Phased rollout: spot first, complex forward contracts in phase 2 — but architect once.",
+          "score": 2,
           "questions": []
         },
         "champion": {
-          "text": "Nicole Freydell is engaged but title, seniority, and internal influence are unknown. No confirmed champion with budget authority.",
-          "score": 0,
+          "text": "Nicole Freydell Restrepo (Brand Business Leader and Ecom Mgr) is engaged and driving the evaluation. Luz Carime Gomez Cocoma (IT Director, London) now in the loop and owns the integration stack. Mark Howard likely economic influencer.",
+          "score": 1,
           "questions": []
         },
         "competition": {
-          "text": "",
-          "score": 0,
+          "text": "Status quo (custom React Roaster Hub) is the primary competition. Two DTC Shopify Plus projects already running internally (Kasalandino + James Hoffmann fermentation) — proves Shopify familiarity. Planned 'Marcado' US DTC launch.",
+          "score": 1,
           "questions": []
         }
       },
-      "strategy": "THIN — 2/16 MEDDPICC. This deal needs discovery depth before it can advance. Priority on May 26 call: surface economic buyer and IT Director's authority, quantify the wholesale order volume pain (how many orders/day, how much manual work), and identify competing platforms being evaluated. The 90% wholesale angle is a perfect B2B story — but it needs a champion with authority.",
+      "strategy": "Jun 2 technical discovery made real progress — decisions locked on customer approval workflow, sample-first flow, sample fees, warehouse-release payment, NetSuite as SoT. Phase 1 scope (Spot, ~15% of inventory) is now agreed. Critical path: (1) Mercedes sends scheduling email for B2B + NetSuite integration demo (Jordan + Mercedes), (2) Luz verifies PIM path NetSuite↔Atlas vs Shopify↔Atlas, (3) close paper process gap. MEDDPICC moved from 2/16 (May 13) to 9/16 (May 13 update — pre-Jun 2) — likely 10–11/16 post Jun 2.",
       "risks": [
         {
-          "sev": "high",
-          "text": "THIN QUALIFICATION: EB, competition, and decision criteria all unknown",
-          "mit": "May 26 call must surface EB and IT Director's role. Treat as a discovery call, not a demo."
-        },
-        {
-          "sev": "high",
-          "text": "Transferred deal — Nicole's context and motivation are unclear",
-          "mit": "Understand why Grant declined the intro. Ensure Nicole has real authority to drive a decision."
+          "sev": "med",
+          "text": "Paper process and procurement path still not mapped",
+          "mit": "Surface on next demo call. Ask Nicole/Luz directly: who signs?"
         },
         {
           "sev": "med",
-          "text": "International HQ (London) may introduce VAT/compliance and multi-currency complexity",
-          "mit": "Confirm region and currency requirements before proposing solution."
+          "text": "PIM path undecided — NetSuite↔Atlas vs Shopify↔Atlas",
+          "mit": "Luz to verify before integration demo."
         },
         {
           "sev": "med",
-          "text": "No stated internal deadline or project trigger",
-          "mit": "Surface urgency on next call — what's forcing action now?"
+          "text": "Multi-region complexity (Houston, Dublin, London, Australia) — VAT, multi-currency, tz",
+          "mit": "Architect once now even though phase 1 is Spot-only NA."
+        },
+        {
+          "sev": "low",
+          "text": "Forward contracting deferred to phase 2 — risk that priorities shift before phase 1 ROI proven",
+          "mit": "Phase 1 deliberately tight; deliver spot revenue capture quickly."
         }
       ],
       "done": [
-        "Intro call Apr 29 — confirmed B2B wholesale need, platform is WooCommerce (DTC)",
+        "Intro call Apr 29 — confirmed B2B wholesale need, platform is custom Roaster Hub on NetSuite",
         "Jordan Murphy (SE) joined the deal",
-        "Technical deep dive scheduled May 26 — IT Director joining via Microsoft Teams"
+        "Technical deep dive scheduled May 26 — IT Director joining via MS Teams",
+        "Jun 2 technical discovery completed (Mercedes, Jordan, Nicole, Luz)",
+        "Phase 1 scope agreed: Spot coffee (~15% of inventory); forward contracting phase 2",
+        "Decisions locked: customer approval workflow, sample-first flow, sample fee, warehouse-release payment, NetSuite as SoT"
       ],
       "left": [
-        "Lead technical deep dive May 26 — surface EB, IT Director's role, decision criteria",
-        "Quantify wholesale order volume and manual processing overhead",
-        "Identify competing platforms being evaluated",
-        "Map buying committee and decision criteria"
+        "Send scheduling email for B2B + NetSuite integration demo (Jordan + Mercedes) — AM ET for London tz",
+        "Luz to verify PIM path: NetSuite ↔ Atlas vs Shopify ↔ Atlas",
+        "Map paper process — who signs?",
+        "Identify economic buyer with budget authority (Mark Howard likely)",
+        "Set Merchant Intent after next demo — currently still Uncommitted, trending positive"
       ],
-      "notes": "Specialty coffee B2B wholesale, 90% wholesale, $35M rev, ~200 employees, London HQ. Contact: Nicole Freydell (nicole.freydell@caravela.coffee). Transferred from Grant Dugas (SDR). Current platform: WooCommerce (DTC only). SE Jordan Murphy joined. IT Director joining May 26 call on Microsoft Teams — critical discovery session. Confirm multi-currency, VAT, and ERP context.",
-      "last_call": "2026-04-29",
-      "next_call": "2026-05-26",
+      "notes": "Specialty coffee B2B wholesale, 90% wholesale, ~$5M B2B GMV global, ~300 active B2B accounts, London HQ. Contacts: Nicole Freydell (nicole.freydell@caravela.coffee — PRIMARY/champion candidate), Luz Carime Gomez Cocoma (luz.gomez@caravela.coffee — IT Director), Mark Howard (mark.howard@caravela.coffee — likely economic influencer). Already running 2 DTC Shopify Plus projects (Kasalandino + James Hoffmann fermentation). Planned 'Marcado' US DTC launch. SE Jordan Murphy. Jun 11 B2B Capabilities Demo on the books with Jordan + Nicole + Luz. Phase 1 scope: Spot coffee — ~15% of inventory.",
+      "last_call": "2026-06-02",
+      "next_call": "2026-06-11",
       "manager_q": {
-        "compelling_event": "",
+        "compelling_event": "Spot coffee self-serve = revenue capture from ~10K new NA micro-roasters/yr; phase 1 quick win",
         "map_created": null,
         "map_shared": null,
         "map_agreed": null,
         "map_notes": "",
-        "who_signs": "",
-        "urgency": "",
-        "risk_to_close": "",
+        "who_signs": "Mark Howard (likely) — to confirm",
+        "urgency": "No hard deadline but Nicole pushing to start small/spot quickly",
+        "risk_to_close": "Paper process unmapped; PIM path open",
         "gut": 0
       },
-      "forecast": null
+      "forecast": "bestcase"
     },
     "artificial-turf-supply": {
       "sf": {
@@ -324,7 +224,7 @@
         "pbr": 165688,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-06-03"
+        "last_modified": "2026-06-04"
       },
       "meddpicc": {
         "metrics": {
@@ -368,7 +268,7 @@
           "questions": []
         }
       },
-      "strategy": "THIN — 4/16 MEDDPICC. SE Jordan Murphy is the key asset here — leverage the July meeting to surface economic buyer, build the ROI case, and nail down integration scope for Salesforce + Sage before the July build start. The July gap (now to July) is 6+ weeks dark — stay in touch with Kyle to maintain momentum.",
+      "strategy": "THIN — 4/16 MEDDPICC. SE Jordan Murphy is the key asset here — leverage the July meeting to surface economic buyer, build the ROI case, and nail down integration scope for Salesforce + Sage before the July build start. The May→July gap is 6+ weeks dark — stay in touch with Kyle to maintain momentum.",
       "risks": [
         {
           "sev": "high",
@@ -403,7 +303,7 @@
         "Identify competing platforms",
         "Stay in touch with Kyle during May–July dark period"
       ],
-      "notes": "Contact: Kyle Boyd (kyle@artificialturfsupply.com). SE: Jordan Murphy (jordan.murphy@shopify.com). Technical discovery May 5. Build starts July, Q4 go-live target. Integrations: Salesforce (CRM) + Sage (ERP/accounting) replacing legacy. Next meeting 1st week of July.",
+      "notes": "Contact: Kyle Boyd (kyle@artificialturfsupply.com). SE: Jordan Murphy (jordan.murphy@shopify.com). Technical discovery May 5. Build starts July, Q4 go-live target. Integrations: Salesforce (CRM) + Sage (ERP/accounting) replacing legacy. Next meeting 1st week of July. Quiet this week — no new activity.",
       "last_call": "2026-05-05",
       "next_call": "2026-07-01",
       "manager_q": {
@@ -427,29 +327,29 @@
         "pbr": 143458,
         "amount": 0,
         "merchant_intent": "Committed - At Risk",
-        "last_modified": "2026-06-03",
+        "last_modified": "2026-06-04",
         "name": "Viaggio Pontoons-D2C & B2B - Split for B2B",
         "owner": "Mercedes Boykin-Sabalones"
       },
       "meddpicc": {
         "metrics": {
-          "text": "~$5M B2B GMV potential (internal estimate). 137 dealers, 5 territories, 7 sales reps. 4 brands: Viaggio Pontoons, Lakota Trailers, SMC, Duo Form (Bristol, Indiana). Revenue not yet confirmed — Nathaniel to provide 2025 B2B/DTC split. Current platform cost: NetSuite SuiteCommerce ~$35K/yr. Quote process: dealer selects options → submits → sales reps recreate in NetSuite (no deposit, fully manual). Target go-live August 2027 (model year 2028 launch).",
+          "text": "~$5M B2B GMV potential (internal estimate). 137 dealers, 5 territories, 7 sales reps. 4 brands: Viaggio Pontoons, Lakota Trailers, SMC, Duo Form (Bristol, Indiana). Current platform cost: NetSuite SuiteCommerce ~$35K/yr. Quote process: dealer selects options → submits → sales reps recreate in NetSuite (no deposit, fully manual). Target go-live August 2027 (model year 2028 launch).",
           "score": 2,
           "questions": []
         },
         "economic_buyer": {
-          "text": "Owner Eric (last name unknown) is likely final decision maker — attended Nathaniel's May 12 leadership pitch alongside CFO/Corporate Controller, Head of Sales, and Head of CS. All four stakeholders are now aware of the Shopify evaluation. Nathaniel (Director of IT) is day-to-day champion but lacks budget authority. Neither Mercedes nor Joe have direct contact with Eric or CFO yet.",
+          "text": "Owner Eric is likely final decision maker — attended Nathaniel's May 12 leadership pitch alongside CFO/Corporate Controller, Head of Sales, and Head of CS. All four stakeholders are now aware of the Shopify evaluation. Nathaniel (Director of IT) is day-to-day champion but lacks budget authority. Neither Mercedes nor Joe have direct contact with Eric or CFO yet.",
           "score": 1,
           "questions": []
         },
         "decision_criteria": {
           "text": "Unified Shopify B2B (dealer portal) + D2C (boat owner portal) on one platform. Dealer configurator with rule-based pricing logic. Multi-brand architecture must extend from Viaggio design to Lakota Trailers, SMC, Duo Form. Partner requirements: current tech standards, no IP lock-in, no AI buzzwords. Replace NetSuite SuiteCommerce. Proforma invoices for dealer financing. Two invoices per boat (boat + motor separately).",
-          "score": 0,
+          "score": 1,
           "questions": []
         },
         "decision_process": {
-          "text": "Nathaniel pitched leadership week of May 12 — Owner, CFO, Head of Sales, Head of CS all attended. May 20 debrief — Mercedes' first call as B2B specialist. 8-page requirements doc arriving May 22-23. Technical discovery scheduled May 28-29 noon-1pm ET. Decision deadline: end of June 2026 — Nathaniel: 'if we don't have a decision by the end of June, we're going to be scrambling.' Co-sell: Joe Hemingway is AE (SF opp owner), Mercedes is B2B specialist SE.",
-          "score": 1,
+          "text": "Nathaniel pitched leadership week of May 12 — Owner, CFO, Head of Sales, Head of CS all attended. May 20 debrief — Mercedes' first call as B2B specialist. May 28 Technical Reconnect completed. Jun 1 partner intro calls with Zaelab + Domaine. Decision approaching mid-June. Stage advanced to Solution. Co-sell: Joe Hemingway is AE (SF opp owner), Mercedes is B2B specialist SE.",
+          "score": 2,
           "questions": []
         },
         "paper_process": {
@@ -459,72 +359,230 @@
         },
         "identified_pain": {
           "text": "NetSuite SuiteCommerce ~$35K/yr explicitly not built for B2B (confirmed by NetSuite engineers themselves). Simple SuiteCommerce changes take 6 months via third-party devs. Nathaniel is a team of one. Quote workflow is fully manual — dealer selects options, submits, then sales reps recreate the entire order in NetSuite with no deposit. Two separate invoices per boat (boat + motor) creates friction. Proforma invoices required for dealer financing add complexity.",
-          "score": 1,
+          "score": 2,
           "questions": []
         },
         "champion": {
-          "text": "Nathaniel Talbot (Director of IT, newly promoted) is the primary internal champion — built the 5-year cost analysis and pitched leadership internally himself. Joe Hemingway (AE) brought the deal. Mercedes Boykin-Sabalones is B2B specialist SE (co-sell). Strong internal conviction — Nathaniel has already done the internal selling.",
+          "text": "Nathaniel Talbot (Director of IT, newly promoted) is the primary internal champion — built the 5-year cost analysis and pitched leadership internally himself. Joe Hemingway (AE) brought the deal. Mercedes Boykin-Sabalones is B2B specialist SE (co-sell). Strong internal conviction — Nathaniel has already done the internal selling. Jordan Murphy now looped in as B2B specialist SE.",
           "score": 2,
           "questions": []
         },
         "competition": {
-          "text": "Status quo (NetSuite SuiteCommerce) is the primary competition. No other platforms mentioned. NetSuite engineers themselves acknowledged SuiteCommerce was not designed for B2B — strong position for Shopify B2B.",
+          "text": "Status quo (NetSuite SuiteCommerce) is the primary competition. No other platforms mentioned. NetSuite engineers themselves acknowledged SuiteCommerce was not designed for B2B — strong position for Shopify B2B. Partner shortlist (Jun 1 calls): Zaelab + Domaine.",
           "score": 1,
           "questions": []
         }
       },
-      "strategy": "Co-sell with Joe Hemingway (AE). Mercedes is B2B specialist SE. Champion Nathaniel built the internal business case himself — high internal conviction. Decision deadline end of June 2026. Critical path: receive requirements doc (May 22-23) → technical discovery May 28-29 → proposal before June 30. Multi-brand expansion (Lakota, SMC, Duo Form) is the long-term prize. Must get Mercedes + Joe in front of Owner Eric and CFO before June 30.",
+      "strategy": "Stage advanced to Solution. SF close moved to 2026-07-31. Co-sell with Joe Hemingway (AE). Mercedes is B2B specialist SE. Champion Nathaniel built the internal business case himself. Critical path: (1) close out partner selection between Zaelab + Domaine after Jun 1 intro calls, (2) get Mercedes + Joe in front of Owner Eric and CFO before mid-June decision point, (3) complete RFI response review with Jordan, (4) drive paper process. Multi-brand expansion (Lakota, SMC, Duo Form) is the long-term prize.",
       "risks": [
         {
           "sev": "high",
-          "text": "Decision deadline end of June 2026 — very compressed timeline for complex B2B + D2C platform architecture with multi-brand scope",
-          "mit": "Move immediately: review requirements doc May 22-23, nail technical discovery May 28-29, proposal by early June."
+          "text": "Decision deadline approaching mid-June — complex B2B + D2C platform architecture with multi-brand scope",
+          "mit": "Solution-stage work in flight: partner intros done Jun 1, RFI response with Jordan, get Eric/CFO meeting before mid-June."
         },
         {
           "sev": "high",
           "text": "Economic buyer (Owner Eric, CFO) not yet in direct contact — Nathaniel is only intermediary. Deal could stall if Eric is not fully committed.",
-          "mit": "Joe + Mercedes to get on a call with Eric and CFO before June close. Nathaniel's internal pitch is strong but needs validation from Mercedes/Joe directly."
+          "mit": "Joe + Mercedes to get on a call with Eric and CFO before mid-June decision. Nathaniel's internal pitch is strong but needs validation from Mercedes/Joe directly."
         },
         {
           "sev": "med",
-          "text": "Dealer configurator with rule-based pricing logic — complexity not yet documented (8-page requirements doc arriving May 22-23)",
-          "mit": "Review requirements doc closely before May 28-29 technical discovery. Flag configurator as key scoping topic."
+          "text": "Dealer configurator with rule-based pricing logic — complexity scoping still needed",
+          "mit": "Coordinate with selected partner (Zaelab or Domaine) post-Jun 1 calls."
         },
         {
           "sev": "med",
-          "text": "Co-sell complexity — Joe is AE, Mercedes is B2B specialist SE, dedicated SE for technical discovery not yet confirmed",
-          "mit": "Align with Joe on roles and division of labor before May 28-29 call."
+          "text": "Paper process not yet mapped — close at risk for Jul 31 target",
+          "mit": "Surface procurement path on next call."
         }
       ],
       "done": [
         "May 8 intro call (Joe + Nathaniel) — platform pain documented, vision established",
-        "May 20 debrief (Nathaniel + Mercedes) — leadership pitch recap, scope confirmed B2B + D2C on Shopify Plus, timeline and decision deadline set",
+        "May 20 debrief (Nathaniel + Mercedes) — leadership pitch recap, scope confirmed B2B + D2C on Shopify Plus",
         "Nathaniel's leadership pitch (week of May 12) — Owner Eric, CFO, Head of Sales, Head of CS all now aware",
-        "8-page requirements doc requested — Nathaniel to send by May 22-23",
-        "Technical discovery scheduled May 28-29 noon-1pm ET"
+        "RFI v1 received (Section 9 Shopify response draft in motion with Jordan)",
+        "MAP sheet created May 25",
+        "May 28 Technical Reconnect — Mercedes + Jordan + Nathaniel",
+        "Jun 1 partner intro calls with Zaelab + Domaine — eval hub shared",
+        "Stage advanced to Solution; close pushed to Jul 31"
       ],
       "left": [
-        "Receive and review 8-page requirements doc (expected May 22-23)",
-        "Lead technical discovery call May 28-29 — validate dealer configurator, multi-brand architecture",
-        "Confirm SE for technical discovery call",
-        "Build initial architecture/proposal after requirements review",
-        "Get Mercedes + Joe on call with Owner Eric and CFO before June 30"
+        "Close partner selection between Zaelab and Domaine",
+        "Complete RFI response review with Jordan and send back to Nathaniel",
+        "Get Mercedes + Joe + Jordan on call with Owner Eric and CFO before mid-June decision",
+        "Map paper process / procurement path",
+        "Set Merchant Intent path to Committed before Jul 31 close"
       ],
-      "notes": "Co-sell: Joe Hemingway (AE, joseph.hemingway@shopify.com), Mercedes Boykin-Sabalones (B2B specialist SE). SF opp 006OG00000NzSWnYAN (B2B-split, Mercedes-owned). Parent opp 006OG00000NP5QgYAL is Joe-owned (combined D2C+B2B). Multi-brand marine manufacturer: Viaggio Pontoons, Lakota Trailers, SMC, Duo Form (Bristol, Indiana). Nathaniel Talbot (Director of IT, ntalbot@viaggiopontoons.com / ntalbot@lakotatrailers.com) is champion — built 5-yr cost analysis internally. 137 dealers, 5 territories, 7 sales reps. DTC very limited; apparel outsourced. Shipping restrictions (e.g. can't ship 4-boat load to WA state). Decision deadline: end of June 2026.",
-      "last_call": "2026-05-20",
-      "next_call": "2026-05-29",
+      "notes": "Co-sell: Joe Hemingway (AE, joseph.hemingway@shopify.com), Mercedes Boykin-Sabalones (B2B specialist SE), Jordan Murphy (B2B specialist SE — looped in May 25). SF opp 006OG00000NzSWnYAN (B2B-split, Mercedes-owned). Parent opp 006OG00000NP5QgYAL is Joe-owned (combined D2C+B2B). Multi-brand marine manufacturer: Viaggio Pontoons, Lakota Trailers, SMC, Duo Form (Bristol, Indiana). Nathaniel Talbot (Director of IT, ntalbot@viaggiopontoons.com / ntalbot@lakotatrailers.com) is champion — built 5-yr cost analysis internally. 137 dealers, 5 territories, 7 sales reps. Latest activity: Jun 1 partner intros with Zaelab + Domaine; Jun 15 decision date approaching. Eval hub: mercedesboykin.github.io/maps/viaggio-pontoons/ (password: viaggio26).",
+      "last_call": "2026-06-01",
+      "next_call": "",
       "manager_q": {
-        "compelling_event": "Decision deadline end of June 2026 — Nathaniel: 'if we don't have a decision by end of June, we're going to be scrambling'",
+        "compelling_event": "Mid-June decision point — Nathaniel: 'if we don't have a decision by end of June, we're going to be scrambling'",
+        "map_created": "2026-05-25",
+        "map_shared": null,
+        "map_agreed": null,
+        "map_notes": "MAP sheet at https://docs.google.com/spreadsheets/d/16YknK2xrO6ZG0qyXaZOEwq_-W-DjJ28tLe7zWDFhTOU/edit",
+        "who_signs": "Owner Eric + CFO/Corporate Controller",
+        "urgency": "Mid-June decision approaching. SF close Jul 31. August 2027 go-live for MY2028.",
+        "risk_to_close": "No direct EB contact; partner selection still open; paper process unmapped",
+        "gut": 0
+      },
+      "forecast": "commit"
+    },
+    "rust-automation-and-controls": {
+      "sf": {
+        "id": "006OG00000OB6HBYA1",
+        "stage": "Envision",
+        "close": "2026-12-31",
+        "pbr": 0,
+        "amount": 0,
+        "merchant_intent": "Committed - At Risk",
+        "last_modified": "2026-06-04"
+      },
+      "meddpicc": {
+        "metrics": {
+          "text": "Revenue ~$14.1M. ~721 monthly visits (quote-driven, not browse-driven). 50 years in business. ~2,970 SKUs. Manufacturer's rep + distributor model — B2B only, territory-based sales. Top brands: Endress+Hauser (603), Dwyer (534), Sick (387), Burkert (381), ASCO (317), Ashcroft (176). West Jordan, UT HQ.",
+          "score": 1,
+          "questions": []
+        },
+        "economic_buyer": {
+          "text": "Scott Johnston — VP of Systems & Marketing — single decision-maker at this stage, owns both Systems AND Marketing budgets. Champion candidate AND likely economic buyer for early stack consolidation conversation. Founder/CEO not yet engaged.",
+          "score": 1,
+          "questions": []
+        },
+        "decision_criteria": {
+          "text": "Not yet fully surfaced. Initial angles: platform consolidation (Weebly marketing site + Yodify B2B catalog + line card subdomain → one), sales-rep productivity (Russell Hendrix analogue), capture self-serve demand currently quote-gated. ERP and CRM TBD — confirm on next call.",
+          "score": 0,
+          "questions": []
+        },
+        "decision_process": {
+          "text": "Cold outbound by Grant Dugas (Shopify B2B Consultant) May 27. Scott Johnston accepted chat May 29; intro/discovery meeting Jun 2 (3:00–3:30pm ET, Google Meet). Cooper VandeWalle assigned SE — not yet looped in. No formal procurement path yet. First contact stage — pre-Opp until Jun 2.",
+          "score": 1,
+          "questions": []
+        },
+        "paper_process": {
+          "text": "",
+          "score": 0,
+          "questions": []
+        },
+        "identified_pain": {
+          "text": "Three separate properties (rustco.com Weebly, shop.rustco.com Yodify catalog, linecard.rustco.com) — fragmented stack. Quote-driven catalog with login-gated pricing means self-serve demand is leaking. 50-yr-old manufacturer's rep / distributor model in industrial automation — Russell Hendrix proves the analogue (5x faster order processing for reps, 24% revenue increase on Shopify Plus).",
+          "score": 1,
+          "questions": []
+        },
+        "champion": {
+          "text": "Scott Johnston (VP Systems & Marketing) — accepted the cold outbound May 29, took the meeting Jun 2. Owns both Systems and Marketing — rare combined-budget profile that simplifies early evaluation. Grant Dugas (Shopify B2B Consultant) sourced and warmly handed off.",
+          "score": 1,
+          "questions": []
+        },
+        "competition": {
+          "text": "Status quo: Weebly + Yodify + line card subdomain. Yodify is cheap — ROI framing must be revenue capture + rep productivity, not platform cost. No competing platforms surfaced yet.",
+          "score": 0,
+          "questions": []
+        }
+      },
+      "strategy": "Pre-Opp first-contact deal — Jun 2 intro happened. Strategic angle: platform consolidation (Weebly + Yodify + line card → one) + sales-rep productivity (Russell Hendrix analogue) + capture self-serve demand currently quote-gated. Critical path: (1) loop in Cooper VandeWalle (assigned SE), (2) get next call on books for technical discovery, (3) confirm ERP/CRM stack, (4) start qualifying budget + buying committee around Scott. Watch out: Yodify is cheap — must lead with revenue capture, not cost.",
+      "risks": [
+        {
+          "sev": "high",
+          "text": "Pre-Opp — discovery just started, qualification is thin (4/16 MEDDPICC)",
+          "mit": "Run a tight technical discovery on next call. Surface ERP/CRM, decision committee, urgency."
+        },
+        {
+          "sev": "high",
+          "text": "Yodify is cheap — Plus pricing conversation will compress if ROI framing isn't right",
+          "mit": "Lead with Russell Hendrix case study (5x rep productivity, 24% rev). Never frame as platform cost play."
+        },
+        {
+          "sev": "med",
+          "text": "Cooper VandeWalle (assigned SE) not yet looped in",
+          "mit": "Brief Cooper before next call. Get on books together."
+        },
+        {
+          "sev": "med",
+          "text": "ERP/CRM unknown — could create integration scoping surprises",
+          "mit": "Ask Scott directly on next call. Get him to walk the stack."
+        }
+      ],
+      "done": [
+        "Cold outbound by Grant Dugas May 27 — 'Saw something on the website and wasn't sure who to speak with directly'",
+        "Scott Johnston accepted chat May 29",
+        "Intro/discovery call Jun 2 (Mercedes + Scott, 3:00–3:30pm ET)",
+        "Site scan complete: rustco.com (Weebly), shop.rustco.com (Yodify catalog), linecard.rustco.com, ~2,970 SKUs across Endress+Hauser, Dwyer, Sick, Burkert, ASCO, Ashcroft, etc.",
+        "SF opp created (Envision, 006OG00000OB6HBYA1)"
+      ],
+      "left": [
+        "Loop in Cooper VandeWalle (assigned SE)",
+        "Get next call on books — technical discovery (Jul 14 currently scheduled per Gmail)",
+        "Confirm ERP and CRM stack",
+        "Surface budget + buying committee around Scott",
+        "Send case study (Russell Hendrix) to anchor ROI framing"
+      ],
+      "notes": "Industrial automation B2B distributor + manufacturer's rep, 50 yrs in business, ~$14.1M revenue, ~2,970 SKUs. Contact: Scott Johnston (VP Systems & Marketing, scott.johnston@rustco.com, 801-566-7878). SE: Cooper VandeWalle (assigned, not yet looped in). Sourced by Grant Dugas (Shopify B2B Consultant). Comparable wins: Russell Hendrix (Canada's largest foodservice equipment supplier, manufacturer's-rep model, 5x faster order processing for reps, 24% revenue increase, 43% B2B online order volume in 12 months); Fumex Inc. (industrial filtration). Watch out: Yodify is cheap — ROI framing must be revenue capture + rep productivity, not platform cost. Pricing: do NOT quote Plus pricing in early calls — Plus has VPF, verify via Vault before stating.",
+      "last_call": "2026-06-02",
+      "next_call": "2026-07-14",
+      "manager_q": {
+        "compelling_event": "",
         "map_created": null,
         "map_shared": null,
         "map_agreed": null,
         "map_notes": "",
-        "who_signs": "Owner Eric (last name unknown) + CFO/Corporate Controller",
-        "urgency": "End of June decision deadline. August 2027 go-live for model year 2028.",
-        "risk_to_close": "No direct contact with economic buyer (Eric/CFO); requirements doc not yet received",
+        "who_signs": "Scott Johnston (VP Systems & Marketing) — owns both Systems and Marketing budgets",
+        "urgency": "",
+        "risk_to_close": "Pre-Opp, qualification thin, ROI framing not yet established with merchant",
         "gut": 0
       },
-      "forecast": "bestcase"
+      "forecast": null
+    },
+    "all-pro-fasteners": {
+      "sf": {
+        "id": "006OG00000EH3RGYA1",
+        "stage": "Pre-Qualified",
+        "close": "2026-06-30",
+        "pbr": 0,
+        "amount": 0,
+        "merchant_intent": null,
+        "last_modified": "2026-06-04"
+      },
+      "meddpicc": {
+        "metrics": { "text": "", "score": 0, "questions": [] },
+        "economic_buyer": { "text": "", "score": 0, "questions": [] },
+        "decision_criteria": { "text": "", "score": 0, "questions": [] },
+        "decision_process": { "text": "", "score": 0, "questions": [] },
+        "paper_process": { "text": "", "score": 0, "questions": [] },
+        "identified_pain": { "text": "", "score": 0, "questions": [] },
+        "champion": { "text": "", "score": 0, "questions": [] },
+        "competition": { "text": "", "score": 0, "questions": [] }
+      },
+      "strategy": "Sparse — needs discovery from scratch. SF opp inherited (Pre-Qualified, created 2025-05-14). No recent activity in Gmail/Calendar. Close date Jun 30 likely needs to be pushed once qualification starts. Decision: keep open and qualify, or close lost if no real engagement signal.",
+      "risks": [
+        {
+          "sev": "high",
+          "text": "Zero MEDDPICC — no contact, no champion, no metrics. Close date Jun 30 is unrealistic.",
+          "mit": "Reach out cold or close lost. Either way, decide this week."
+        }
+      ],
+      "done": [],
+      "left": [
+        "Decide: reach out cold to All-Pro Fasteners Inc, or close lost",
+        "Update close date — Jun 30 is unrealistic given Pre-Qualified state",
+        "Pull contact list from Salesforce account 0018V00002deIvkQAE"
+      ],
+      "notes": "Inherited SF opp — created 2025-05-14 (over a year old). No activity in Gmail or Calendar this week. Account: All-Pro Fasteners Inc (0018V00002deIvkQAE). Currently a placeholder — needs a real qualification touch or a close-lost decision.",
+      "last_call": "",
+      "next_call": "",
+      "manager_q": {
+        "compelling_event": "",
+        "map_created": null,
+        "map_shared": null,
+        "map_agreed": null,
+        "map_notes": "",
+        "who_signs": "",
+        "urgency": "",
+        "risk_to_close": "Zero qualification; stale opp",
+        "gut": 0
+      },
+      "forecast": null
     }
   },
   "closed_won": {
@@ -535,31 +593,11 @@
     },
     "current_quarter": 2,
     "quarters": {
-      "Q1": {
-        "year": 2026,
-        "count": 0,
-        "pbr": 0,
-        "deals": []
-      },
-      "Q2": {
-        "year": 2026,
-        "count": 0,
-        "pbr": 0,
-        "deals": []
-      },
-      "Q3": {
-        "year": 2026,
-        "count": 0,
-        "pbr": 0,
-        "deals": []
-      },
-      "Q4": {
-        "year": 2026,
-        "count": 0,
-        "pbr": 0,
-        "deals": []
-      }
+      "Q1": { "year": 2026, "count": 0, "pbr": 0, "deals": [] },
+      "Q2": { "year": 2026, "count": 0, "pbr": 0, "deals": [] },
+      "Q3": { "year": 2026, "count": 0, "pbr": 0, "deals": [] },
+      "Q4": { "year": 2026, "count": 0, "pbr": 0, "deals": [] }
     },
-    "updated": "2026-06-03T14:13:09Z"
+    "updated": "2026-06-04T15:00:00Z"
   }
 }

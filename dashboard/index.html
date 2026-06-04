@@ -357,18 +357,21 @@
   const RAW_URL = 'https://raw.githubusercontent.com/mercedesboykin/hub/main/deal-data.json';
 
   const DEALS = [
-    { id: 'national-gym-supply', name: 'National Gym Supply', industry: 'Fitness Equipment Wholesale', stage: 'Envision', close: '2026-06-30', pbr: 120348, forecast: null, se: 'Jordan Murphy', map_url: 'https://national-gym-supply-shopify.quick.shopify.io/' },
-    { id: 'allen-company', name: 'Allen Company', industry: 'Outdoor Sporting Goods · Louisville CO', stage: 'Pre-Qualified', close: '2026-08-31', pbr: 115755, forecast: null, se: null, map_url: '' },
-    { id: 'caravela-coffee', name: 'Caravela Coffee', industry: 'B2B Coffee Wholesale · London UK', stage: 'Envision', close: '2026-09-30', pbr: 110882, forecast: null, se: null, map_url: '' },
-    { id: 'artificial-turf-supply', name: 'Artificial Turf Supply', industry: 'Turf & Landscaping', stage: 'Envision', close: '2026-10-30', pbr: 165689, forecast: null, se: 'Jordan Murphy', map_url: '' },
-    { id: 'viaggio-pontoons', name: 'Viaggio Pontoons', industry: 'Marine Manufacturing · B2B', stage: 'Pre-Qualified', close: '2026-06-30', pbr: 0, forecast: null, se: 'Mercedes Boykin-Sabalones', map_url: '' },
+    { id: 'national-gym-supply', name: 'National Gym Supply', industry: 'Fitness Equipment Wholesale', stage: 'Deal Craft', close: '2026-06-30', pbr: 306185, forecast: 'commit', se: 'Jordan Murphy', map_url: 'https://national-gym-supply-shopify.quick.shopify.io/' },
+    { id: 'viaggio-pontoons', name: 'Viaggio Pontoons', industry: 'Marine Manufacturing · Bristol, Indiana', stage: 'Solution', close: '2026-07-31', pbr: 143458, forecast: 'commit', se: 'Mercedes Boykin-Sabalones', map_url: 'https://mercedesboykin.github.io/maps/viaggio-pontoons/' },
+    { id: 'caravela-coffee', name: 'Caravela Coffee', industry: 'B2B Coffee Wholesale · London UK', stage: 'Envision', close: '2026-09-30', pbr: 110881, forecast: 'bestcase', se: 'Jordan Murphy', map_url: '' },
+    { id: 'artificial-turf-supply', name: 'Artificial Turf Supply', industry: 'Turf & Landscaping', stage: 'Envision', close: '2026-10-30', pbr: 165688, forecast: null, se: 'Jordan Murphy', map_url: '' },
+    { id: 'rust-automation-and-controls', name: 'Rust Automation & Controls', industry: 'Industrial Automation · West Jordan UT', stage: 'Envision', close: '2026-12-31', pbr: 0, forecast: null, se: 'Cooper VandeWalle', map_url: '' },
+    { id: 'all-pro-fasteners', name: 'All-Pro Fasteners', industry: 'Industrial Fasteners', stage: 'Pre-Qualified', close: '2026-06-30', pbr: 0, forecast: null, se: null, map_url: '' },
   ];
 
   const CALLS = [
-    { deal: 'national-gym-supply', title: 'Shopify + DYODE | NGS Sync', type: 'partner', start: '2026-05-26T18:00:00' },
-    { deal: 'national-gym-supply', title: 'Shopify, DYODE + NGS — Full Team Demo', type: 'demo', start: '2026-05-27T13:00:00' },
-    { deal: 'viaggio-pontoons', title: 'Viaggio Pontoons: Technical Discovery — Dealer Portal + Multi-Brand Architecture', type: 'discovery', start: '2026-05-29T12:00:00' },
+    { deal: 'viaggio-pontoons', title: 'Viaggio + Zaelab — Partner Intro', type: 'partner', start: '2026-06-01T15:00:00' },
+    { deal: 'viaggio-pontoons', title: 'Viaggio + Domaine — Partner Intro', type: 'partner', start: '2026-06-01T17:00:00' },
     { deal: 'caravela-coffee', title: 'Caravela x Shopify — Technical Deep Dive', type: 'discovery', start: '2026-06-02T11:00:00' },
+    { deal: 'rust-automation-and-controls', title: 'Rust Automation — Intro / Discovery (Scott Johnston)', type: 'intro', start: '2026-06-02T15:00:00' },
+    { deal: 'caravela-coffee', title: 'Caravela — B2B Capabilities Demo (Jordan + Nicole + Luz)', type: 'demo', start: '2026-06-11T10:00:00' },
+    { deal: 'rust-automation-and-controls', title: 'Rust Automation — Technical Discovery', type: 'discovery', start: '2026-07-14T15:00:00' },
   ];
 
   // remote data overlay (risks, left items)
