@@ -1,6 +1,6 @@
 {
-  "version": 8,
-  "updated": "2026-06-04T15:00:00Z",
+  "version": 9,
+  "updated": "2026-06-04T14:13:05Z",
   "deals": {
     "national-gym-supply": {
       "sf": {
@@ -541,18 +541,50 @@
         "close": "2026-06-30",
         "pbr": 0,
         "amount": 0,
-        "merchant_intent": null,
+        "merchant_intent": "",
         "last_modified": "2026-06-04"
       },
       "meddpicc": {
-        "metrics": { "text": "", "score": 0, "questions": [] },
-        "economic_buyer": { "text": "", "score": 0, "questions": [] },
-        "decision_criteria": { "text": "", "score": 0, "questions": [] },
-        "decision_process": { "text": "", "score": 0, "questions": [] },
-        "paper_process": { "text": "", "score": 0, "questions": [] },
-        "identified_pain": { "text": "", "score": 0, "questions": [] },
-        "champion": { "text": "", "score": 0, "questions": [] },
-        "competition": { "text": "", "score": 0, "questions": [] }
+        "metrics": {
+          "text": "",
+          "score": 0,
+          "questions": []
+        },
+        "economic_buyer": {
+          "text": "",
+          "score": 0,
+          "questions": []
+        },
+        "decision_criteria": {
+          "text": "",
+          "score": 0,
+          "questions": []
+        },
+        "decision_process": {
+          "text": "",
+          "score": 0,
+          "questions": []
+        },
+        "paper_process": {
+          "text": "",
+          "score": 0,
+          "questions": []
+        },
+        "identified_pain": {
+          "text": "",
+          "score": 0,
+          "questions": []
+        },
+        "champion": {
+          "text": "",
+          "score": 0,
+          "questions": []
+        },
+        "competition": {
+          "text": "",
+          "score": 0,
+          "questions": []
+        }
       },
       "strategy": "Sparse — needs discovery from scratch. SF opp inherited (Pre-Qualified, created 2025-05-14). No recent activity in Gmail/Calendar. Close date Jun 30 likely needs to be pushed once qualification starts. Decision: keep open and qualify, or close lost if no real engagement signal.",
       "risks": [
@@ -593,11 +625,31 @@
     },
     "current_quarter": 2,
     "quarters": {
-      "Q1": { "year": 2026, "count": 0, "pbr": 0, "deals": [] },
-      "Q2": { "year": 2026, "count": 0, "pbr": 0, "deals": [] },
-      "Q3": { "year": 2026, "count": 0, "pbr": 0, "deals": [] },
-      "Q4": { "year": 2026, "count": 0, "pbr": 0, "deals": [] }
+      "Q1": {
+        "year": 2026,
+        "count": 0,
+        "pbr": 0,
+        "deals": []
+      },
+      "Q2": {
+        "year": 2026,
+        "count": 0,
+        "pbr": 0,
+        "deals": []
+      },
+      "Q3": {
+        "year": 2026,
+        "count": 0,
+        "pbr": 0,
+        "deals": []
+      },
+      "Q4": {
+        "year": 2026,
+        "count": 0,
+        "pbr": 0,
+        "deals": []
+      }
     },
-    "updated": "2026-06-04T15:00:00Z"
+    "updated": "2026-06-04T14:13:05Z"
   }
 }
