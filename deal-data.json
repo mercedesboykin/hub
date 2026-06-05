@@ -1,6 +1,6 @@
 {
-  "version": 9,
-  "updated": "2026-06-04T14:13:05Z",
+  "version": 10,
+  "updated": "2026-06-05T14:13:08Z",
   "deals": {
     "national-gym-supply": {
       "sf": {
@@ -10,7 +10,7 @@
         "pbr": 306185,
         "amount": 82800,
         "merchant_intent": "Committed - At Risk",
-        "last_modified": "2026-06-04"
+        "last_modified": "2026-06-05"
       },
       "meddpicc": {
         "metrics": {
@@ -118,7 +118,7 @@
         "pbr": 110881,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-06-04"
+        "last_modified": "2026-06-05"
       },
       "meddpicc": {
         "metrics": {
@@ -224,7 +224,7 @@
         "pbr": 165688,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-06-04"
+        "last_modified": "2026-06-05"
       },
       "meddpicc": {
         "metrics": {
@@ -327,7 +327,7 @@
         "pbr": 143458,
         "amount": 0,
         "merchant_intent": "Committed - At Risk",
-        "last_modified": "2026-06-04",
+        "last_modified": "2026-06-05",
         "name": "Viaggio Pontoons-D2C & B2B - Split for B2B",
         "owner": "Mercedes Boykin-Sabalones"
       },
@@ -437,7 +437,7 @@
         "pbr": 0,
         "amount": 0,
         "merchant_intent": "Committed - At Risk",
-        "last_modified": "2026-06-04"
+        "last_modified": "2026-06-05"
       },
       "meddpicc": {
         "metrics": {
@@ -542,7 +542,7 @@
         "pbr": 0,
         "amount": 0,
         "merchant_intent": "",
-        "last_modified": "2026-06-04"
+        "last_modified": "2026-06-05"
       },
       "meddpicc": {
         "metrics": {
@@ -650,6 +650,6 @@
         "deals": []
       }
     },
-    "updated": "2026-06-04T14:13:05Z"
+    "updated": "2026-06-05T14:13:07Z"
   }
 }
