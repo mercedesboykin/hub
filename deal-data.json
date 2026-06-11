@@ -1,6 +1,6 @@
 {
-  "version": 13,
-  "updated": "2026-06-11T14:13:08Z",
+  "version": 14,
+  "updated": "2026-06-11T21:59:03Z",
   "deals": {
     "national-gym-supply": {
       "sf": {
@@ -202,7 +202,7 @@
       ],
       "notes": "Specialty coffee B2B wholesale, 90% wholesale, ~$5M B2B GMV global, ~300 active B2B accounts, London HQ. Contacts: Nicole Freydell (nicole.freydell@caravela.coffee — PRIMARY/champion candidate), Luz Carime Gomez Cocoma (luz.gomez@caravela.coffee — IT Director), Mark Howard (mark.howard@caravela.coffee — likely economic influencer). Already running 2 DTC Shopify Plus projects (Kasalandino + James Hoffmann fermentation). Planned 'Marcado' US DTC launch. SE Jordan Murphy. Jun 11 B2B Capabilities Demo on the books with Jordan + Nicole + Luz. Phase 1 scope: Spot coffee — ~15% of inventory.",
       "last_call": "2026-06-02",
-      "next_call": "2026-06-11",
+      "next_call": "2026-06-18",
       "manager_q": {
         "compelling_event": "Spot coffee self-serve = revenue capture from ~10K new NA micro-roasters/yr; phase 1 quick win",
         "map_created": null,
@@ -650,6 +650,6 @@
         "deals": []
       }
     },
-    "updated": "2026-06-11T14:13:08Z"
+    "updated": "2026-06-11T21:59:03Z"
   }
 }
