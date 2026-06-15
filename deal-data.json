@@ -1,6 +1,6 @@
 {
-  "version": 16,
-  "updated": "2026-06-15T13:49:24Z",
+  "version": 17,
+  "updated": "2026-06-15T14:13:06Z",
   "deals": {
     "national-gym-supply": {
       "sf": {
@@ -726,6 +726,6 @@
         "deals": []
       }
     },
-    "updated": "2026-06-15T13:49:24Z"
+    "updated": "2026-06-15T14:13:06Z"
   }
 }
