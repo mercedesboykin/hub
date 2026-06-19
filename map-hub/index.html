@@ -210,7 +210,7 @@
   // emails = editable (Gmail MCP auth unavailable; fill manually)
   const DEALS = [
     { id: 'national-gym-supply', name: 'National Gym Supply', industry: 'Fitness Equipment Wholesale', stage: 5, close: '2026-06-30', quarter: 'Q2', pbr: 306185, se: 'Jordan Murphy', type: 'b2b', map_url: 'https://national-gym-supply-shopify.quick.shopify.io/', proposal_url: '', sf_url: 'https://banff.lightning.force.com/lightning/r/Opportunity/006OG00000NT4vpYAD/view', created: '2026-05-01', meetings: 3, map_progress: { done: 0, total: 0 }, next_step: 'DYODE sync May 26 6pm ET → Full team demo May 27 1pm ET | Contracts to send for parallel review' },
-    { id: 'caravela-coffee', name: 'Caravela Coffee', industry: 'B2B Coffee Wholesale · London UK', stage: 3, close: '2026-09-30', quarter: 'Q3', pbr: 110881, se: 'Jordan Murphy', type: 'b2b', map_url: '', proposal_url: '', sf_url: 'https://banff.lightning.force.com/lightning/r/Opportunity/006OG00000N1TdpYAF/view', created: '2026-04-15', meetings: 1, map_progress: { done: 0, total: 0 }, next_step: 'B2B Capabilities Demo Jun 11 (Jordan + Nicole + Luz)' },
+    { id: 'caravela-coffee', name: 'Caravela Coffee', industry: 'B2B Coffee Wholesale · London UK', stage: 3, close: '2026-09-30', quarter: 'Q3', pbr: 110881, se: 'Jordan Murphy', type: 'b2b', map_url: 'https://mercedesboykin.github.io/maps/caravela-coffee/', proposal_url: '', sf_url: 'https://banff.lightning.force.com/lightning/r/Opportunity/006OG00000N1TdpYAF/view', created: '2026-04-15', meetings: 1, map_progress: { done: 0, total: 0 }, next_step: 'B2B Capabilities Demo Jun 11 (Jordan + Nicole + Luz)' },
     { id: 'artificial-turf-supply', name: 'Artificial Turf Supply', industry: 'Turf & Landscaping', stage: 3, close: '2026-10-30', quarter: 'Q4', pbr: 165688, se: 'Jordan Murphy', type: 'b2b', map_url: '', proposal_url: '', sf_url: 'https://banff.lightning.force.com/lightning/r/Opportunity/006OG00000MmGc7YAF/view', created: '2026-03-01', meetings: 2, map_progress: { done: 0, total: 0 }, next_step: 'Next meeting 1st week of July — surface EB' },
     { id: 'viaggio-pontoons', name: 'Viaggio Pontoons', industry: 'Marine Manufacturing · Bristol, Indiana', stage: 4, close: '2026-07-31', quarter: 'Q3', pbr: 143458, se: 'Mercedes Boykin-Sabalones', type: 'b2b', map_url: 'https://mercedesboykin.github.io/maps/viaggio-pontoons/', proposal_url: '', sf_url: 'https://banff.lightning.force.com/lightning/r/Opportunity/006OG00000NzSWnYAN/view', created: '2026-05-19', meetings: 2, map_progress: { done: 0, total: 0 }, next_step: 'Close partner selection (Zaelab vs Domaine) | Get Mercedes+Joe+Jordan on call with Owner Eric and CFO before mid-June | MAP PW: viaggio26' },
     { id: 'rust-automation-and-controls', name: 'Rust Automation & Controls', industry: 'Industrial Automation · West Jordan UT', stage: 3, close: '2026-12-31', quarter: 'Q4', pbr: 0, se: 'Cooper VandeWalle', type: 'b2b', map_url: '', proposal_url: '', sf_url: 'https://banff.lightning.force.com/lightning/r/Opportunity/', created: '2026-06-02', meetings: 1, map_progress: { done: 0, total: 0 }, next_step: 'Technical Discovery Jul 14 — confirm SF opp id and PBR' },
@@ -384,7 +384,9 @@
             ${hasProg
               ? `<div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
                  <div class="progress-label">${deal.map_progress.done} / ${deal.map_progress.total} milestones</div>`
-              : `<div class="progress-label" style="color:var(--muted)">No MAP yet</div>`
+              : deal.map_url
+                ? `<div class="progress-label" style="color:var(--green)">MAP linked</div>`
+                : `<div class="progress-label" style="color:var(--muted)">No MAP yet</div>`
             }
           </div>
         </td>
