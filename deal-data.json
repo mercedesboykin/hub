@@ -1,5 +1,5 @@
 {
-  "version": 28,
+  "version": 29,
   "updated": "2026-06-25T13:31:12Z",
   "deals": {
     "national-gym-supply": {
@@ -132,19 +132,25 @@
           "questions": []
         },
         "decision_criteria": {
-          "text": "Customer approval workflow, sample-first flow, 2–3 sample limit (now with a fee), payment at warehouse release, NetSuite stays SoT for inventory/pricing/payment. Phase 1: Spot coffee only. PIM path open (NetSuite ↔ Atlas vs direct Shopify ↔ Atlas) — Nicole verifying. Forward contract workflow: 3-year contracts, pre-shipment sample approval, invoice when coffee lands in warehouse — phase 2. Pricing complexity: NY C-market daily + origin differentials + variety value + certifications.",
-          "score": 1,
+          "text": "Customer approval workflow, sample-first flow, 2–3 sample limit (now with a fee), payment at warehouse release, NetSuite stays SoT for inventory/pricing/payment. Phase 1: Spot coffee only. PIM path open (NetSuite ↔ Atlas vs direct Shopify ↔ Atlas) — Nicole verifying. Forward contract workflow: 3-year contracts, pre-shipment sample approval, invoice when coffee lands in warehouse — phase 2. Pricing complexity: NY C-market daily + origin differentials + variety value + certifications. Jun 18 demo validated ~90% native fit against these criteria live (Nicole + Luz confirmed). Remaining ~10% (PIM path, forward-contract pricing) is phase-2 / integration scope.",
+          "score": 2,
           "questions": []
         },
         "decision_process": {
           "text": "Apr 29 intro → May 26 technical discovery → Jun 2 technical discovery (Mercedes, Jordan Murphy SE, Nicole, Luz attended). Next: B2B + NetSuite integration demo (Jordan + Mercedes). Mercedes to send scheduling email for next week / week after, AM ET for Luz's London tz. Close date 2026-08-31 → SF shows 2026-09-30.",
           "score": 1,
-          "questions": []
+          "questions": [
+            "What are the remaining steps and timeline from the 90%-fit demo to a signed decision?",
+            "Who gives final go (Mark Howard / owner-level), and does the Triciclo SOW gate the Shopify decision or run in parallel?"
+          ]
         },
         "paper_process": {
           "text": "Not yet mapped — close on next call sequence.",
           "score": 0,
-          "questions": []
+          "questions": [
+            "Who signs the Shopify Plus order form, and what is the procurement / legal review path?",
+            "Is a security or vendor review required before signature, and how long does it take?"
+          ]
         },
         "identified_pain": {
           "text": "Migrating from custom React Roaster Hub on top of NetSuite (not on SuiteCommerce). 90% of business is wholesale and almost none of it is digitized — customers ordering manually. Spot offering is the wedge — micro-roaster self-serve in NA market (~10K new micro-roasters/year per Nicole). Phased rollout: spot first, complex forward contracts in phase 2 — but architect once.",
@@ -152,13 +158,13 @@
           "questions": []
         },
         "champion": {
-          "text": "Nicole Freydell Restrepo (Brand Business Leader and Ecom Mgr) is engaged and driving the evaluation. Luz Carime Gomez Cocoma (IT Director, London) now in the loop and owns the integration stack. Mark Howard likely economic influencer.",
-          "score": 1,
+          "text": "Nicole Freydell Restrepo (Brand Business Leader and Ecom Mgr) is engaged and driving the evaluation. Luz Carime Gomez Cocoma (IT Director, London) now in the loop and owns the integration stack. Mark Howard likely economic influencer. Post-demo Nicole is driving momentum and Luz (IT) is bought in on the integration stack; Mercedes engaged Triciclo (Shopify implementation partner, Mexico) on Jun 23 to scope the build — champion actively moving toward implementation.",
+          "score": 2,
           "questions": []
         },
         "competition": {
-          "text": "Status quo (custom React Roaster Hub) is the primary competition. Two DTC Shopify Plus projects already running internally (Kasalandino + James Hoffmann fermentation) — proves Shopify familiarity. Planned 'Marcado' US DTC launch.",
-          "score": 1,
+          "text": "Status quo (custom React Roaster Hub) is the primary competition. Two DTC Shopify Plus projects already running internally (Kasalandino + James Hoffmann fermentation) — proves Shopify familiarity. Planned 'Marcado' US DTC launch. Post-demo position: Shopify displacing the custom Roaster Hub status quo with ~90% native coverage confirmed and an implementation partner already engaged. Status quo remains the only alternative; two DTC Plus projects already prove internal Shopify familiarity.",
+          "score": 2,
           "questions": []
         }
       },
