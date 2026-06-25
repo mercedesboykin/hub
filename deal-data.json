@@ -1,5 +1,5 @@
 {
-  "version": 27,
+  "version": 28,
   "updated": "2026-06-25T13:31:12Z",
   "deals": {
     "national-gym-supply": {
@@ -191,18 +191,19 @@
         "Technical deep dive scheduled May 26 — IT Director joining via MS Teams",
         "Jun 2 technical discovery completed (Mercedes, Jordan, Nicole, Luz)",
         "Phase 1 scope agreed: Spot coffee (~15% of inventory); forward contracting phase 2",
-        "Decisions locked: customer approval workflow, sample-first flow, sample fee, warehouse-release payment, NetSuite as SoT"
+        "Decisions locked: customer approval workflow, sample-first flow, sample fee, warehouse-release payment, NetSuite as SoT",
+        "Jun 18 B2B Capabilities Demo delivered live (Mercedes + Jordan + Nicole + Luz + Callum) — Nicole + Luz confirmed Shopify covers ~90% of Caravela's B2B needs",
+        "Jun 23 — introduced Triciclo (trusted Shopify partner, Mexico) to begin scoping implementation"
       ],
       "left": [
-        "Send scheduling email for B2B + NetSuite integration demo (Jordan + Mercedes) — AM ET for London tz",
         "Luz to verify PIM path: NetSuite ↔ Atlas vs Shopify ↔ Atlas",
         "Map paper process — who signs?",
         "Identify economic buyer with budget authority (Mark Howard likely)",
         "Set Merchant Intent after next demo — currently still Uncommitted, trending positive"
       ],
       "notes": "Specialty coffee B2B wholesale, 90% wholesale, ~$5M B2B GMV global, ~300 active B2B accounts, London HQ. Contacts: Nicole Freydell (nicole.freydell@caravela.coffee — PRIMARY/champion candidate), Luz Carime Gomez Cocoma (luz.gomez@caravela.coffee — IT Director), Mark Howard (mark.howard@caravela.coffee — likely economic influencer). Already running 2 DTC Shopify Plus projects (Kasalandino + James Hoffmann fermentation). Planned 'Marcado' US DTC launch. SE Jordan Murphy. Jun 11 B2B Capabilities Demo on the books with Jordan + Nicole + Luz. Phase 1 scope: Spot coffee — ~15% of inventory.",
-      "last_call": "2026-06-02",
-      "next_call": "2026-06-18",
+      "last_call": "2026-06-18",
+      "next_call": "2026-06-30",
       "manager_q": {
         "compelling_event": "Spot coffee self-serve = revenue capture from ~10K new NA micro-roasters/yr; phase 1 quick win",
         "map_created": null,
@@ -377,8 +378,8 @@
       "risks": [
         {
           "sev": "high",
-          "text": "Decision deadline approaching mid-June — complex B2B + D2C platform architecture with multi-brand scope",
-          "mit": "Solution-stage work in flight: partner intros done Jun 1, RFI response with Jordan, get Eric/CFO meeting before mid-June."
+          "text": "Decision slipped from Jun 15 to mid-July 2026 (per Nathaniel, Jun 16: 'rough end to last week, going into inventory + the holiday'). Build-vs-buy direction still under leadership review.",
+          "mit": "Jul 31 close now at risk — Mercedes penciling a mid-July hold to keep it from slipping further. Push CloseDate in SF if mid-July date firms up."
         },
         {
           "sev": "high",
@@ -404,7 +405,8 @@
         "MAP sheet created May 25",
         "May 28 Technical Reconnect — Mercedes + Jordan + Nathaniel",
         "Jun 1 partner intro calls with Zaelab + Domaine — eval hub shared",
-        "Stage advanced to Solution; close pushed to Jul 31"
+        "Stage advanced to Solution; close pushed to Jul 31",
+        "Jun 8 — Nathaniel sent full eval package to leadership for build-vs-buy decision; Joe reinforced 'pain = custom dev, not platform speed' framing"
       ],
       "left": [
         "Close partner selection between Zaelab and Domaine",
@@ -413,7 +415,7 @@
         "Map paper process / procurement path",
         "Set Merchant Intent path to Committed before Jul 31 close"
       ],
-      "notes": "Co-sell: Joe Hemingway (AE, joseph.hemingway@shopify.com), Mercedes Boykin-Sabalones (B2B specialist SE), Jordan Murphy (B2B specialist SE — looped in May 25). SF opp 006OG00000NzSWnYAN (B2B-split, Mercedes-owned). Parent opp 006OG00000NP5QgYAL is Joe-owned (combined D2C+B2B). Multi-brand marine manufacturer: Viaggio Pontoons, Lakota Trailers, SMC, Duo Form (Bristol, Indiana). Nathaniel Talbot (Director of IT, ntalbot@viaggiopontoons.com / ntalbot@lakotatrailers.com) is champion — built 5-yr cost analysis internally. 137 dealers, 5 territories, 7 sales reps. Latest activity: Jun 1 partner intros with Zaelab + Domaine; Jun 15 decision date approaching. Eval hub: mercedesboykin.github.io/maps/viaggio-pontoons/ (password: viaggio26).",
+      "notes": "Co-sell: Joe Hemingway (AE, joseph.hemingway@shopify.com), Mercedes Boykin-Sabalones (B2B specialist SE), Jordan Murphy (B2B specialist SE — looped in May 25). SF opp 006OG00000NzSWnYAN (B2B-split, Mercedes-owned). Parent opp 006OG00000NP5QgYAL is Joe-owned (combined D2C+B2B). Multi-brand marine manufacturer: Viaggio Pontoons, Lakota Trailers, SMC, Duo Form (Bristol, Indiana). Nathaniel Talbot (Director of IT, ntalbot@viaggiopontoons.com / ntalbot@lakotatrailers.com) is champion — built 5-yr cost analysis internally. 137 dealers, 5 territories, 7 sales reps. Latest activity: Jun 1 partner intros with Zaelab + Domaine; Jun 15 decision date approaching. Eval hub: mercedesboykin.github.io/maps/viaggio-pontoons/ (password: viaggio26). UPDATE (Jun 16): leadership decision delayed from Jun 15 to mid-July 2026 (inventory + holiday); build-vs-buy still open. Jul 31 close at risk.",
       "last_call": "2026-06-01",
       "next_call": "",
       "manager_q": {
@@ -659,20 +661,22 @@
       ],
       "done": [
         "Opp created Jun 11 (re-engagement; Kenar re-initiated via Joe Chung)",
-        "Reconnect/discovery call booked Fri Jun 19, 2pm PST with Kenar Maronian"
+        "Reconnect/discovery call booked Fri Jun 19, 2pm PST with Kenar Maronian",
+        "Jun 22 reconnect/discovery call held with Kenar Maronian (Gemini notes captured); demo + technical deep dive booked Fri Jun 26"
       ],
       "left": [
-        "Run discovery Jun 19",
+        "Get checkout/payments questions answered for Adrian Rojas ahead of/at Jun 26",
+        "Run the Jun 26 demo + technical deep dive (Kenar + Adrian Rojas on checkout/payments)",
         "Understand why the 3 prior cycles closed lost",
         "Confirm scope: Blue Pheasant first vs broader AHD brands; DTC vs B2B",
         "Identify economic buyer + current platform(s)",
         "Quantify wholesale / DTC volume to set PBR"
       ],
-      "last_call": "",
-      "next_call": "2026-06-19",
+      "last_call": "2026-06-22",
+      "next_call": "2026-06-26",
       "manager_q": "",
       "forecast": null,
-      "notes": "Ardmore Home Design (AHD), City of Industry CA — wholesale luxury home décor parent of Made Goods, Blue Pheasant, Pigeon & Poodle, Thucassi, Burton James. Opp \"Blue Pheasant - Plus DTC + B2B\" (Pre-Qualified, close 12/31/26, PBR unset). Primary contact: Kenar Maronian, Director of Digital (kmaronian@madegoods.com). Transferred from Joe Chung Jun 8; Kenar re-initiated Jun 5. 3 prior Closed Lost opps (Burton James Plus;Payments, Blue Pheasant Plus, Blue Pheasant ShopTalk). Reconnect call Fri Jun 19, 2pm PST. ardmorehomedesign.com.",
+      "notes": "Ardmore Home Design (AHD), City of Industry CA — wholesale luxury home décor parent of Made Goods, Blue Pheasant, Pigeon & Poodle, Thucassi, Burton James. Opp \"Blue Pheasant - Plus DTC + B2B\" (Pre-Qualified, close 12/31/26, PBR unset). Primary contact: Kenar Maronian, Director of Digital (kmaronian@madegoods.com). Transferred from Joe Chung Jun 8; Kenar re-initiated Jun 5. 3 prior Closed Lost opps (Burton James Plus;Payments, Blue Pheasant Plus, Blue Pheasant ShopTalk). Reconnect call Fri Jun 19, 2pm PST. ardmorehomedesign.com. New contacts (Jun 24): Adrian Rojas (arojas@madegoods.com — owns checkout/payments; Kenar's team does not handle these), Derrick Chow (dchow@madegoods.com — accepted Jun 26 invite). Jun 22 reconnect held; Jun 26 demo + technical deep dive booked.",
       "meddpicc": {
         "metrics": 1,
         "economic_buyer": 1,
