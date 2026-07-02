@@ -1,16 +1,16 @@
 {
-  "version": 32,
-  "updated": "2026-06-30T11:13:09Z",
+  "version": 33,
+  "updated": "2026-07-02T11:17:41Z",
   "deals": {
     "national-gym-supply": {
       "sf": {
         "id": "006OG00000NT4vpYAD",
         "stage": "Closed Won",
         "close": "2026-06-17",
-        "pbr": 306185,
+        "pbr": 0,
         "amount": 82800,
         "merchant_intent": "Committed - At Risk",
-        "last_modified": "2026-06-30"
+        "last_modified": "2026-07-02"
       },
       "meddpicc": {
         "metrics": {
@@ -115,10 +115,10 @@
         "id": "006OG00000N1TdpYAF",
         "stage": "Demonstrate",
         "close": "2026-09-30",
-        "pbr": 110881,
+        "pbr": 0,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-06-30"
+        "last_modified": "2026-07-02"
       },
       "meddpicc": {
         "metrics": {
@@ -228,10 +228,10 @@
         "id": "006OG00000MmGc7YAF",
         "stage": "Envision",
         "close": "2026-10-30",
-        "pbr": 165688,
+        "pbr": 0,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-06-30"
+        "last_modified": "2026-07-02"
       },
       "meddpicc": {
         "metrics": {
@@ -331,10 +331,10 @@
         "id": "006OG00000NzSWnYAN",
         "stage": "Solution",
         "close": "2026-07-31",
-        "pbr": 143458,
+        "pbr": 0,
         "amount": 0,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-06-30",
+        "last_modified": "2026-07-02",
         "name": "Viaggio Pontoons-D2C & B2B - Split for B2B",
         "owner": "Mercedes Boykin-Sabalones"
       },
@@ -442,10 +442,10 @@
         "id": "006OG00000OB6HBYA1",
         "stage": "Envision",
         "close": "2026-12-31",
-        "pbr": 165688,
+        "pbr": 0,
         "amount": 82800,
         "merchant_intent": "Committed - At Risk",
-        "last_modified": "2026-06-30"
+        "last_modified": "2026-07-02"
       },
       "meddpicc": {
         "metrics": {
@@ -550,7 +550,7 @@
         "pbr": 0,
         "amount": 0,
         "merchant_intent": "",
-        "last_modified": "2026-06-30"
+        "last_modified": "2026-07-02"
       },
       "meddpicc": {
         "metrics": {
@@ -629,10 +629,10 @@
         "id": "006OG00000OR8TWYA1",
         "stage": "Envision",
         "close": "2026-12-31",
-        "pbr": 378182,
+        "pbr": 0,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-06-30"
+        "last_modified": "2026-07-02"
       },
       "meddic": {
         "metrics": "Ardmore Home Design (AHD) — founder-led luxury home décor company, founded 2008, HQ City of Industry CA with showrooms in NY, Dallas, LA, Atlanta. Wholesale/trade-only model selling to interior designers and boutique/luxury retailers globally. Portfolio of 5 brands: Made Goods (flagship furniture), Blue Pheasant (tabletop — the brand in scope), Pigeon & Poodle (bath/accessories), Thucassi (candles/fragrance), Burton James (upholstery, acquired 2024). Revenue / order volume not yet quantified — PBR unset pending discovery. Opp scope: Plus DTC + B2B.",
@@ -707,9 +707,9 @@
     "fy": {
       "year": 2026,
       "count": 1,
-      "pbr": 306185
+      "pbr": 0
     },
-    "current_quarter": 2,
+    "current_quarter": 3,
     "quarters": {
       "Q1": {
         "year": 2026,
@@ -720,12 +720,12 @@
       "Q2": {
         "year": 2026,
         "count": 1,
-        "pbr": 306185,
+        "pbr": 0,
         "deals": [
           {
             "id": "006OG00000NT4vpYAD",
             "name": "National Gym Supply-B2B",
-            "pbr": 306185,
+            "pbr": 0,
             "close": "2026-06-17"
           }
         ]
@@ -743,6 +743,6 @@
         "deals": []
       }
     },
-    "updated": "2026-06-30T11:13:09Z"
+    "updated": "2026-07-02T11:17:40Z"
   }
 }
