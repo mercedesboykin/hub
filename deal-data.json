@@ -1,6 +1,6 @@
 {
-  "version": 33,
-  "updated": "2026-07-02T11:17:41Z",
+  "version": 34,
+  "updated": "2026-07-03T11:48:55Z",
   "deals": {
     "national-gym-supply": {
       "sf": {
@@ -10,7 +10,7 @@
         "pbr": 0,
         "amount": 82800,
         "merchant_intent": "Committed - At Risk",
-        "last_modified": "2026-07-02"
+        "last_modified": "2026-07-03"
       },
       "meddpicc": {
         "metrics": {
@@ -118,7 +118,7 @@
         "pbr": 0,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-07-02"
+        "last_modified": "2026-07-03"
       },
       "meddpicc": {
         "metrics": {
@@ -231,7 +231,7 @@
         "pbr": 0,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-07-02"
+        "last_modified": "2026-07-03"
       },
       "meddpicc": {
         "metrics": {
@@ -334,7 +334,7 @@
         "pbr": 0,
         "amount": 0,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-07-02",
+        "last_modified": "2026-07-03",
         "name": "Viaggio Pontoons-D2C & B2B - Split for B2B",
         "owner": "Mercedes Boykin-Sabalones"
       },
@@ -445,7 +445,7 @@
         "pbr": 0,
         "amount": 82800,
         "merchant_intent": "Committed - At Risk",
-        "last_modified": "2026-07-02"
+        "last_modified": "2026-07-03"
       },
       "meddpicc": {
         "metrics": {
@@ -550,7 +550,7 @@
         "pbr": 0,
         "amount": 0,
         "merchant_intent": "",
-        "last_modified": "2026-07-02"
+        "last_modified": "2026-07-03"
       },
       "meddpicc": {
         "metrics": {
@@ -632,7 +632,7 @@
         "pbr": 0,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-07-02"
+        "last_modified": "2026-07-03"
       },
       "meddic": {
         "metrics": "Ardmore Home Design (AHD) — founder-led luxury home décor company, founded 2008, HQ City of Industry CA with showrooms in NY, Dallas, LA, Atlanta. Wholesale/trade-only model selling to interior designers and boutique/luxury retailers globally. Portfolio of 5 brands: Made Goods (flagship furniture), Blue Pheasant (tabletop — the brand in scope), Pigeon & Poodle (bath/accessories), Thucassi (candles/fragrance), Burton James (upholstery, acquired 2024). Revenue / order volume not yet quantified — PBR unset pending discovery. Opp scope: Plus DTC + B2B.",
@@ -743,6 +743,6 @@
         "deals": []
       }
     },
-    "updated": "2026-07-02T11:17:40Z"
+    "updated": "2026-07-03T11:48:55Z"
   }
 }
