@@ -737,7 +737,7 @@
             </div>
           </div>
         </div>
-        <div class="perf-hint">Stages: ${OPEN_STAGES.join(' · ')}</div>
+        <div class="perf-hint">Stages: ${OPEN_TOKENS.map(t => stageInfo(t).label).join(' · ')}</div>
       </div>
 
       <div class="perf-card is-forecast">
