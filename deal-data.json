@@ -1,6 +1,6 @@
 {
-  "version": 37,
-  "updated": "2026-07-07T14:46:09Z",
+  "version": 38,
+  "updated": "2026-07-07T18:50:35Z",
   "deals": {
     "national-gym-supply": {
       "sf": {
@@ -736,6 +736,57 @@
           "What's driving the timing now, and is there an internal deadline?"
         ]
       }
+    },
+    "oakwood-chemical": {
+      "sf": {
+        "id": "306724",
+        "stage": "evaluate",
+        "close": "2026-08-31",
+        "pbr": 0,
+        "amount": 0,
+        "merchant_intent": "",
+        "last_modified": "2026-07-01",
+        "created": "2026-06-23",
+        "is_closed": false,
+        "is_won": false,
+        "close_reason": "",
+        "salesforce_opportunity_id": "006OG00000OkEmvYAF"
+      },
+      "forecast": null
+    },
+    "sunbec-food": {
+      "sf": {
+        "id": "306439",
+        "stage": "evaluate",
+        "close": "2026-09-30",
+        "pbr": 73595,
+        "amount": 0,
+        "merchant_intent": "",
+        "last_modified": "2026-07-06",
+        "created": "2026-06-19",
+        "is_closed": false,
+        "is_won": false,
+        "close_reason": "",
+        "salesforce_opportunity_id": "006OG00000Oe8ViYAJ"
+      },
+      "forecast": null
+    },
+    "baja-designs": {
+      "sf": {
+        "id": "306772",
+        "stage": "evaluate",
+        "close": "2026-10-31",
+        "pbr": 0,
+        "amount": 0,
+        "merchant_intent": "",
+        "last_modified": "2026-07-01",
+        "created": "2026-06-23",
+        "is_closed": false,
+        "is_won": false,
+        "close_reason": "",
+        "salesforce_opportunity_id": "006OG00000Okh7NYAR"
+      },
+      "forecast": null
     }
   },
   "closed_won": {
@@ -778,6 +829,6 @@
         "deals": []
       }
     },
-    "updated": "2026-07-07T14:46:09Z"
+    "updated": "2026-07-07T18:50:35Z"
   }
 }
