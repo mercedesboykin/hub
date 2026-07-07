@@ -218,8 +218,8 @@
     { id: 'ardmore-home-design', name: 'Ardmore Home Design', industry: 'Luxury Home Décor · Wholesale', stage: 2, close: '2026-12-31', quarter: 'Q4', pbr: 0, se: null, type: 'b2b', map_url: '', proposal_url: '', sf_url: 'https://banff.lightning.force.com/lightning/r/Opportunity/006OG00000OR8TWYA1/view', created: '2026-06-11', meetings: 0, map_progress: { done: 0, total: 0 }, next_step: 'Discovery (Reconnect) Fri Jun 19, 2pm PST — Kenar Maronian, Director of Digital' },
   ];
 
-  const STAGE_LABELS = { 2:'Pre-Qualified', 3:'Envision', 4:'Solution', 5:'Deal Craft', 6:'Closed Won', 7:'Closed Lost' };
-  const STAGE_CLASS  = { 2:'stage-3', 3:'stage-3', 4:'stage-4', 5:'stage-5', 6:'stage-5', 7:'stage-lost' };
+  const STAGE_LABELS = { 2:'Evaluate', 3:'Propose', 4:'Dealcraft', 5:'Launch', 6:'Closed Won', 7:'Closed Lost' };
+  const STAGE_CLASS  = { 2:'stage-3', 3:'stage-4', 4:'stage-5', 5:'stage-5', 6:'stage-5', 7:'stage-lost' };
 
   // ── Editable overrides stored in localStorage ──
   const OV_KEY = 'hub-map-overrides';
@@ -282,13 +282,13 @@
     const closingThis = DEALS.filter(d => d.stage < 6 && d.close && daysUntil(d.close) >= 0 && daysUntil(d.close) <= 30).length;
     const wonQ = DEALS.filter(d => d.stage === 6 && d.quarter === currentQ).length;
 
-    // PBR = sum of pbr overrides for Envision+ active deals in current quarter
+    // PBR = sum of pbr overrides for Propose+ active deals in current quarter
     const pbrDeals = currentQ === 'all'
       ? DEALS.filter(d => d.stage >= 3 && d.stage < 7)
       : DEALS.filter(d => d.stage >= 3 && d.stage < 7 && d.quarter === currentQ);
     const pbrTotal = pbrDeals.reduce((sum, d) => sum + (getOv(d.id, 'pbr', d.pbr || 0) || 0), 0);
     const pbrLabel = pbrTotal > 0 ? fmtMoney(pbrTotal) : '—';
-    const pbrSub = `${pbrDeals.length} deal${pbrDeals.length !== 1 ? 's' : ''} · Envision+`;
+    const pbrSub = `${pbrDeals.length} deal${pbrDeals.length !== 1 ? 's' : ''} · Propose+`;
 
     document.getElementById('stats-bar').innerHTML = `
       <div class="stat-card">
@@ -353,9 +353,6 @@
       const propBtn = deal.proposal_url
         ? `<a href="${deal.proposal_url}" target="_blank" class="map-btn btn-prop">📄 Proposal</a>`
         : `<span class="map-btn btn-tbd">📄 Proposal</span>`;
-      const sfBtn = deal.sf_url
-        ? `<a href="${deal.sf_url}" target="_blank" class="map-btn btn-sf">☁️ SFDC</a>`
-        : '';
 
       const daysActive = deal.created ? Math.round((new Date() - new Date(deal.created)) / 86400000) : null;
       const meetings   = getOv(deal.id, 'meetings', deal.meetings || 0);
@@ -391,14 +388,20 @@
           </div>
         </td>
         <td><div class="next-step">${deal.next_step || '—'}</div></td>
-        <td><div class="btn-row">${mapBtn}${propBtn}${sfBtn}</div></td>
+        <td><div class="btn-row">${mapBtn}${propBtn}</div></td>
       </tr>`;
     }).join('');
   }
 
+  // Accepts CRM stage tokens AND legacy Salesforce stage names, so live CRM
+  // data and any cached Salesforce-era data both resolve to the right stage.
   const STAGE_STR_TO_NUM = {
-    'Pre-Qualified': 2, 'Envision': 3, 'Solution': 4,
-    'Deal Craft': 5, 'Demonstrate': 5, 'Closed Won': 6, 'Closed Lost': 7
+    // CRM tokens
+    'evaluate': 2, 'propose': 3, 'dealcraft': 4, 'launch': 5,
+    'closed_won': 6, 'closed_lost': 7, 'unknown': 2,
+    // legacy Salesforce stage names
+    'Pre-Qualified': 2, 'Envision': 2, 'Solution': 3,
+    'Demonstrate': 4, 'Deal Craft': 4, 'Closed Won': 6, 'Closed Lost': 7
   };
 
   function applyRemoteData(data) {

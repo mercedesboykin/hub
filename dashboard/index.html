@@ -71,7 +71,7 @@
 
     /* ── KANBAN ── */
     .board-title { font-size: 13px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 14px; }
-    .kanban { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+    .kanban { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
     @media (max-width: 1200px) { .kanban { grid-template-columns: repeat(3, 1fr); } }
 
     .col-header {
@@ -397,21 +397,47 @@
     return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m-1] + ' ' + +d;
   }
 
-  const OPEN_STAGES = ['Pre-Qualified','Envision','Solution','Demonstrate','Deal Craft'];
-  function isOpen(d) { return OPEN_STAGES.includes(d.stage); }
+  // ── Stage normalizer ──
+  // Accepts CRM tokens (evaluate/propose/dealcraft/launch/closed_won/
+  // closed_lost/unknown) AND legacy Salesforce stage names, so live CRM data
+  // and any cached Salesforce-era data both render with the right label.
+  const STAGE_MAP = {
+    evaluate:    { token:'evaluate',    label:'Evaluate',    order:1 },
+    propose:     { token:'propose',     label:'Propose',     order:2 },
+    dealcraft:   { token:'dealcraft',   label:'Dealcraft',   order:3 },
+    launch:      { token:'launch',      label:'Launch',      order:4 },
+    closed_won:  { token:'closed_won',  label:'Closed Won',  order:5 },
+    closed_lost: { token:'closed_lost', label:'Closed Lost', order:6 },
+    unknown:     { token:'unknown',     label:'Unknown',     order:0 },
+    // legacy Salesforce stage names
+    'pre-qualified': { token:'evaluate',    label:'Evaluate',    order:1 },
+    'envision':      { token:'evaluate',    label:'Evaluate',    order:1 },
+    'solution':      { token:'propose',     label:'Propose',     order:2 },
+    'demonstrate':   { token:'dealcraft',   label:'Dealcraft',   order:3 },
+    'deal craft':    { token:'dealcraft',   label:'Dealcraft',   order:3 },
+    'closed won':    { token:'closed_won',  label:'Closed Won',  order:5 },
+    'closed lost':   { token:'closed_lost', label:'Closed Lost', order:6 },
+  };
+  function stageInfo(raw) {
+    const k = String(raw == null ? '' : raw).trim().toLowerCase();
+    return STAGE_MAP[k] || { token:'unknown', label: raw || 'Unknown', order:0 };
+  }
+  function stageTok(d) { return stageInfo(d.stage).token; }
+
+  const OPEN_TOKENS = ['evaluate','propose','dealcraft','launch'];
+  function isOpen(d) { return OPEN_TOKENS.includes(stageTok(d)); }
 
   function renderKanban() {
     const stages = [
-      { key: 'Pre-Qualified', label: 'Pre-Qualified', cls: 'col-preq' },
-      { key: 'Envision',      label: 'Envision',      cls: 'col-env'  },
-      { key: 'Solution',      label: 'Solution',      cls: 'col-sol'  },
-      { key: 'Demonstrate',   label: 'Demonstrate',   cls: 'col-demo'  },
-      { key: 'Deal Craft',    label: 'Deal Craft',    cls: 'col-craft' },
-      { key: 'Closed Won',    label: 'Closed Won',    cls: 'col-won'   },
+      { key: 'evaluate',   label: 'Evaluate',   cls: 'col-preq'  },
+      { key: 'propose',    label: 'Propose',    cls: 'col-env'   },
+      { key: 'dealcraft',  label: 'Dealcraft',  cls: 'col-sol'   },
+      { key: 'launch',     label: 'Launch',     cls: 'col-craft' },
+      { key: 'closed_won', label: 'Closed Won', cls: 'col-won'   },
     ];
 
     document.getElementById('kanban').innerHTML = stages.map(({ key, label, cls }) => {
-      const deals = DEALS.filter(d => d.stage === key).sort((a,b) => new Date(a.close) - new Date(b.close));
+      const deals = DEALS.filter(d => stageTok(d) === key).sort((a,b) => new Date(a.close) - new Date(b.close));
       const cards = deals.length === 0
         ? `<div class="empty-col">No deals</div>`
         : deals.map(d => {
@@ -604,10 +630,10 @@
     const openCount = open.length;
     const openPbr = open.reduce((s, d) => s + (d.pbr || 0), 0);
     const closing30 = open.filter(d => { const x = daysUntil(d.close); return x >= 0 && x <= 30; }).length;
-    const advanced  = DEALS.filter(d => ['Solution','Demonstrate'].includes(d.stage)).length;
+    const advanced  = DEALS.filter(d => ['propose','dealcraft','launch'].includes(stageTok(d))).length;
 
-    // Closed Won — sourced from Salesforce via scripts/refresh_deals.py → data.closed_won
-    // Falls back to filtering local DEALS by stage if SF data not yet loaded.
+    // Closed Won — sourced from the CRM via scripts/refresh_deals.py → data.closed_won
+    // Falls back to filtering local DEALS by stage if CRM data not yet loaded.
     const now = new Date();
     const cq = currentQuarter();
     let closedWonFYCount = 0, closedWonFYPbr = 0;
@@ -626,18 +652,18 @@
       // Aggregate all quarters' deals for the FY list (used by chips if needed)
       closedWonFYList = ['Q1','Q2','Q3','Q4'].flatMap(k => cw.quarters?.[k]?.deals || []);
     } else {
-      // Fallback: filter local DEALS if SF data hasn't loaded yet
+      // Fallback: filter local DEALS if CRM data hasn't loaded yet
       const fyStart = new Date(now.getFullYear(), 0, 1);
       const qStart = new Date(cq.year, (cq.q - 1) * 3, 1);
       const qEnd = new Date(cq.year, cq.q * 3, 0, 23, 59, 59);
       const fy = DEALS.filter(d => {
-        if (d.stage !== 'Closed Won') return false;
+        if (stageTok(d) !== 'closed_won') return false;
         const cd = parseClose(d.close); return cd && cd >= fyStart;
       });
       closedWonFYCount = fy.length;
       closedWonFYPbr   = fy.reduce((s, d) => s + (d.pbr || 0), 0);
       const cwq = DEALS.filter(d => {
-        if (d.stage !== 'Closed Won') return false;
+        if (stageTok(d) !== 'closed_won') return false;
         const cd = parseClose(d.close); return cd && cd >= qStart && cd <= qEnd;
       });
       wCount = cwq.length;
@@ -822,7 +848,7 @@
       groups.get(q.key).deals.push(d);
     });
 
-    // Closed Won deals from SF refresh → past-quarter rows
+    // Closed Won deals from the CRM refresh → past-quarter rows
     const cw = (remoteData && remoteData.closed_won) ? remoteData.closed_won : null;
     if (cw && cw.quarters) {
       for (let q = 1; q <= 4; q++) {
@@ -868,7 +894,7 @@
                 </div>
                 <div class="qb-tile-body">
                   <div class="qb-tile-name"><a href="../deal-review/#${d.id}">${d.name}</a></div>
-                  <div class="qb-tile-meta">${d.stage} · ${closeStr}</div>
+                  <div class="qb-tile-meta">${stageInfo(d.stage).label} · ${closeStr}</div>
                   ${d.pbr > 0 ? `<div class="qb-tile-pbr">${fmtMoney(d.pbr)}</div>` : ''}
                 </div>
               </div>`;
@@ -1066,7 +1092,7 @@
         const dt = new Date(data.updated);
         const fmt = dt.toLocaleString('en-US', { month:'short', day:'numeric', hour:'numeric', minute:'2-digit', timeZoneName:'short' });
         const el = document.getElementById('last-refreshed');
-        if (el) el.textContent = `SF refreshed ${fmt}`;
+        if (el) el.textContent = `CRM refreshed ${fmt}`;
       }
       render();
     } catch(e) {}

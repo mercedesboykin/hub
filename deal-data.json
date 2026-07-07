@@ -1,16 +1,21 @@
 {
-  "version": 36,
-  "updated": "2026-07-07T11:13:11Z",
+  "version": 37,
+  "updated": "2026-07-07T14:46:09Z",
   "deals": {
     "national-gym-supply": {
       "sf": {
-        "id": "006OG00000NT4vpYAD",
-        "stage": "Closed Won",
+        "id": "298792",
+        "stage": "closed_won",
         "close": "2026-06-17",
-        "pbr": 0,
+        "pbr": 306186,
         "amount": 82800,
         "merchant_intent": "Committed - At Risk",
-        "last_modified": "2026-07-03"
+        "last_modified": "2026-07-01",
+        "created": "2026-05-06",
+        "is_closed": true,
+        "is_won": true,
+        "close_reason": "product_won",
+        "salesforce_opportunity_id": "006OG00000NT4vpYAD"
       },
       "meddpicc": {
         "metrics": {
@@ -112,13 +117,18 @@
     },
     "caravela-coffee": {
       "sf": {
-        "id": "006OG00000N1TdpYAF",
-        "stage": "Demonstrate",
+        "id": "294429",
+        "stage": "propose",
         "close": "2026-09-30",
-        "pbr": 0,
+        "pbr": 31496,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-07-03"
+        "last_modified": "2026-07-06",
+        "created": "2026-04-21",
+        "is_closed": false,
+        "is_won": false,
+        "close_reason": "",
+        "salesforce_opportunity_id": "006OG00000N1TdpYAF"
       },
       "meddpicc": {
         "metrics": {
@@ -225,13 +235,18 @@
     },
     "artificial-turf-supply": {
       "sf": {
-        "id": "006OG00000MmGc7YAF",
-        "stage": "Envision",
+        "id": "292155",
+        "stage": "evaluate",
         "close": "2026-10-30",
-        "pbr": 0,
+        "pbr": 195249,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-07-03"
+        "last_modified": "2026-07-06",
+        "created": "2026-04-13",
+        "is_closed": false,
+        "is_won": false,
+        "close_reason": "",
+        "salesforce_opportunity_id": "006OG00000MmGc7YAF"
       },
       "meddpicc": {
         "metrics": {
@@ -328,13 +343,18 @@
     },
     "viaggio-pontoons": {
       "sf": {
-        "id": "006OG00000NzSWnYAN",
-        "stage": "Solution",
+        "id": "303279",
+        "stage": "propose",
         "close": "2026-07-31",
-        "pbr": 0,
+        "pbr": 22967,
         "amount": 0,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-07-03",
+        "last_modified": "2026-07-06",
+        "created": "2026-05-26",
+        "is_closed": false,
+        "is_won": false,
+        "close_reason": "",
+        "salesforce_opportunity_id": "006OG00000NzSWnYAN",
         "name": "Viaggio Pontoons-D2C & B2B - Split for B2B",
         "owner": "Mercedes Boykin-Sabalones"
       },
@@ -439,13 +459,18 @@
     },
     "rust-automation-and-controls": {
       "sf": {
-        "id": "006OG00000OB6HBYA1",
-        "stage": "Envision",
+        "id": "304383",
+        "stage": "evaluate",
         "close": "2026-12-31",
-        "pbr": 0,
+        "pbr": 94345,
         "amount": 82800,
         "merchant_intent": "Committed - At Risk",
-        "last_modified": "2026-07-03"
+        "last_modified": "2026-07-06",
+        "created": "2026-06-02",
+        "is_closed": false,
+        "is_won": false,
+        "close_reason": "",
+        "salesforce_opportunity_id": "006OG00000OB6HBYA1"
       },
       "meddpicc": {
         "metrics": {
@@ -544,13 +569,18 @@
     },
     "all-pro-fasteners": {
       "sf": {
-        "id": "006OG00000EH3RGYA1",
-        "stage": "Pre-Qualified",
+        "id": "209539",
+        "stage": "evaluate",
         "close": "2026-12-31",
         "pbr": 0,
         "amount": 0,
         "merchant_intent": "",
-        "last_modified": "2026-07-03"
+        "last_modified": "2026-07-06",
+        "created": "2025-05-14",
+        "is_closed": false,
+        "is_won": false,
+        "close_reason": "",
+        "salesforce_opportunity_id": "006OG00000EH3RGYA1"
       },
       "meddpicc": {
         "metrics": {
@@ -626,13 +656,18 @@
     },
     "ardmore-home-design": {
       "sf": {
-        "id": "006OG00000OR8TWYA1",
-        "stage": "Envision",
+        "id": "305655",
+        "stage": "propose",
         "close": "2026-12-31",
-        "pbr": 0,
+        "pbr": 172890,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-07-03"
+        "last_modified": "2026-07-06",
+        "created": "2026-06-11",
+        "is_closed": false,
+        "is_won": false,
+        "close_reason": "",
+        "salesforce_opportunity_id": "006OG00000OR8TWYA1"
       },
       "meddic": {
         "metrics": "Ardmore Home Design (AHD) — founder-led luxury home décor company, founded 2008, HQ City of Industry CA with showrooms in NY, Dallas, LA, Atlanta. Wholesale/trade-only model selling to interior designers and boutique/luxury retailers globally. Portfolio of 5 brands: Made Goods (flagship furniture), Blue Pheasant (tabletop — the brand in scope), Pigeon & Poodle (bath/accessories), Thucassi (candles/fragrance), Burton James (upholstery, acquired 2024). Revenue / order volume not yet quantified — PBR unset pending discovery. Opp scope: Plus DTC + B2B.",
@@ -707,7 +742,7 @@
     "fy": {
       "year": 2026,
       "count": 1,
-      "pbr": 0
+      "pbr": 306186
     },
     "current_quarter": 3,
     "quarters": {
@@ -720,12 +755,12 @@
       "Q2": {
         "year": 2026,
         "count": 1,
-        "pbr": 0,
+        "pbr": 306186,
         "deals": [
           {
-            "id": "006OG00000NT4vpYAD",
+            "id": "298792",
             "name": "National Gym Supply-B2B",
-            "pbr": 0,
+            "pbr": 306186,
             "close": "2026-06-17"
           }
         ]
@@ -743,6 +778,6 @@
         "deals": []
       }
     },
-    "updated": "2026-07-07T11:13:11Z"
+    "updated": "2026-07-07T14:46:09Z"
   }
 }

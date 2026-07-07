@@ -1036,8 +1036,70 @@ function getQuarter(dateStr) {
   return `Q${q} ${d.getFullYear()}`;
 }
 
+// Stage normalizer — accepts CRM tokens (evaluate/propose/dealcraft/launch/
+// closed_won/closed_lost/unknown) AND legacy Salesforce stage names, so live
+// CRM data and any cached Salesforce-era data both render with the right label.
+const STAGE_MAP = {
+  evaluate:    { token:'evaluate',    label:'Evaluate',    cls:'s-qualify'   },
+  propose:     { token:'propose',     label:'Propose',     cls:'s-propose'   },
+  dealcraft:   { token:'dealcraft',   label:'Dealcraft',   cls:'s-negotiate' },
+  launch:      { token:'launch',      label:'Launch',      cls:'s-negotiate' },
+  closed_won:  { token:'closed_won',  label:'Closed Won',  cls:'s-negotiate' },
+  closed_lost: { token:'closed_lost', label:'Closed Lost', cls:'s-qualify'   },
+  unknown:     { token:'unknown',     label:'Unknown',     cls:'s-qualify'   },
+  // legacy Salesforce stage names
+  'pre-qualified': { token:'evaluate',    label:'Evaluate',    cls:'s-qualify'   },
+  'envision':      { token:'evaluate',    label:'Evaluate',    cls:'s-qualify'   },
+  'solution':      { token:'propose',     label:'Propose',     cls:'s-propose'   },
+  'demonstrate':   { token:'dealcraft',   label:'Dealcraft',   cls:'s-negotiate' },
+  'deal craft':    { token:'dealcraft',   label:'Dealcraft',   cls:'s-negotiate' },
+  'closed won':    { token:'closed_won',  label:'Closed Won',  cls:'s-negotiate' },
+  'closed lost':   { token:'closed_lost', label:'Closed Lost', cls:'s-qualify'   },
+};
+function stageInfo(raw) {
+  const k = String(raw == null ? '' : raw).trim().toLowerCase();
+  return STAGE_MAP[k] || { token:'unknown', label: raw || 'Unknown', cls:'s-qualify' };
+}
+
+// CRM close_reason humanizer — for the closed-deals view.
+// Returns { label, outcome:'won'|'lost'|'', isTiming, countsForWinRate }.
+// Timing-based losses (deal wasn't ready / bad timing) are NOT competitive
+// outcomes, so they are excluded from the competitive win-rate:
+//   winRate = won / (won + competitive losses), timing losses dropped entirely.
+const CLOSE_REASON_LABELS = {
+  // explicit CRM → label mappings
+  not_ready: 'Not Ready / Timing',
+  price_platform: 'Price / Platform',
+  product_gap: 'Product Gap',
+  product_won: 'Product Fit',
+  misc_won: 'Other',
+  other: 'Other',
+  // broader CRM domain (humanized)
+  price_won: 'Price', fit_won: 'Fit',
+  price_lost: 'Price', product_lost: 'Product Gap', fit_lost: 'Fit',
+  intent_lost: 'No Intent', authority_gap: 'No Authority', authority_lost: 'No Authority',
+  timing_lost: 'Timing', project_paused: 'Project Paused', business_change: 'Business Change',
+  unresponsive: 'Unresponsive', not_eligible: 'Not Eligible', not_a_fit: 'Not a Fit',
+  lost_to_competitor: 'Lost to Competitor', closed_by_partner: 'Closed by Partner',
+  locked_in_contract: 'Locked in Contract', commercial_terms: 'Commercial Terms',
+  price_payments: 'Payments', misc_lost: 'Other', auto_closed: 'Auto-Closed',
+  upgrade_aborted: 'Upgrade Aborted',
+};
+// Timing / non-competitive losses excluded from the competitive win-rate.
+const TIMING_LOSS_REASONS = new Set(['not_ready', 'timing_lost', 'project_paused', 'business_change']);
+function lossReasonInfo(code) {
+  const c = String(code == null ? '' : code).trim().toLowerCase();
+  const label = CLOSE_REASON_LABELS[c] || (c ? c.replace(/_/g, ' ').replace(/\b\w/g, m => m.toUpperCase()) : 'Other');
+  let outcome = '';
+  if (c.endsWith('_won')) outcome = 'won';
+  else if (c.endsWith('_lost') || ['not_ready','product_gap','price_platform','unresponsive','not_eligible','not_a_fit','lost_to_competitor','closed_by_partner','locked_in_contract','commercial_terms','price_payments','project_paused','business_change','auto_closed','upgrade_aborted'].includes(c)) outcome = 'lost';
+  const isTiming = TIMING_LOSS_REASONS.has(c);
+  // Wins always count; competitive losses count; timing/non-competitive losses do not.
+  const countsForWinRate = outcome === 'won' || (outcome === 'lost' && !isTiming);
+  return { label, outcome, isTiming, countsForWinRate };
+}
+
 function renderSidebar() {
-  const stageClass = { 'Pre-Qualified':'s-qualify', 'Envision':'s-qualify', 'Solution':'s-propose', 'Demonstrate':'s-negotiate', 'Closed Won':'s-negotiate' };
 
   const sorted = [...DEALS].sort((a,b) => {
     const da = parseClose(a.close), db = parseClose(b.close);
@@ -1066,7 +1128,7 @@ function renderSidebar() {
         <span class="di-score ${band.cls}" title="MEDDPICC ${total}/16 · ${band.label}">${total}<span class="di-score-frac">/16</span></span>
         <div class="di-name">${d.name}</div>
         <div class="di-meta">${d.close}</div>
-        <span class="di-stage ${stageClass[d.stage] || 's-qualify'}">${d.stage}</span>
+        <span class="di-stage ${stageInfo(d.stage).cls}">${stageInfo(d.stage).label}</span>
       </div>
     `;
     }).join('');
@@ -1213,7 +1275,6 @@ function openDeal(id) {
         <div class="dh-links">
           ${deal.map_url ? `<a href="${escHtml(deal.map_url)}" target="_blank" class="dh-link dh-link-map">🗺️ Open MAP</a>` : ''}
           ${deal.proposal_url ? `<a href="${escHtml(deal.proposal_url)}" target="_blank" class="dh-link dh-link-prop">📄 View Proposal</a>` : ''}
-          ${deal.sf_url ? `<a href="${escHtml(deal.sf_url)}" target="_blank" class="dh-link dh-link-sf">☁️ Salesforce</a>` : ''}
         </div>
       </div>
       <div class="dh-score-group">
@@ -1227,7 +1288,7 @@ function openDeal(id) {
         </div>
         <div class="dh-score">
           <div class="dh-score-val pbr-val">${fmtPBR(deal.pbr)}</div>
-          <div class="dh-score-sub">PBR · Salesforce</div>
+          <div class="dh-score-sub">PBR · CRM</div>
         </div>
         <div class="dh-score dh-score-meddpicc">
           <div class="dh-score-val"><span id="dh-mp-total-${id}">${total}</span><span class="dh-frac">/16</span></div>
