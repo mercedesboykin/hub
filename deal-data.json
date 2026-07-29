@@ -1,6 +1,6 @@
 {
-  "version": 43,
-  "updated": "2026-07-16T11:13:12Z",
+  "version": 44,
+  "updated": "2026-07-29T11:13:12Z",
   "deals": {
     "national-gym-supply": {
       "sf": {
@@ -120,10 +120,10 @@
         "id": "294429",
         "stage": "propose",
         "close": "2026-09-30",
-        "pbr": 121105,
+        "pbr": 121390,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-07-15",
+        "last_modified": "2026-07-29",
         "created": "2026-04-21",
         "is_closed": false,
         "is_won": false,
@@ -238,10 +238,10 @@
         "id": "292155",
         "stage": "evaluate",
         "close": "2026-10-30",
-        "pbr": 385869,
+        "pbr": 387588,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-07-11",
+        "last_modified": "2026-07-27",
         "created": "2026-04-13",
         "is_closed": false,
         "is_won": false,
@@ -345,11 +345,11 @@
       "sf": {
         "id": "303279",
         "stage": "propose",
-        "close": "2026-07-31",
-        "pbr": 116363,
+        "close": "2026-09-30",
+        "pbr": 117966,
         "amount": 0,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-07-14",
+        "last_modified": "2026-07-25",
         "created": "2026-05-26",
         "is_closed": false,
         "is_won": false,
@@ -575,7 +575,7 @@
         "pbr": 216501,
         "amount": 0,
         "merchant_intent": "",
-        "last_modified": "2026-07-09",
+        "last_modified": "2026-07-16",
         "created": "2025-05-14",
         "is_closed": false,
         "is_won": false,
@@ -657,12 +657,12 @@
     "ardmore-home-design": {
       "sf": {
         "id": "305655",
-        "stage": "propose",
-        "close": "2026-12-31",
-        "pbr": 262181,
+        "stage": "dealcraft",
+        "close": "2026-10-15",
+        "pbr": 260129,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-07-15",
+        "last_modified": "2026-07-29",
         "created": "2026-06-11",
         "is_closed": false,
         "is_won": false,
@@ -740,12 +740,12 @@
     "oakwood-chemical": {
       "sf": {
         "id": "306724",
-        "stage": "evaluate",
+        "stage": "dealcraft",
         "close": "2026-08-31",
-        "pbr": 121167,
+        "pbr": 119597,
         "amount": 0,
         "merchant_intent": "",
-        "last_modified": "2026-07-10",
+        "last_modified": "2026-07-25",
         "created": "2026-06-23",
         "is_closed": false,
         "is_won": false,
@@ -762,7 +762,7 @@
         "pbr": 161310,
         "amount": 0,
         "merchant_intent": "",
-        "last_modified": "2026-07-11",
+        "last_modified": "2026-07-27",
         "created": "2026-06-19",
         "is_closed": false,
         "is_won": false,
@@ -776,10 +776,10 @@
         "id": "306772",
         "stage": "propose",
         "close": "2026-10-31",
-        "pbr": 463783,
+        "pbr": 461210,
         "amount": 0,
         "merchant_intent": "",
-        "last_modified": "2026-07-15",
+        "last_modified": "2026-07-29",
         "created": "2026-06-23",
         "is_closed": false,
         "is_won": false,
@@ -829,6 +829,6 @@
         "deals": []
       }
     },
-    "updated": "2026-07-16T11:13:12Z"
+    "updated": "2026-07-29T11:13:12Z"
   }
 }
