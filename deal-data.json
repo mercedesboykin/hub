@@ -1,6 +1,6 @@
 {
-  "version": 44,
-  "updated": "2026-07-29T11:13:12Z",
+  "version": 45,
+  "updated": "2026-07-30T11:13:12Z",
   "deals": {
     "national-gym-supply": {
       "sf": {
@@ -346,10 +346,10 @@
         "id": "303279",
         "stage": "propose",
         "close": "2026-09-30",
-        "pbr": 117966,
+        "pbr": 118581,
         "amount": 0,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-07-25",
+        "last_modified": "2026-07-30",
         "created": "2026-05-26",
         "is_closed": false,
         "is_won": false,
@@ -759,10 +759,10 @@
         "id": "306439",
         "stage": "evaluate",
         "close": "2026-09-30",
-        "pbr": 161310,
+        "pbr": 158289,
         "amount": 0,
         "merchant_intent": "",
-        "last_modified": "2026-07-27",
+        "last_modified": "2026-07-30",
         "created": "2026-06-19",
         "is_closed": false,
         "is_won": false,
@@ -829,6 +829,6 @@
         "deals": []
       }
     },
-    "updated": "2026-07-29T11:13:12Z"
+    "updated": "2026-07-30T11:13:12Z"
   }
 }
