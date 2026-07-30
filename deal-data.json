@@ -1,6 +1,6 @@
 {
-  "version": 45,
-  "updated": "2026-07-30T11:13:12Z",
+  "version": 46,
+  "updated": "2026-07-30T17:35:40Z",
   "deals": {
     "national-gym-supply": {
       "sf": {
@@ -123,7 +123,7 @@
         "pbr": 121390,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-07-29",
+        "last_modified": "2026-07-30",
         "created": "2026-04-21",
         "is_closed": false,
         "is_won": false,
@@ -344,16 +344,16 @@
     "viaggio-pontoons": {
       "sf": {
         "id": "303279",
-        "stage": "propose",
-        "close": "2026-09-30",
+        "stage": "closed_lost",
+        "close": "2026-07-30",
         "pbr": 118581,
         "amount": 0,
         "merchant_intent": "Uncommitted",
         "last_modified": "2026-07-30",
         "created": "2026-05-26",
-        "is_closed": false,
+        "is_closed": true,
         "is_won": false,
-        "close_reason": "",
+        "close_reason": "not_ready",
         "salesforce_opportunity_id": "006OG00000NzSWnYAN",
         "name": "Viaggio Pontoons-D2C & B2B - Split for B2B",
         "owner": "Mercedes Boykin-Sabalones"
@@ -829,6 +829,6 @@
         "deals": []
       }
     },
-    "updated": "2026-07-30T11:13:12Z"
+    "updated": "2026-07-30T17:35:40Z"
   }
 }
