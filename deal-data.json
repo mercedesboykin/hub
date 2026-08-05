@@ -1,6 +1,6 @@
 {
-  "version": 49,
-  "updated": "2026-08-04T11:13:13Z",
+  "version": 50,
+  "updated": "2026-08-05T11:13:16Z",
   "deals": {
     "national-gym-supply": {
       "sf": {
@@ -762,7 +762,7 @@
         "pbr": 158289,
         "amount": 0,
         "merchant_intent": "",
-        "last_modified": "2026-07-30",
+        "last_modified": "2026-08-04",
         "created": "2026-06-19",
         "is_closed": false,
         "is_won": false,
@@ -829,6 +829,6 @@
         "deals": []
       }
     },
-    "updated": "2026-08-04T11:13:13Z"
+    "updated": "2026-08-05T11:13:16Z"
   }
 }
