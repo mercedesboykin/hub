@@ -1,6 +1,6 @@
 {
-  "version": 50,
-  "updated": "2026-08-05T11:13:16Z",
+  "version": 51,
+  "updated": "2026-08-07T11:29:26Z",
   "deals": {
     "national-gym-supply": {
       "sf": {
@@ -119,11 +119,11 @@
       "sf": {
         "id": "294429",
         "stage": "propose",
-        "close": "2026-09-30",
-        "pbr": 121289,
+        "close": "2026-11-30",
+        "pbr": 122385,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-08-04",
+        "last_modified": "2026-08-07",
         "created": "2026-04-21",
         "is_closed": false,
         "is_won": false,
@@ -462,10 +462,10 @@
         "id": "304383",
         "stage": "evaluate",
         "close": "2026-12-31",
-        "pbr": 184755,
+        "pbr": 182914,
         "amount": 82800,
         "merchant_intent": "Committed - At Risk",
-        "last_modified": "2026-07-11",
+        "last_modified": "2026-08-07",
         "created": "2026-06-02",
         "is_closed": false,
         "is_won": false,
@@ -658,11 +658,11 @@
       "sf": {
         "id": "305655",
         "stage": "dealcraft",
-        "close": "2026-10-15",
+        "close": "2026-09-30",
         "pbr": 261113,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
-        "last_modified": "2026-08-01",
+        "last_modified": "2026-08-05",
         "created": "2026-06-11",
         "is_closed": false,
         "is_won": false,
@@ -758,11 +758,11 @@
       "sf": {
         "id": "306439",
         "stage": "evaluate",
-        "close": "2026-09-30",
-        "pbr": 158289,
+        "close": "2026-12-30",
+        "pbr": 160904,
         "amount": 0,
         "merchant_intent": "",
-        "last_modified": "2026-08-04",
+        "last_modified": "2026-08-06",
         "created": "2026-06-19",
         "is_closed": false,
         "is_won": false,
@@ -829,6 +829,6 @@
         "deals": []
       }
     },
-    "updated": "2026-08-05T11:13:16Z"
+    "updated": "2026-08-07T11:29:26Z"
   }
 }
