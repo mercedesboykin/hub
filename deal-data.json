@@ -1,6 +1,6 @@
 {
-  "version": 54,
-  "updated": "2026-08-12T11:13:12Z",
+  "version": 55,
+  "updated": "2026-08-13T11:13:18Z",
   "deals": {
     "national-gym-supply": {
       "sf": {
@@ -120,7 +120,7 @@
         "id": "294429",
         "stage": "propose",
         "close": "2026-11-30",
-        "pbr": 121289,
+        "pbr": 122243,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
         "last_modified": "2026-08-11",
@@ -238,7 +238,7 @@
         "id": "292155",
         "stage": "evaluate",
         "close": "2026-10-30",
-        "pbr": 387588,
+        "pbr": 377048,
         "amount": 82800,
         "merchant_intent": "Uncommitted",
         "last_modified": "2026-07-27",
@@ -462,7 +462,7 @@
         "id": "304383",
         "stage": "evaluate",
         "close": "2026-12-31",
-        "pbr": 184755,
+        "pbr": 182914,
         "amount": 82800,
         "merchant_intent": "Committed - At Risk",
         "last_modified": "2026-08-08",
@@ -570,16 +570,16 @@
     "all-pro-fasteners": {
       "sf": {
         "id": "209539",
-        "stage": "evaluate",
-        "close": "2026-12-31",
+        "stage": "closed_lost",
+        "close": "2026-08-12",
         "pbr": 216501,
         "amount": 0,
         "merchant_intent": "",
-        "last_modified": "2026-07-16",
+        "last_modified": "2026-08-12",
         "created": "2025-05-14",
-        "is_closed": false,
+        "is_closed": true,
         "is_won": false,
-        "close_reason": "",
+        "close_reason": "not_ready",
         "salesforce_opportunity_id": "006OG00000EH3RGYA1"
       },
       "meddpicc": {
@@ -742,7 +742,7 @@
         "id": "306724",
         "stage": "dealcraft",
         "close": "2026-08-31",
-        "pbr": 119597,
+        "pbr": 118567,
         "amount": 0,
         "merchant_intent": "",
         "last_modified": "2026-07-25",
@@ -776,7 +776,7 @@
         "id": "306772",
         "stage": "propose",
         "close": "2026-10-31",
-        "pbr": 461210,
+        "pbr": 459594,
         "amount": 0,
         "merchant_intent": "",
         "last_modified": "2026-07-30",
@@ -829,6 +829,6 @@
         "deals": []
       }
     },
-    "updated": "2026-08-12T11:13:12Z"
+    "updated": "2026-08-13T11:13:18Z"
   }
 }
